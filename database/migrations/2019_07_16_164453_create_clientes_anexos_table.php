@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsAnexosTable extends Migration
+class CreateClientesAnexosTable extends Migration
 {
 
     /**
@@ -14,9 +14,9 @@ class CreatePostsAnexosTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts_anexos', function (Blueprint $table) {
+        Schema::create('clientes_anexos', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
-            $table->BigInteger('post_id');
+            $table->BigInteger('cliente_id');
             $table->string('descricao')->nullable();
             $table->string('foto')->nullable();
             $table->string('arquivo')->nullable();
@@ -24,8 +24,8 @@ class CreatePostsAnexosTable extends Migration
             $table->integer('ordem')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('post_id')
-                    ->references('id')->on('posts')
+            $table->foreign('cliente_id')
+                    ->references('id')->on('clientes')
                     ->onDelete('cascade');
         });
     }
@@ -37,7 +37,7 @@ class CreatePostsAnexosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts_anexos');
+        Schema::dropIfExists('clientes_anexos');
     }
 
 }

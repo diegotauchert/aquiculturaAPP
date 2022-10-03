@@ -29,10 +29,8 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
 
-        $documentos = \App\Models\Download::count();
-
         $logs = \App\Models\UsuarioLog::where('situacao', '=', '1')->orderBy('id', 'desc')->paginate(100);
 
-        return view('gestor.dashboard.lista', compact('logs', 'documentos'));
+        return view('gestor.dashboard.lista', compact('logs'));
     }
 }

@@ -25,7 +25,6 @@ Route::get('{path}/{options}/{name}.{extension}', '\Uploadify\Http\Controllers\I
 // gestor
 Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lang.default', 'cors'])->group(function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
-    Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
     Route::get('/busca', 'BuscaController@index')->name('busca');
 
@@ -41,75 +40,22 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::get('/password', 'PasswordController@index')->name('password');
     Route::post('/password', 'PasswordController@password')->name('password');
 
-    Route::post('/banners-upload/{banner}', 'BannerController@upload');
-    Route::post('/banners-delete/{banner}', 'BannerController@uploadDelete');
-
-    Route::post('/downloads-upload/{download}', 'DownloadController@upload');
-    Route::post('/downloads-delete/{download}', 'DownloadController@uploadDelete');
     Route::post('/editar-perfil-upload/{id}', 'UsuarioPerfilController@upload');
     Route::post('/editar-perfil-delete/{id}', 'UsuarioPerfilController@uploadDelete');
 
-    Route::post('/paginas-anexos-upload/{pagina}/{tipo}', 'PaginaAnexoController@upload');
-    Route::post('/paginas-anexos-delete/{anexo}', 'PaginaAnexoController@delete');
-    Route::post('/posts-anexos-upload/{post}/{tipo}', 'PostAnexoController@upload');
-    Route::post('/posts-anexos-delete/{anexo}', 'PostAnexoController@delete');
-
-    Route::get('/lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
-
-    Route::post('/agendas-anexos-upload/{post}/{tipo}', 'AgendaAnexoController@upload');
-    Route::post('/agendas-anexos-delete/{anexo}', 'AgendaAnexoController@delete');
-
-    Route::post('/coberturas-anexos-upload/{post}/{tipo}', 'CoberturaAnexoController@upload');
-    Route::post('/coberturas-anexos-delete/{anexo}', 'CoberturaAnexoController@delete');
-
-    Route::post('/colunistas-anexos-upload/{post}/{tipo}', 'ColunistaAnexoController@upload');
-    Route::post('/colunistas-anexos-delete/{anexo}', 'ColunistaAnexoController@delete');
-
-    Route::post('/ensaios-anexos-upload/{post}/{tipo}', 'EnsaioAnexoController@upload');
-    Route::post('/ensaios-anexos-delete/{anexo}', 'EnsaioAnexoController@delete');
-
-    Route::post('/vaipraonde-anexos-upload/{post}/{tipo}', 'VaiPraOndeAnexoController@upload');
-    Route::post('/vaipraonde-anexos-delete/{anexo}', 'VaiPraOndeAnexoController@delete');
-
-    Route::post('/videos-anexos-upload/{post}/{tipo}', 'VideoAnexoController@upload');
-    Route::post('/videos-anexos-delete/{anexo}', 'VideoAnexoController@delete');
-
-    Route::post('/depoimentos-upload/{depoimento}', 'DepoimentoController@upload');
-    Route::post('/depoimentos-delete/{depoimento}', 'DepoimentoController@uploadDelete');
+    Route::post('/clientes-anexos-upload/{post}/{tipo}', 'PostAnexoController@upload');
+    Route::post('/clientes-anexos-delete/{anexo}', 'PostAnexoController@delete');
 
     Route::resources([
-        '/banners' => 'BannerController',
-        '/banners-categorias' => 'BannerCategoriaController',
-        '/origem' => 'OrigemController',
         '/categorias-posts' => 'CategoriaPostController',
         '/cidades' => 'CidadeController',
         '/configs' => 'ConfigController',
-        '/downloads' => 'DownloadController',
-        '/depoimentos' => 'DepoimentoController',
         '/estados' => 'EstadoController',
-        '/interessados' => 'InteressadoController',
         '/menus' => 'MenuController',
-        '/langs' => 'LangController',
         '/modulos' => 'ModuloController',
         '/regioes' => 'RegiaoController',
-        '/paginas' => 'PaginaController',
-        '/posts' => 'PostController',
+        '/clientes' => 'PostController',
         '/usuarios' => 'UsuarioController',
-        '/vagas' => 'VagaController',
-        '/curriculos' => 'CurriculoController',
-        '/servicos' => 'ServicoController',
-        '/agendas' => 'AgendaController',
-        '/agendas-categorias' => 'AgendaCategoriaController',
-        '/coberturas' => 'CoberturaController',
-        '/coberturas-categorias' => 'CoberturaCategoriaController',
-        '/colunistas' => 'ColunistaController',
-        '/colunistas-categorias' => 'ColunistaCategoriaController',
-        '/ensaios' => 'EnsaioController',
-        '/ensaios-categorias' => 'EnsaioCategoriaController',
-        '/vaipraonde' => 'VaiPraOndeController',
-        '/vaipraonde-categorias' => 'VaiPraOndeCategoriaController',
-        '/videos' => 'VideoController',
-        '/videos-categorias' => 'VideoCategoriaController',
     ]);
 });
 

@@ -77,69 +77,9 @@ class ModulosTableSeeder extends Seeder
         $this->subModulo($rules, $modulo, $id);
 
         $modulo = [
-               'modulo_id' => null,
-               'nome' => 'Páginas',
-               'link' => 'gestor.paginas',
-               'menu' => '2',
-               'situacao' => '1',
-               'exibe' => '1'
-           ];
-           $id = DB::table('modulos')->insertGetId([
-               'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-               'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-               'exibe' => $modulo['exibe'],
-           ]);
-           $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
             'modulo_id' => null,
-            'nome' => 'Newsletter',
-            'link' => 'gestor.interessados',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Banners',
-            'link' => 'gestor.banners',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Categorias Banners',
-            'link' => 'gestor.banners-categorias',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Notícias/Promoções',
-            'link' => 'gestor.posts',
+            'nome' => 'Clientes',
+            'link' => 'gestor.clientes',
             'menu' => '2',
             'situacao' => '1',
             'exibe' => '1',
@@ -154,28 +94,12 @@ class ModulosTableSeeder extends Seeder
 
         $modulo = [
             'modulo_id' => null,
-            'nome' => 'Categorias Notícias/Promoções',
-            'link' => 'gestor.categorias-posts',
+            'nome' => 'Categorias de Clientes',
+            'link' => 'gestor.categorias-clientes',
             'menu' => '2',
             'situacao' => '1',
             'exibe' => '1',
         ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Depoimentos',
-            'link' => 'gestor.depoimentos',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-
         $id = DB::table('modulos')->insertGetId([
             'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
             'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
@@ -188,21 +112,6 @@ class ModulosTableSeeder extends Seeder
             'nome' => 'Menus',
             'link' => 'gestor.menus',
             'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Idiomas',
-            'link' => 'gestor.langs',
-            'menu' => '4',
             'situacao' => '1',
             'exibe' => '1',
         ];
@@ -238,215 +147,5 @@ class ModulosTableSeeder extends Seeder
             ],
             'Excluir' => '.destroy',
         ];
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Downloads',
-            'link' => 'gestor.downloads',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Agenda Categorias',
-            'link' => 'gestor.agendas-categorias',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Agenda',
-            'link' => 'gestor.agendas',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Cobertura Categorias',
-            'link' => 'gestor.coberturas-categorias',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Coberturas',
-            'link' => 'gestor.coberturas',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Colunistas Categorias',
-            'link' => 'gestor.colunistas-categorias',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Colunistas',
-            'link' => 'gestor.colunistas',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Colunistas Posts',
-            'link' => 'gestor.colunistas.post',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Ensaios Categorias',
-            'link' => 'gestor.ensaios-categorias',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Ensaios',
-            'link' => 'gestor.ensaios',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Vai pra Onde / Categorias',
-            'link' => 'gestor.vaipraonde-categorias',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Vai pra Onde',
-            'link' => 'gestor.vaipraonde',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'TV AjuFest Categorias',
-            'link' => 'gestor.videos-categorias',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
-
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'TV AjuFest',
-            'link' => 'gestor.videos',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
     }
 }

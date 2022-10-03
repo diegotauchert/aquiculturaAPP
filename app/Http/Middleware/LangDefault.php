@@ -21,9 +21,7 @@ class LangDefault
         /* Define lang */
 
         if (!empty($request->lang) || empty($request->session()->get('lang'))) {
-            $lang = \App\Models\Lang::where('situacao', '1')->where('sigla', $request->lang)->first() ?? \App\Models\Lang::where('situacao', '1')->where('sigla', 'pt-br')->first();
-
-            $request->session()->put('lang', $lang);
+            $request->session()->put('lang', "pt-br");
         }
 
         return $next($request);

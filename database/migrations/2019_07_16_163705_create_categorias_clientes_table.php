@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriasPostsTable extends Migration
+class CreateCategoriasClientesTable extends Migration
 {
 
     /**
@@ -14,7 +14,7 @@ class CreateCategoriasPostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorias_posts', function (Blueprint $table) {
+        Schema::create('categorias_clientes', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
             $table->BigInteger('categoria_id')->nullable();
             $table->string('nome');
@@ -23,7 +23,7 @@ class CreateCategoriasPostsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('categoria_id')
-                    ->references('id')->on('categorias_posts')
+                    ->references('id')->on('categorias_clientes')
                     ->onDelete('cascade');
         });
     }
@@ -35,7 +35,7 @@ class CreateCategoriasPostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorias_posts');
+        Schema::dropIfExists('categorias_clientes');
     }
 
 }

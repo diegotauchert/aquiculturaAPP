@@ -43,39 +43,6 @@ function init(p) {
     extraMasks(p);
     checkAll(p);
     uploads(p);
-    checkAdvogadoServico(p);
-}
-
-function checkAdvogadoServico(p) {
-    $(".check-advogado-servico").change(function() {
-        if ($(this).prop("checked")) {
-            $(this)
-                .closest(".advogado-servico")
-                .find(".text")
-                .removeAttr("disabled");
-            $(this)
-                .closest(".advogado-servico")
-                .find(".your-price")
-                .removeAttr("readonly");
-            $(this)
-                .closest(".advogado-servico")
-                .find(".service")
-                .addClass("alert-success");
-        } else {
-            $(this)
-                .closest(".advogado-servico")
-                .find(".text")
-                .attr("disabled", "disabled");
-            $(this)
-                .closest(".advogado-servico")
-                .find(".your-price")
-                .attr("readonly", "readonly");
-            $(this)
-                .closest(".advogado-servico")
-                .find(".service")
-                .removeClass("alert-success");
-        }
-    });
 }
 
 function ajustaNavbar(p) {
@@ -558,7 +525,14 @@ function extraMasks(b) {
         reverse: true,
         placeholder: "__,__"
     });
+    $(".masknumv3", b).mask("###.###.###.###.###,##", {
+        reverse: true,
+        placeholder: "__,__"
+    });
     $(".masknumv", b).mask("000.000.000.000.000,00", {
+        reverse: true
+    });
+    $(".maskcomissao", b).mask("00.00", {
         reverse: true
     });
 

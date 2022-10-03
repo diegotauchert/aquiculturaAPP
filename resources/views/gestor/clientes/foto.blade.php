@@ -7,7 +7,7 @@
             <div class="form-row">
                 <div class="form-group col-md">
                     <div class="input-group">
-                        <input name="f_foto[descricao][]" class="form-control" type="text" value="{{ $anexo->descricao }}" maxlength="250" placeholder="@lang('gestor_post.descricao')">
+                        <input name="f_foto[descricao][]" class="form-control" type="text" value="{{ $anexo->descricao }}" maxlength="250" placeholder="@lang('gestor_cliente.descricao')">
                         <div class="input-group-append">
                             <button type="button" class="remove-upload btn btn-danger" data-toggle="tooltip" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span></button>
                         </div>

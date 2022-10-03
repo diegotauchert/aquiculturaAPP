@@ -65136,3 +65136,11 @@ html body .form-signin .form-control:focus {
   font-weight: 500;
 }
 
+.form-control::-moz-placeholder {
+  color: #999 !important;
+}
+
+.form-control::placeholder {
+  color: #999 !important;
+}
+

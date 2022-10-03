@@ -32,14 +32,10 @@
         <div class="card-body">
             <table width="100%" class="table table-striped table-hover" id="datatable">
                 <thead>
-                <th class="align-middle">
-                    <label class="custom-control custom-checkbox">
-                        <input class="custom-control-input all-ite" type="checkbox">
-                        <span class="custom-control-label">@lang('gestor_cliente.nome')</span>
-                    </label>
-                </th>
+                <th class="align-middle">@lang('gestor_cliente.nome')</th>
                 <th class="align-middle">@lang('gestor_cliente.data')</th>
-                <th class="align-middle">@lang('gestor_cliente.views')</th>
+                <th class="align-middle">@lang('gestor_cliente.contato')</th>
+                <th class="align-middle">@lang('gestor_cliente.fazendas')</th>
                 <th class="align-middle">@lang('gestor_cliente.situacao')</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
@@ -47,37 +43,31 @@
                     @foreach($clientes as $post)
                     <tr>
                         <td class="align-middle">
-                            <label class="custom-control custom-checkbox">
-                                <input name="ite[{{ $post->id }}]" type="checkbox" class="custom-control-input ite">
-                                <span class="flex custom-control-label">
-                                    @if($post->anexos)
-                                    @if($post->anexos->where('tipo', 1)->count() > 0)
-                                    @if($post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto)
-                                    <a href="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url() }}" title="{{ $post->nome }}" class="thumb-href" target="_blank">
-                                        <img src="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url(['w' => 50, 'h' => 50]) }}" />
-                                    </a>
-                                    @endif
-                                    @endif
-                                    @endif
-                                    <span>
-                                        @if($post->categoria)
-                                        <small class="badge badge-primary text-white">{{ $post->categoria->nome }}</small><br />
-                                        @endif
-                                        {{ $post->nome }}
-                                    </span>
-                                </span>
-                            </label>
+                            @if($post->anexos)
+                            @if($post->anexos->where('tipo', 1)->count() > 0)
+                            @if($post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto)
+                            <a href="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url() }}" title="{{ $post->nome }}" class="thumb-href mr-2" target="_blank">
+                                <img src="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url(['w' => 50, 'h' => 50]) }}" />
+                            </a>
+                            @endif
+                            @endif
+                            @endif
+                            <span>
+                                @if($post->categoria)
+                                <small class="badge badge-primary text-white">{{ $post->categoria->nome }}</small><br />
+                                @endif
+                                {{ $post->nome }}
+                            </span>
                         </td>
                         <td class="align-middle">
-                            @if($post->data)
-                            @date($post->data)
-                            <br>
-                            @time($post->data)
+                            @if($post->dt_nasc)
+                            @date($post->dt_nasc)
                             @else
                             -
                             @endif
                         </td>
-                        <td class="align-middle">{{ $post->views }}</td>
+                        <td class="align-middle">{{ $post->telefone }}</td>
+                        <td class="align-middle">{{ $post->fazendas }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.clientes.destroy', $post->id) }}">

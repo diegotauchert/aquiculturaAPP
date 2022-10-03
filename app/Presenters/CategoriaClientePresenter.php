@@ -4,18 +4,12 @@ namespace App\Presenters;
 
 use Laracasts\Presenter\Presenter;
 
-class EnsaioPresenter extends Presenter
+class CategoriaClientePresenter extends Presenter
 {
+
     public function makeSituacaoAll()
     {
         return $this->makeSituacao(true);
-    }
-
-    public function seoKeywords()
-    {
-        $seo_keywords = explode(',', $this->seo_keyword);
-
-        return $seo_keywords;
     }
 
     public function makeSituacao($all = false)
@@ -31,5 +25,5 @@ class EnsaioPresenter extends Presenter
             return $arr[$this->situacao];
         }
     }
-
+    
 }

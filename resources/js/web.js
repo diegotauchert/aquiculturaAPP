@@ -697,16 +697,7 @@ function uploads(p) {
         }
 
         let folder = "gestor";
-        if (dLink == "curriculos") {
-            folder = "web";
-        }
-        if (dLink == "solicitacoes") {
-            folder = "web";
-        }
-        if (dLink == "advogado-solicitacoes") {
-            folder = "web";
-        }
-        if (dLink == "posts-anexos") {
+        if (dLink == "clientes-anexos") {
             folder = "web";
         }
 
@@ -906,16 +897,8 @@ function uploads(p) {
         }
 
         let folder = "gestor";
-        if (dLink == "curriculos") {
-            folder = "web";
-        }
-        if (dLink == "solicitacoes") {
-            folder = "web";
-        }
-        if (dLink == "advogado-solicitacoes") {
-            folder = "web";
-        }
-        if (dLink == "posts-anexos") {
+       
+        if (dLink == "clientes-anexos") {
             folder = "web";
         }
 
@@ -1175,71 +1158,7 @@ function uploadsRemove(p) {
 }
 
 function actionMenuClientes(p) {
-    $("#btn-action-cliente-3").click(function() {
-        $("#fl_tipo_servico-1").prop("checked", true);
-    });
-
-    $("#btn-action-cliente-2").click(function() {
-        $("#fl_tipo_servico-2").prop("checked", true);
-    });
-
-    $("#form-solicitacao #f_contrato").change(function() {
-        var id = $(this).val();
-        $('[id^="modal"]').modal("hide");
-        $("#modal-descricaocontrato-" + id).modal("show");
-
-        $(".form-tipocontrato")
-            .addClass("hide")
-            .removeAttr("style");
-        $(".form-tipocontrato")
-            .find(".required")
-            .find("input")
-            .removeAttr("required");
-
-        $("#form-tipocontrato-" + id).removeClass("hide");
-        $("#form-tipocontrato-" + id)
-            .find(".required")
-            .find("input")
-            .attr("required", "required");
-
-        if ($("#fl_tipo_servico-2").prop("checked")) {
-            $(".form-tipocontrato")
-                .not(".hide")
-                .hide();
-        }
-    });
-
-    $(".contrato-nao").click(function() {
-        $("#f_contrato").val("0");
-        $("#f_contrato").selectpicker("refresh");
-
-        if ($("#fl_tipo_servico-1").prop("checked")) {
-            $(".form-tipocontrato").addClass("hide");
-        }
-    });
-
-    $(".tipo-servico").change(function() {
-        if ($("#fl_tipo_servico-2").prop("checked")) {
-            $(".form-tipocontrato")
-                .not(".hide")
-                .hide();
-        }
-        if ($("#fl_tipo_servico-1").prop("checked")) {
-            $(".form-tipocontrato")
-                .not(".hide")
-                .show();
-        }
-    });
-
-    $("#categoria-advogado-box #f_categoria").change(function() {
-        var id = $(this).val();
-        if (id == 1) {
-            $("#oab-box").hide();
-        } else {
-            $("#oab-box").show();
-        }
-    });
-
+    
     if ($("[name='anchor']").length) {
         window.location = "#" + $("[name='anchor']").val();
     }
@@ -1260,10 +1179,4 @@ function actionMenuClientes(p) {
         plugins:
             "iconfonts, advlist, anchor, autolink, autoresize, charmap, code, codesample, directionality, fullscreen, help, hr, image, imagetools, link, lists, media, paste, preview, print, searchreplace, tabfocus, table, toc, visualblocks, visualchars, wordcount"
     });
-
-    // $("#btn-action-cliente-1").click(function() {
-    //     $("#cliente-actions .modal-body").html("");
-    //     $("#form-agendamento").clone().prependTo("#cliente-actions .modal-body");
-    //     $("#cliente-actions .modal-header h5").text("Preciso agendar uma reunião com um advogado especialista");
-    // });
 }

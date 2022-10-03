@@ -43,11 +43,11 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::post('/editar-perfil-upload/{id}', 'UsuarioPerfilController@upload');
     Route::post('/editar-perfil-delete/{id}', 'UsuarioPerfilController@uploadDelete');
 
-    Route::post('/clientes-anexos-upload/{post}/{tipo}', 'PostAnexoController@upload');
-    Route::post('/clientes-anexos-delete/{anexo}', 'PostAnexoController@delete');
+    Route::post('/clientes-anexos-upload/{cliente}/{tipo}', 'ClienteAnexoController@upload');
+    Route::post('/clientes-anexos-delete/{anexo}', 'ClienteAnexoController@delete');
 
     Route::resources([
-        '/categorias-posts' => 'CategoriaPostController',
+        '/categorias-clientes' => 'CategoriaClienteController',
         '/cidades' => 'CidadeController',
         '/configs' => 'ConfigController',
         '/estados' => 'EstadoController',

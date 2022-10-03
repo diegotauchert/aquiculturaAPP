@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Gestor;
 
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -52,7 +53,7 @@ class ClienteController extends Controller
     {
         $cliente = new \App\Models\Cliente;
 
-        $s_categorias = \App\Models\CategoriaPost::where('situacao', '=', 1)
+        $s_categorias = \App\Models\CategoriaCliente::where('situacao', '=', 1)
                         ->orderBy('nome', 'asc')->get();
         ;
         return view('gestor.clientes.edita', compact('cliente', 's_categorias'));
@@ -76,18 +77,36 @@ class ClienteController extends Controller
         }
 
         $cliente->nome = $request->f_nome;
-        $cliente->video = $request->f_video;
-        $cliente->data = $request->f_data . ' ' . $request->f_hora;
-        $cliente->texto = $request->f_texto;
+        $cliente->email = $request->f_email;
+        $cliente->telefone = $request->f_telefone;
+        $cliente->cpf = $request->f_cpf;
+        $cliente->rg = $request->f_rg;
+        $cliente->orgao = $request->f_orgao;
+        $cliente->uf = $request->f_uf;
+        $cliente->cep = $request->f_cep;
+        $cliente->endereco = $request->f_endereco;
+        $cliente->numero = $request->f_numero;
+        $cliente->bairro = $request->f_bairro;
+        $cliente->cidade = $request->f_cidade;
+        $cliente->estado = $request->f_estado;
+        $cliente->complemento = $request->f_complemento;
+        $cliente->plano = $request->f_plano;
+        $cliente->fazendas = $request->f_fazendas;
+        $cliente->valor = $request->f_valor;
+        
+        $cliente->obs = $request->f_texto;
         $cliente->situacao = $request->f_situacao;
 
-        $cliente->resetSEOKeywordAttribute();
-        foreach ($request->f_seo_keyword as $f_seo_keyword) {
-            $cliente->setSEOKeywordAttribute($f_seo_keyword);
+        if($request->f_validade){
+            $validade = Carbon::createFromFormat('d/m/Y', $request->f_validade)->format('Y-m-d H:i:s');
+            $cliente->validade = $validade;
         }
-
-        $cliente->seo_description = $request->f_seo_description;
-        $cliente->categoria_id = $request->f_categoria;
+        
+        if($request->f_data){
+            $data = Carbon::createFromFormat('d/m/Y', $request->f_data)->format('Y-m-d H:i:s');
+            $cliente->dt_nasc = $data;
+        }
+        // $cliente->categoria_id = $request->f_categoria;
 
         $cliente->save();
 
@@ -103,8 +122,7 @@ class ClienteController extends Controller
         $validator = validator($request->all(), [
             'f_nome' => 'required|max:250',
             'f_situacao' => 'required|numeric',
-            'f_data' => 'required|date_format:"d/m/Y"',
-            'f_hora' => 'required|date_format:"H:i:s"',
+            'f_data' => 'date_format:"d/m/Y"'
         ]);
 
         return $validator;
@@ -131,7 +149,7 @@ class ClienteController extends Controller
     {
         $cliente = \App\Models\Cliente::findOrFail($id);
 
-        $s_categorias = \App\Models\CategoriaPost::where('situacao', '=', 1)
+        $s_categorias = \App\Models\CategoriaCliente::where('situacao', '=', 1)
                         ->orderBy('nome', 'asc')->get();
 
         return view('gestor.clientes.edita', compact('cliente', 's_categorias'));
@@ -156,18 +174,35 @@ class ClienteController extends Controller
         }
 
         $cliente->nome = $request->f_nome;
-        $cliente->video = $request->f_video;
-        $cliente->data = $request->f_data . ' ' . $request->f_hora;
-        $cliente->texto = $request->f_texto;
+        $cliente->email = $request->f_email;
+        $cliente->telefone = $request->f_telefone;
+        $cliente->cpf = $request->f_cpf;
+        $cliente->rg = $request->f_rg;
+        $cliente->orgao = $request->f_orgao;
+        $cliente->uf = $request->f_uf;
+        $cliente->cep = $request->f_cep;
+        $cliente->endereco = $request->f_endereco;
+        $cliente->numero = $request->f_numero;
+        $cliente->bairro = $request->f_bairro;
+        $cliente->cidade = $request->f_cidade;
+        $cliente->estado = $request->f_estado;
+        $cliente->complemento = $request->f_complemento;
+        $cliente->plano = $request->f_plano;
+        $cliente->fazendas = $request->f_fazendas;
+        $cliente->valor = $request->f_valor;
+        
+        $cliente->obs = $request->f_texto;
         $cliente->situacao = $request->f_situacao;
 
-        $cliente->resetSEOKeywordAttribute();
-        foreach ($request->f_seo_keyword as $f_seo_keyword) {
-            $cliente->setSEOKeywordAttribute($f_seo_keyword);
+        if($request->f_validade){
+            $validade = Carbon::createFromFormat('d/m/Y', $request->f_validade)->format('Y-m-d H:i:s');
+            $cliente->validade = $validade;
         }
-
-        $cliente->seo_description = $request->f_seo_description;
-        $cliente->categoria_id = $request->f_categoria;
+        
+        if($request->f_data){
+            $data = Carbon::createFromFormat('d/m/Y', $request->f_data)->format('Y-m-d H:i:s');
+            $cliente->dt_nasc = $data;
+        }
 
         $cliente->save();
 
@@ -186,7 +221,7 @@ class ClienteController extends Controller
             if (count($request->f_foto['descricao']) > 0) {
                 $k = 0;
                 foreach ($request->f_foto['descricao'] as $k => $descricao) {
-                    $anexo = \App\Models\PostAnexo::find($request->f_foto['codigo'][$k]);
+                    $anexo = \App\Models\ClienteAnexo::find($request->f_foto['codigo'][$k]);
                     $anexo->descricao = $descricao;
                     $anexo->ordem = $k + 1;
                     $anexo->save();
@@ -198,7 +233,7 @@ class ClienteController extends Controller
             if (count($request->f_arquivo['descricao']) > 0) {
                 $k = 0;
                 foreach ($request->f_arquivo['descricao'] as $k => $descricao) {
-                    $anexo = \App\Models\PostAnexo::find($request->f_arquivo['codigo'][$k]);
+                    $anexo = \App\Models\ClienteAnexo::find($request->f_arquivo['codigo'][$k]);
                     $anexo->descricao = $descricao;
                     $anexo->ordem = $k + 1;
                     $anexo->save();

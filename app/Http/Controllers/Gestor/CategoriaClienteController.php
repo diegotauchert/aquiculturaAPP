@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Gestor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CategoriaPostController extends Controller
+class CategoriaClienteController extends Controller
 {
 
     /**
@@ -29,14 +29,14 @@ class CategoriaPostController extends Controller
         $f_p = $request->f_p;
 
         if ($f_p) {
-            $categorias = \App\Models\CategoriaPost::where('nome', 'like', '%' . $f_p . '%')
+            $categorias = \App\Models\CategoriaCliente::where('nome', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
                     ->paginate(15);
         } else {
-            $categorias = \App\Models\CategoriaPost::orderBy('id', 'desc')->paginate(15);
+            $categorias = \App\Models\CategoriaCliente::orderBy('id', 'desc')->paginate(15);
         }
 
-        return view('gestor.categorias-posts.lista', compact('categorias', 'f_p'));
+        return view('gestor.categorias-clientes.lista', compact('categorias', 'f_p'));
     }
 
     /**
@@ -46,10 +46,10 @@ class CategoriaPostController extends Controller
      */
     public function create()
     {
-        $categoria = new \App\Models\CategoriaPost;
-        $s_categorias = \App\Models\CategoriaPost::where('situacao', '=', 1)
+        $categoria = new \App\Models\CategoriaCliente;
+        $s_categorias = \App\Models\CategoriaCliente::where('situacao', '=', 1)
                 ->orderBy('nome', 'asc')->get();
-        return view('gestor.categorias-posts.edita', compact('categoria', 's_categorias'));
+        return view('gestor.categorias-clientes.edita', compact('categoria', 's_categorias'));
     }
 
     /**
@@ -60,11 +60,11 @@ class CategoriaPostController extends Controller
      */
     public function store(Request $request)
     {
-        $categoria = new \App\Models\CategoriaPost;
+        $categoria = new \App\Models\CategoriaCliente;
 
         $validator = $this->valid($request, $categoria);
         if ($validator->fails()) {
-            return redirect()->route('gestor.categorias-posts.create')
+            return redirect()->route('gestor.categorias-clientes.create')
                             ->withErrors($validator)
                             ->withInput();
         }
@@ -74,7 +74,7 @@ class CategoriaPostController extends Controller
         $categoria->situacao = $request->f_situacao;
         $categoria->categoria_id = $request->f_categoria;
         $categoria->save();
-        return redirect()->route('gestor.categorias-posts.index')
+        return redirect()->route('gestor.categorias-clientes.index')
                         ->with('alert', [
                             'type' => 'success',
                             'message' => 'Registro incluído com sucesso!'
@@ -100,7 +100,7 @@ class CategoriaPostController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('gestor.categorias-posts.index');
+        return redirect()->route('gestor.categorias-clientes.index');
     }
 
     /**
@@ -111,11 +111,11 @@ class CategoriaPostController extends Controller
      */
     public function edit($id)
     {
-        $categoria = \App\Models\CategoriaPost::findOrFail($id);
-        $s_categorias = \App\Models\CategoriaPost::where('situacao', '=', 1)
+        $categoria = \App\Models\CategoriaCliente::findOrFail($id);
+        $s_categorias = \App\Models\CategoriaCliente::where('situacao', '=', 1)
                 ->where('id', '<>', $id)
                 ->orderBy('nome', 'asc')->get();
-        return view('gestor.categorias-posts.edita', compact('categoria', 's_categorias'));
+        return view('gestor.categorias-clientes.edita', compact('categoria', 's_categorias'));
     }
 
     /**
@@ -127,11 +127,11 @@ class CategoriaPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $categoria = \App\Models\CategoriaPost::findOrFail($id);
+        $categoria = \App\Models\CategoriaCliente::findOrFail($id);
 
         $validator = $this->valid($request, $categoria);
         if ($validator->fails()) {
-            return redirect()->route('gestor.categorias-posts.edit', $id)
+            return redirect()->route('gestor.categorias-clientes.edit', $id)
                             ->withErrors($validator)
                             ->withInput();
         }
@@ -141,7 +141,7 @@ class CategoriaPostController extends Controller
         $categoria->situacao = $request->f_situacao;
         $categoria->categoria_id = $request->f_categoria;
         $categoria->save();
-        return redirect()->route('gestor.categorias-posts.index')
+        return redirect()->route('gestor.categorias-clientes.index')
                         ->with('alert', [
                             'type' => 'success',
                             'message' => 'Registro alterado com sucesso!'
@@ -156,9 +156,9 @@ class CategoriaPostController extends Controller
      */
     public function destroy($id)
     {
-        $categoria = \App\Models\CategoriaPost::findOrFail($id);
+        $categoria = \App\Models\CategoriaCliente::findOrFail($id);
         $categoria->delete();
-        return redirect()->route('gestor.categorias-posts.index')
+        return redirect()->route('gestor.categorias-clientes.index')
                         ->with('alert', [
                             'type' => 'success',
                             'message' => 'Registro excluído com sucesso!'

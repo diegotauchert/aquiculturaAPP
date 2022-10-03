@@ -177,6 +177,7 @@
     "/fonts/Montserrat/Montserrat-Thin.ttf": "/fonts/Montserrat/Montserrat-Thin.ttf",
     "/fonts/Montserrat/Montserrat-ThinItalic.otf": "/fonts/Montserrat/Montserrat-ThinItalic.otf",
     "/fonts/Montserrat/Montserrat-ThinItalic.ttf": "/fonts/Montserrat/Montserrat-ThinItalic.ttf",
+    "/images/bg-login-2.jpg": "/images/bg-login-2.jpg",
     "/images/bg-login.jpg": "/images/bg-login.jpg",
     "/images/bg-menu-home.jpg": "/images/bg-menu-home.jpg",
     "/images/bg.jpg": "/images/bg.jpg",
@@ -199,6 +200,5 @@
     "/js/js/jquery.dataTables.min.js": "/js/js/jquery.dataTables.min.js",
     "/js/js/jquery.slimscroll.min.js": "/js/js/jquery.slimscroll.min.js",
     "/js/js/metisMenu.min.js": "/js/js/metisMenu.min.js",
-    "/js/js/waves.min.js": "/js/js/waves.min.js",
-    "/images/bg-login-2.jpg": "/images/bg-login-2.jpg"
+    "/js/js/waves.min.js": "/js/js/waves.min.js"
 }

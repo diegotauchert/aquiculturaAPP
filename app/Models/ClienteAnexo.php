@@ -6,34 +6,34 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Uploadify\Traits\UploadifyTrait;
 
-class PostAnexo extends Model
+class ClienteAnexo extends Model
 {
 
     use SoftDeletes;
     use UploadifyTrait;
 
-    protected $table = 'posts_anexos';
+    protected $table = 'clientes_anexos';
     protected $fillable = [
         'descricao',
         'foto',
         'arquivo',
         'tipo',
         'ordem',
-        'post_id'
+        'cliente_id'
     ];
     protected $guarded = [
         'id', 'created_at', 'updated_at', 'deleted_at'
     ];
     public $uploadifyImages = [
-        'foto' => ['path' => 'posts/', 'disk' => 'public']
+        'foto' => ['path' => 'clientes/', 'disk' => 'public']
     ];
     public $uploadifyFiles = [
-        'arquivo' => ['path' => 'posts/', 'disk' => 'public']
+        'arquivo' => ['path' => 'clientes/', 'disk' => 'public']
     ];
 
-    public function post()
+    public function cliente()
     {
-        return $this->belongsTo('App\Models\Post', 'post_id', 'id');
+        return $this->belongsTo('App\Models\Cliente', 'cliente_id', 'id');
     }
 
 }

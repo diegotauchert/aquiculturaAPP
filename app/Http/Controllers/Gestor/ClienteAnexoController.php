@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Gestor\Util;
 use Illuminate\Support\Facades\Storage;
 
-class PostAnexoController extends Controller
+class ClienteAnexoController extends Controller
 {
 
     /**
@@ -26,7 +26,7 @@ class PostAnexoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, \App\Models\PostAnexo $anexo)
+    public function delete(Request $request, \App\Models\ClienteAnexo $anexo)
     {
         if ($anexo->arquivo || $anexo->foto) {
             if ($anexo->foto) {
@@ -51,28 +51,28 @@ class PostAnexoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function upload(Request $request, \App\Models\Post $post, $tipo)
+    public function upload(Request $request, \App\Models\Cliente $cliente, $tipo)
     {
-        if ($post->id) {
+        if ($cliente->id) {
             if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
 
-                return $this->uploadFoto($request, $post, $tipo);
+                return $this->uploadFoto($request, $cliente, $tipo);
             }
 
             if ($request->hasFile('arquivo') && $request->file('arquivo')->isValid()) {
 
-                return $this->uploadArquivo($request, $post, $tipo);
+                return $this->uploadArquivo($request, $cliente, $tipo);
             }
         }
 
         return response()->json(['error' => 'Erro ao enviar']);
     }
 
-    public function uploadFoto($request, $post, $tipo)
+    public function uploadFoto($request, $cliente, $tipo)
     {
-        $anexo = new \App\Models\PostAnexo([
+        $anexo = new \App\Models\ClienteAnexo([
             'tipo' => $tipo,
-            'post_id' => $post->id,
+            'cliente_id' => $cliente->id,
         ]);
         $anexo->save();
 
@@ -104,18 +104,18 @@ class PostAnexoController extends Controller
             $anexo->foto = $nameFile;
             $anexo->save();
 
-            $html = view('gestor.posts.foto', compact('anexo'))->render();
+            $html = view('gestor.clientes.foto', compact('anexo'))->render();
             return response()->json(['html' => $html]);
         }
 
         return response()->json($ret);
     }
 
-    public function uploadArquivo($request, $post, $tipo)
+    public function uploadArquivo($request, $cliente, $tipo)
     {
-        $anexo = new \App\Models\PostAnexo([
+        $anexo = new \App\Models\ClienteAnexo([
             'tipo' => $tipo,
-            'post_id' => $post->id,
+            'cliente_id' => $cliente->id,
         ]);
         $anexo->save();
 
@@ -133,7 +133,7 @@ class PostAnexoController extends Controller
             $anexo->arquivo = $nameFile;
             $anexo->save();
 
-            $html = view('gestor.posts.arquivo', compact('anexo'))->render();
+            $html = view('gestor.clientes.arquivo', compact('anexo'))->render();
             return response()->json(['html' => $html]);
         }
 

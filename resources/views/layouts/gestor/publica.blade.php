@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <div class="px-3">
                             <div class="auth-logo-box mt-2">
-                                <a title="{{ config('app.client', '') }}" href="#" target="_blank"><img src="{{ asset(mix('images/logo_2.png')) }}" alt="{{ config('app.client', '') }}" class="logo" style="height:120px;" /></a>
+                                <a title="{{ config('app.client', '') }}" href="#" target="_blank"><img src="{{ asset(mix('images/logo.png')) }}" alt="{{ config('app.client', '') }}" class="logo" style="height:60px;" /></a>
                             </div>
                             <div class="text-center auth-logo-text mt-3 mb-3">
                                 @if(isset($saudacao))<span>{{ __('gestor_dashboard.saudacao', ['saudacao' => $saudacao]) }},</span>@endif

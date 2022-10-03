@@ -39,7 +39,7 @@
         <!-- LOGO -->
         <div class="topbar-left">
             <span>
-                <a class="navbar-brand o-tooltip text-hide" title="Home" href="{{ route('gestor.dashboard') }}" data-placement="bottom"><img style="max-height: 50px;margin-top:.1rem;" src="{{ asset(mix('images/logo_2.png')) }}" alt="{{ (app('config')->get('app')['dev'] ? app('config')->get('app')['dev'] : '') }}"></a>
+                <a class="navbar-brand o-tooltip text-hide" title="Home" href="{{ route('gestor.dashboard') }}" data-placement="bottom"><img style="max-height: 50px;margin-top:.1rem;" src="{{ asset(mix('images/logo.png')) }}" alt="{{ (app('config')->get('app')['dev'] ? app('config')->get('app')['dev'] : '') }}"></a>
             </span>
         </div>
 

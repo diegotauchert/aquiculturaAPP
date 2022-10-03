@@ -16,7 +16,7 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
     'dev' => env('APP_DEV', 'Admin'),
     'dev_name' => env('APP_DEV_NAME', 'Fabtech'),
-    'client' => env('APP_CLIENT', 'Aju Fest'),
+    'client' => env('APP_CLIENT', 'MP Aquicultura Sustentável'),
     'dev_url' => env('APP_DEV_URL', ''),
     'version' => env('APP_VERSION', '1.0.0'),
     'year' => env('APP_YEAR', '2022'),

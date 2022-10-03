@@ -54,7 +54,7 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
         '/menus' => 'MenuController',
         '/modulos' => 'ModuloController',
         '/regioes' => 'RegiaoController',
-        '/clientes' => 'PostController',
+        '/clientes' => 'ClienteController',
         '/usuarios' => 'UsuarioController',
     ]);
 });

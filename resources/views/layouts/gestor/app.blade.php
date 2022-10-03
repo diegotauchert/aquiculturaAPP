@@ -163,13 +163,6 @@
                             @endforeach
                             @endif
                             @endforeach
-
-                            <!--
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('gestor.origem.index') }}">
-                                        <i class="dripicons-network-3"></i>@lang('gestor.nav_origem_paciente')
-                                    </a>
-                                </li> -->
                             <li style="height:100px;"></li>
                         </ul>
                     </div>

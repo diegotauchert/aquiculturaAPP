@@ -345,3 +345,42 @@ html {
 .lh18{
     line-height:18px !important;
 }
+
+.js-cookie-consent{
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align:center;
+    background: #f1faee;
+    padding: 14px 10%;
+    display: flex;
+    gap: 4rem;
+
+    span.cookie-consent__message{
+        font-size: 14px;
+        text-align: left;
+    }
+    .flex{
+        gap:1rem;
+    }
+    button{
+        background-color: #0078bf;
+        color: #FFF;
+        border:none;
+        padding:2px 12px;
+        font-size: 14px;
+        white-space: nowrap;
+        font-weight: 600;
+        transition: .5s ease all;
+
+        &:hover{
+            background-color: #988f0a;
+        }
+    }
+    a.btn-privacy-policy{
+        color: #0078bf;
+        font-weight: 500;
+    }
+}

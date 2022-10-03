@@ -1,0 +1,52 @@
+.cd-horizontal-timeline {
+    .timeline {
+        .events-wrapper {
+            &::before {
+                @include gradient-x(rgba(theme-color('secondary'), 1), rgba(theme-color('secondary'), 0), 0%, 100%);
+            }
+
+            &::after {
+                @include gradient-x(rgba(theme-color('secondary'), 0), rgba(theme-color('secondary'), 1), 0%, 100%);
+            }
+
+            .events {
+                background-color: theme-color('tertiary');
+
+                .cd-group-item {
+                    .cd-item {
+                        a {
+                            color: theme-color('primary');
+
+                            &::after {
+                                border: 1px solid theme-color('primary');
+                                background-color: color('white');
+                            }
+
+                            &:hover {
+                                color: theme-color('primary');
+                            }
+
+                            &.selected {
+                                color: theme-color('primary');
+
+                                &::after {
+                                    background-color: theme-color('primary');
+                                }
+                            }
+
+                            &.older-event {
+                                &::after {
+                                    border-color: theme-color('primary');
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .filling-line {
+                    background-color: theme-color('primary');
+                }
+            }
+        }
+    }
+}

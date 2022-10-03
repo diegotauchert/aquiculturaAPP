@@ -1,0 +1,41 @@
+
+$white:    #fff !default;
+$gray-100: #e5e5e5 !default;
+$gray-200: #ccc !default;
+$gray-300: #b2b2b2 !default;
+$gray-400: #999 !default;
+$gray-500: #7f7f7f !default;
+$gray-600: #666 !default;
+$gray-700: #4c4c4c !default;
+$gray-800: #333 !default;
+$gray-900: #191919 !default;
+$black:    #000 !default;
+
+$primary : #b49864;
+$secondary : #222222;
+$tertiary : #f7eae9;
+$light:     $gray-100 !default;
+$dark:     $gray-900 !default;
+
+$theme-colors: (
+"tertiary": $tertiary
+);
+
+$input-group-addon-bg: $light!default;
+
+$input-disabled-bg: $gray-100 !default;
+
+/*$breadcrumb-bg: #D5D8D8;*/
+
+/*$component-active-color:      $black !default;*/
+/*$component-active-bg:         $secondary !default;*/
+
+$font-size-base: 1rem;
+$h1-font-size: $font-size-base * 1.875 !default;
+$h2-font-size: $font-size-base * 1.6875 !default;
+$h3-font-size: $font-size-base * 1.5 !default;
+$h4-font-size: $font-size-base * 1.3125 !default;
+$h5-font-size: $font-size-base * 1.1875 !default;
+$h6-font-size: $font-size-base * 1.0 !default;
+
+$paragraph-margin-bottom:   0 !default;

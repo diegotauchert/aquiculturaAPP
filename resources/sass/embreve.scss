@@ -1,0 +1,64 @@
+
+@import "embreve/_fonts.scss";
+@import "embreve/_variables.scss";
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+
+html {
+    body {
+        @each $color, $value in $theme-colors {
+            .text-#{$color} {
+                a:not(.btn) {
+                    color: $value;
+                }
+            }
+        }
+
+        @each $color, $value in $colors {
+            .text-#{$color} {
+                a:not(.btn) {
+                    color: $value;
+                }
+            }
+        }
+
+        .text-muted {
+            a:not(.btn) {
+                color:$text-muted;
+            }
+        }
+
+        #logo {
+            background:url(../images/logo.png) center no-repeat;
+            background-size:contain;
+            display:block;
+            width:250px;
+            height:100px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+
+        @include media-breakpoint-up(md) {
+            .tag {
+                @include border-left-radius(50%);
+            }
+        }
+
+        .bg-main {
+            background-image: url(../images/bg-login.jpg);
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-size: cover;
+
+            @include media-breakpoint-down(sm) {
+                & {
+                    background-position: top left;
+                }
+            }
+        }
+    }
+}

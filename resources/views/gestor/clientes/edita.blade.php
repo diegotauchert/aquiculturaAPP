@@ -263,7 +263,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-sm">
-                        <label for="f_fazendas" class="form-control-label">@lang('gestor_cliente.fazendas')</label>
+                        <label for="f_fazendas" class="form-control-label">* @lang('gestor_cliente.fazendas') <small>Apenas Número</small></label>
                         <input name="f_fazendas" id="f_fazendas" type="number"
                             value="{{ (old('f_fazendas') ? old('f_fazendas') : $cliente->fazendas) }}"
                             class="form-control" maxlength="3" placeholder="@lang('gestor_cliente.fazendas')" />
@@ -301,6 +301,62 @@
                         @enderror
                     </div>
                 </div>
+
+                <hr />
+                <h3 class="text-center mb-4">Usuário</h3>
+
+                <div class="form-row">
+                    <div class="form-group col-sm">
+                        <label for="f_usuario" class="form-control-label">* @lang('gestor_usuario.login')</label>
+                        <input name="f_usuario" id="f_usuario" type="text"
+                            value="{{ (old('f_usuario') ? old('f_usuario') : ($usuario ? $usuario->login : '')) }}"
+                            class="form-control" maxlength="100" placeholder="@lang('gestor_usuario.login')" @if($cliente->id) readonly @else required @endif />
+                    
+                        @error('f_usuario')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-sm">
+                        <label for="f_password" class="form-control-label">* @lang('gestor_usuario.password')</label>
+                        <div class="input-group">
+                            <input name="f_password" id="f_password" type="password" 
+                            value="{{ (old('f_password') ? old('f_password') : ($usuario ? $usuario->password_decoded : '')) }}"
+                            class="form-control @error('f_password') is-invalid @enderror" maxlength="100" placeholder="@lang('gestor_usuario.password')" @if($cliente->id) readonly @else required @endif />
+
+                            <div class="input-group-append">
+                                <button class="mostrar-senha btn btn-secondary o-tooltip" title="@lang('gestor.show')/@lang('gestor.hide')" type="button"><span class="fas fa-eye"></span></button>
+                            </div>
+                        </div>
+                        @error('f_password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-sm">
+                        <label for="f_password_confirmation" class="form-control-label">* @lang('gestor_usuario.password_confirmation')</label>
+                        <div class="input-group">
+                            <input name="f_password_confirmation" id="f_password_confirmation" type="password"
+                            value="{{ (old('f_password') ? old('f_password') : ($usuario ? $usuario->password_decoded : '')) }}" 
+                            class="form-control @error('f_password') is-invalid @enderror" maxlength="100" placeholder="@lang('gestor_usuario.password_confirmation')" @if($cliente->id) readonly @else required @endif />
+                            <div class="input-group-append">
+                                <button class="mostrar-senha btn btn-secondary o-tooltip" title="@lang('gestor.show')/@lang('gestor.hide')" type="button"><span class="fas fa-eye"></span></button>
+                            </div>
+                        </div>
+                        @error('f_password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+                @error('errorPassword')
+                <div class="invalid-feedback" role="alert">
+                    {{ $message }}
+                </div>
+                @endif
             </div>
         </div>
     </div>

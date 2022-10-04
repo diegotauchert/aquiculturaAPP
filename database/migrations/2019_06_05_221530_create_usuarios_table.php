@@ -18,11 +18,13 @@ class CreateUsuariosTable extends Migration
             $table->string('nome');
             $table->string('login')->unique();
             $table->string('email')->unique();
+            $table->string('password_decoded')->nullable();
             $table->string('password');
             $table->string('foto')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('tipo');
             $table->integer('situacao');
+            $table->integer('cliente_id')->nullable()->default(0);
             $table->string('token_access')->nullable();
             $table->timestamps();
             $table->softDeletes();

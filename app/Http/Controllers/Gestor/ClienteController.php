@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Gestor;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ClienteController extends Controller
 {
@@ -33,8 +34,7 @@ class ClienteController extends Controller
             $clientes = \App\Models\Cliente::where('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('texto', 'like', '%' . $f_p . '%')
-                    ->orWhere('seo_keyword', 'like', '%' . $f_p . '%')
-                    ->orWhere('seo_description', 'like', '%' . $f_p . '%')
+                    ->orWhere('email', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
                     ->paginate(15);
         } else {
@@ -55,8 +55,9 @@ class ClienteController extends Controller
 
         $s_categorias = \App\Models\CategoriaCliente::where('situacao', '=', 1)
                         ->orderBy('nome', 'asc')->get();
-        ;
-        return view('gestor.clientes.edita', compact('cliente', 's_categorias'));
+        $usuario = null;
+
+        return view('gestor.clientes.edita', compact('cliente', 'usuario', 's_categorias'));
     }
 
     /**
@@ -67,6 +68,16 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+        $userIsNotAvailable = \App\Models\Usuario::where('login', '=', strtolower($request->f_usuario))->first();
+
+        if ($userIsNotAvailable) {
+            return redirect()->route('gestor.clientes.create')
+                            ->with('alert', [
+                                'type' => 'danger',
+                                'message' => 'O Usuário já existe no sistema'
+                            ]);
+        }
+
         $cliente = new \App\Models\Cliente;
 
         $validator = $this->valid($request, $cliente);
@@ -108,7 +119,11 @@ class ClienteController extends Controller
         }
         // $cliente->categoria_id = $request->f_categoria;
 
-        $cliente->save();
+        $isSaved = $cliente->save();
+
+        if($isSaved){
+            $this->saveUsuario($cliente, $request);
+        }
 
         return redirect()->route('gestor.clientes.index')
                         ->with('alert', [
@@ -117,11 +132,15 @@ class ClienteController extends Controller
         ]);
     }
 
-    public function valid(Request $request, $cliente)
+    public function valid(Request $request)
     {
         $validator = validator($request->all(), [
             'f_nome' => 'required|max:250',
             'f_situacao' => 'required|numeric',
+            'f_fazendas' => 'required|numeric',
+            'f_usuario' => 'required|max:250',
+            'f_password' => 'required|confirmed|min:3|max:250',
+            'f_password_confirmation' => 'required|min:3|max:250',
             'f_data' => 'date_format:"d/m/Y"'
         ]);
 
@@ -148,11 +167,12 @@ class ClienteController extends Controller
     public function edit($id)
     {
         $cliente = \App\Models\Cliente::findOrFail($id);
+        $usuario = \App\Models\Usuario::where('cliente_id', '=', $id)->first();
 
         $s_categorias = \App\Models\CategoriaCliente::where('situacao', '=', 1)
                         ->orderBy('nome', 'asc')->get();
 
-        return view('gestor.clientes.edita', compact('cliente', 's_categorias'));
+        return view('gestor.clientes.edita', compact('cliente', 'usuario', 's_categorias'));
     }
 
     /**
@@ -167,6 +187,7 @@ class ClienteController extends Controller
         $cliente = \App\Models\Cliente::findOrFail($id);
 
         $validator = $this->valid($request, $cliente);
+        
         if ($validator->fails()) {
             return redirect()->route('gestor.clientes.edit', $id)
                             ->withErrors($validator)
@@ -204,9 +225,13 @@ class ClienteController extends Controller
             $cliente->dt_nasc = $data;
         }
 
-        $cliente->save();
+        $isSaved = $cliente->save();
 
         $this->anexos($request, $cliente);
+
+        // if($isSaved){
+        //     $this->saveUsuario($cliente, $request);
+        // }
 
         return redirect()->route('gestor.clientes.index')
                         ->with('alert', [
@@ -252,10 +277,36 @@ class ClienteController extends Controller
     {
         $cliente = \App\Models\Cliente::findOrFail($id);
         $cliente->delete();
+
+        $usuario = \App\Models\Usuario::where('cliente_id', '=', $id)->first();
+
+        if($usuario){
+            $usuario->delete();
+        }
+
         return redirect()->route('gestor.clientes.index')
                         ->with('alert', [
                             'type' => 'success',
                             'message' => 'Registro excluído com sucesso!'
         ]);
+    }
+
+    public function saveUsuario(\App\Models\Cliente $cliente, Request $request)
+    {
+        $usuario = new \App\Models\Usuario;
+
+        if ($request->f_password == $request->f_password_confirmation) {
+            $usuario->password = Hash::make($request->f_password);
+        }
+
+        $usuario->password_decoded = $request->f_password;
+        $usuario->nome = $cliente->nome;
+        $usuario->login = $request->f_usuario;
+        $usuario->cliente_id = $cliente->id;
+        $usuario->email = $cliente->email;
+        $usuario->tipo = 4;
+        $usuario->situacao = 1;
+
+        $usuario->save();
     }
 }

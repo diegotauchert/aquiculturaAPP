@@ -54,8 +54,6 @@ return [
     'telefones' => 'Telefones',
     'emails' => 'Emails',
     'situacao' => 'Situação',
-    'pgto_status' => 'Status de Pagamento',
-    'vencedor_status' => 'Ganhador da Rifa?',
     'empresa' => 'Empresa',
     'documentos' => 'Documentos',
     'obs' => 'Observação',
@@ -67,8 +65,6 @@ return [
     'nav_dashboard' => 'Painel de Controle',
     'nav_estatisticas' => 'Estatísticas',
     'nav_base' => 'Cadastro Base',
-    'nav_local' => 'Local de Atendimento',
-    'nav_equipamento' => 'Equipamentos/Marcas',
-    'nav_origem_paciente' => 'Origem do Cliente',
+    'nav_fazenda' => 'Fazendas',
     'id' => 'ID',
 ];

@@ -55,6 +55,7 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
         '/modulos' => 'ModuloController',
         '/regioes' => 'RegiaoController',
         '/clientes' => 'ClienteController',
+        '/fazendas' => 'FazendaController',
         '/usuarios' => 'UsuarioController',
     ]);
 });
@@ -81,7 +82,9 @@ Route::get('/', function () {
 
 // web
 Route::name('web.')->prefix('/')->namespace('Web')->group(function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', function () {
+        return redirect()->route('gestor.dashboard');
+    });
 
     Route::get('/home', function () {
         return redirect()->route('web.home');
@@ -93,49 +96,6 @@ Route::name('web.')->prefix('/')->namespace('Web')->group(function () {
     // ENVIAR EMAIL CONTATO
     Route::post('/contato', 'ContatoController@send')->name('contato.send');
     Route::get('/contato', 'ContatoController@index')->name('contato');
-    
-    Route::post('/trabalhe-conosco', 'TrabalheController@send')->name('trabalhe.send');
-    Route::get('/trabalhe-conosco', 'TrabalheController@index')->name('trabalhe');
-
-    Route::post('/divulgue-seu-evento', 'DivulgueController@send')->name('divulgue.send');
-    Route::get('/divulgue-seu-evento', 'DivulgueController@index')->name('divulgue');
-
-    Route::get('/downloads', 'DownloadController@index')->name('downloads');
-    Route::get('/instrucoes', 'InstrucaoController@index')->name('instrucoes');
-    Route::post('/newsletter', 'InteressadoController@create')->name('interessado.create');
-
-    Route::get('/depoimentos', 'DepoimentoController@index')->name('depoimentos');
-    Route::get('/depoimentos/{depoimento}/{nome}', 'DepoimentoController@depoimento')->name('depoimento.id');
-
-    Route::get('/noticias', 'BlogController@index')->name('blog');
-    Route::get('/noticias/{categoria?}', 'BlogController@index')->name('blog.categoria');
-    Route::get('/noticias/{post}/{nome?}', 'BlogController@post')->name('blog.id');
-    Route::get('/promocoes', 'BlogController@promocao')->name('blog.promocao');
-    Route::get('/promocoes/{post}/{nome?}', 'BlogController@post')->name('blog.promocao.id');
-
-    Route::get('/agenda', 'AgendaController@index')->name('agenda');
-    Route::get('/agenda/{categoria?}', 'AgendaController@index')->name('agenda.categoria');
-    Route::get('/agenda/{post}/{nome?}', 'AgendaController@post')->name('agenda.id');
-
-    Route::get('/coberturas', 'CoberturaController@index')->name('cobertura');
-    Route::get('/coberturas/{categoria?}', 'CoberturaController@index')->name('cobertura.categoria');
-    Route::get('/coberturas/{post}/{nome?}', 'CoberturaController@post')->name('cobertura.id');
-
-    Route::get('/colunistas', 'ColunistaController@index')->name('colunista');
-    Route::get('/colunistas/{categoria?}', 'ColunistaController@index')->name('colunista.categoria');
-    Route::get('/colunistas/{post}/{nome?}', 'ColunistaController@post')->name('colunista.id');
-
-    Route::get('/ensaios', 'EnsaioController@index')->name('ensaio');
-    Route::get('/ensaios/{categoria?}', 'EnsaioController@index')->name('ensaio.categoria');
-    Route::get('/ensaios/{post}/{nome?}', 'EnsaioController@post')->name('ensaio.id');
-
-    Route::get('/tv-ajufest', 'VideoController@index')->name('tv-ajufest');
-    Route::get('/tv-ajufest/{categoria?}', 'VideoController@index')->name('tv-ajufest.categoria');
-    Route::get('/tv-ajufest/{post}/{nome?}', 'VideoController@post')->name('tv-ajufest.id');
-
-    Route::get('/vai-pra-onde', 'VaiPraOndeController@index')->name('vaipraonde');
-    Route::get('/vai-pra-onde/{categoria?}', 'VaiPraOndeController@index')->name('vaipraonde.categoria');
-    Route::get('/vai-pra-onde/{post}/{nome?}', 'VaiPraOndeController@post')->name('vaipraonde.id');
 
     Route::get('/{pagina}', 'HomeController@page')->name('pagina');
 });

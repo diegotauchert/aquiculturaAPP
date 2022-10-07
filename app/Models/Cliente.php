@@ -37,7 +37,6 @@ class Cliente extends Model
         'dt_nasc' => 'datetime: d/m/Y H:i:s',
         'validade' => 'datetime: d/m/Y H:i:s',
     ];
-    protected $softCascade = ['anexos'];
 
     public function resolveRouteBinding($value)
     {

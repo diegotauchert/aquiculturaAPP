@@ -19,7 +19,7 @@
         </h1>
     </div>
 </div>
-<form method="POST" action="{{ ($fazenda->id ? route('gestor.clientes.update', $fazenda->id) : route('gestor.clientes.store')) }}">
+<form method="POST" action="{{ ($fazenda->id ? route('gestor.fazendas.update', $fazenda->id) : route('gestor.fazendas.store')) }}">
     @if($fazenda->id)
     @method('PUT')
     @endif
@@ -28,6 +28,7 @@
 
     <div class="py-2">
         <div class="card">
+            <input name="cliente_id" id="cliente_id" type="hidden" value="{{ $cliente->id }}" />
             <div class="card-header h5">@lang('gestor_fazenda.informacoes')</div>
             <div class="card-body">
                 <div class="form-row">
@@ -171,7 +172,7 @@
                 </div>
 
                 <hr />
-                <h3 class="text-center mb-4">Usuário</h3>
+                <h3 class="text-center mb-4">Usuário Master da Fazenda</h3>
 
                 <div class="form-row">
                     <div class="form-group col-sm">
@@ -223,6 +224,13 @@
                 @error('errorPassword')
                 <div class="invalid-feedback" role="alert">
                     {{ $message }}
+                </div>
+                @endif
+
+                @if(!$fazenda->id)
+                <div class="form-row p-2 d-flex">
+                    <input type="checkbox" class="input checkbox mr-2 p-2 my-0" required name="termos" id="termos" value="1" />
+                    <label for="termos" class="m-0">Concordo com os termos de cadastro em que cada fazendo gera uma liçença sendo assim cobrado um valor mensal por cada cadastrado.</label>
                 </div>
                 @endif
             </div>

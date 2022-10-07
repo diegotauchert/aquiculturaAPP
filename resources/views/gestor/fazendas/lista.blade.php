@@ -10,7 +10,7 @@
             <small class="text-secondary d-block d-md-inline-block">\ @lang('gestor.listagem')</small>
         </h1>
     </div>
-    @if($cliente->fazendas >= count($fazendas))
+    @if($cliente->fazendas > count($fazendas))
     <div class="col col-sm-auto my-auto py-2 text-center text-md-right">
         <a href="{{ route('gestor.fazendas.create') }}" class="btn btn-primary"><i class="fas fa-asterisk"></i> @lang('gestor_fazenda.create') <small>{{count($fazendas)}}/{{$cliente->fazendas}}</small></a>
     </div>
@@ -33,10 +33,9 @@
             <table width="100%" class="table table-striped table-hover" id="datatable">
                 <thead>
                 <th class="align-middle">@lang('gestor_fazenda.id')</th>
-                <th class="align-middle">@lang('gestor_fazenda.nome')</th>
-                <th class="align-middle">@lang('gestor_fazenda.data')</th>
+                <th class="align-middle">@lang('gestor_fazenda.title')</th>
                 <th class="align-middle">@lang('gestor_fazenda.contato')</th>
-                <th class="align-middle">@lang('gestor_fazenda.fazendas')</th>
+                <th class="align-middle">@lang('gestor_fazenda.gestor')</th>
                 <th class="align-middle">@lang('gestor_fazenda.situacao')</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
@@ -63,15 +62,8 @@
                                 {{ $post->nome }}
                             </span>
                         </td>
-                        <td class="align-middle">
-                            @if($post->dt_nasc)
-                            @date($post->dt_nasc)
-                            @else
-                            -
-                            @endif
-                        </td>
                         <td class="align-middle">{{ $post->telefone }}</td>
-                        <td class="align-middle">{{ $post->fazendas }}</td>
+                        <td class="align-middle">{{ $post->cliente->nome }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.fazendas.destroy', $post->id) }}">
@@ -79,12 +71,8 @@
                                 @csrf
 
                                 <div class="btn-group">
-                                    @permissao('gestor', 'gestor.fazendas.edit')
                                     <a href="{{ route('gestor.fazendas.edit', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
-                                    @endpermissao
-                                    @permissao('gestor', 'gestor.fazendas.destroy')
                                     <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button>
-                                    @endpermissao
                                 </div>
                             </form>
                         </td>

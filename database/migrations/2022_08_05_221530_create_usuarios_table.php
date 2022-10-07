@@ -24,7 +24,8 @@ class CreateUsuariosTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('tipo');
             $table->integer('situacao');
-            $table->integer('cliente_id')->nullable()->default(0);
+            $table->BigInteger('cliente_id')->nullable()->default(0);
+            $table->BigInteger('fazenda_id')->nullable()->default(0);
             $table->string('token_access')->nullable();
             $table->timestamps();
             $table->softDeletes();

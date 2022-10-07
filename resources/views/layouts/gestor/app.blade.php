@@ -197,8 +197,8 @@
 
                 @yield('content')
             </div>
-            <footer class="footer text-center text-sm-left">
-                &copy; {{ config('app.year', '') }} {{ config('app.dev') }} <br /> {{ config('app.client') }} <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger pulse"></i> by <a href="{{ config('app.dev_url', '') }}" target="_blank">{{ config('app.dev_name', 'FABTECH') }}</a>{{ (app('config')->get('app')['version'] ? ' - v' : '') }}{{ config('app.version', '') }}</span>
+            <footer class="position-relative footer text-center text-sm-left">
+                &copy; {{ config('app.year', '') }} {{ config('app.dev') }} <br /> {{ config('app.client') }} <span class="text-muted d-none d-sm-inline-block float-right">Desenvolvido pela <a href="{{ config('app.dev_url', '') }}" target="_blank" class="mr-3">{{ config('app.dev_name', 'FABTECH') }} com <i class="mdi mdi-heart text-danger pulse position-absolute"></i></a>{{ (app('config')->get('app')['version'] ? ' v' : '') }}{{ config('app.version', '') }}</span>
             </footer>
         </div>
     </div>

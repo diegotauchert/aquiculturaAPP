@@ -227,8 +227,6 @@ class ClienteController extends Controller
 
         $isSaved = $cliente->save();
 
-        $this->anexos($request, $cliente);
-
         // if($isSaved){
         //     $this->saveUsuario($cliente, $request);
         // }
@@ -303,7 +301,7 @@ class ClienteController extends Controller
         $usuario->nome = $cliente->nome;
         $usuario->login = $request->f_usuario;
         $usuario->cliente_id = $cliente->id;
-        $usuario->email = $cliente->email;
+        $usuario->email = $cliente->email ?? 'admin-'.uniqid().'@gmail.com';
         $usuario->tipo = 4;
         $usuario->situacao = 1;
 

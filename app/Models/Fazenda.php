@@ -26,8 +26,6 @@ class Fazenda extends Model
     protected $guarded = [
         'id', 'created_at', 'updated_at', 'deleted_at'
     ];
-    
-    protected $softCascade = ['anexos'];
 
     public function resolveRouteBinding($value)
     {

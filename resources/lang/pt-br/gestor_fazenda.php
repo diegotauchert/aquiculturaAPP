@@ -9,6 +9,7 @@ return [
      */
 
     'titulo' => 'Fazendas',
+    'title' => 'Fazenda',
     'create' => 'Cadastrar Fazenda',
     
     'id' => 'ID',
@@ -24,6 +25,7 @@ return [
     'estado' => 'Estado',
     'contato' => 'Contato',
     'situacao' => 'Situação',
+    'gestor' => 'Gestor',
     
     'informacoes' => 'Informações da Fazenda',
     'informacoes_texto' => 'Observação',

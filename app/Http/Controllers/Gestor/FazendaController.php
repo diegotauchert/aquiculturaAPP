@@ -41,7 +41,10 @@ class FazendaController extends Controller
             $fazendas = \App\Models\Fazenda::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(15);
         }
 
-        $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
+        $cliente = null;
+        if(auth('gestor')->user()->cliente_id){
+            $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
+        }
 
         return view('gestor.fazendas.lista', compact('fazendas', 'cliente', 'f_p'));
     }
@@ -57,7 +60,12 @@ class FazendaController extends Controller
 
         $usuario = null;
 
-        return view('gestor.fazendas.edita', compact('fazenda', 'usuario'));
+        $cliente = null;
+        if(auth('gestor')->user()->cliente_id){
+            $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
+        }
+
+        return view('gestor.fazendas.edita', compact('fazenda', 'cliente', 'usuario'));
     }
 
     /**
@@ -86,7 +94,7 @@ class FazendaController extends Controller
                             ->withErrors($validator)
                             ->withInput();
         }
-
+        $fazenda->cliente_id = $request->cliente_id;
         $fazenda->nome = $request->f_nome;
         $fazenda->email = $request->f_email;
         $fazenda->telefone = $request->f_telefone;
@@ -115,6 +123,7 @@ class FazendaController extends Controller
     public function valid(Request $request)
     {
         $validator = validator($request->all(), [
+            'cliente_id' => 'required|numeric',
             'f_nome' => 'required|max:250',
             'f_situacao' => 'required|numeric',
             'f_usuario' => 'required|max:250',
@@ -147,7 +156,12 @@ class FazendaController extends Controller
         $fazenda = \App\Models\Fazenda::findOrFail($id);
         $usuario = \App\Models\Usuario::where('cliente_id', auth('gestor')->user()->cliente_id)->first();
 
-        return view('gestor.fazendas.edita', compact('fazenda', 'usuario'));
+        $cliente = null;
+        if(auth('gestor')->user()->cliente_id){
+            $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
+        }
+
+        return view('gestor.fazendas.edita', compact('fazenda', 'cliente', 'usuario'));
     }
 
     /**
@@ -182,8 +196,6 @@ class FazendaController extends Controller
         $fazenda->situacao = $request->f_situacao;
 
         $isSaved = $fazenda->save();
-
-        $this->anexos($request, $fazenda);
 
         // if($isSaved){
         //     $this->saveUsuario($fazenda, $request);
@@ -231,9 +243,10 @@ class FazendaController extends Controller
         $usuario->password_decoded = $request->f_password;
         $usuario->nome = $fazenda->nome;
         $usuario->login = $request->f_usuario;
+        $usuario->cliente_id = $request->cliente_id;
         $usuario->fazenda_id = $fazenda->id;
-        $usuario->email = $fazenda->email;
-        $usuario->tipo = 4;
+        $usuario->email = $fazenda->email ?? 'admin-'.uniqid().'@gmail.com';
+        $usuario->tipo = 5;
         $usuario->situacao = 1;
 
         $usuario->save();

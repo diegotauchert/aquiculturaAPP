@@ -66,5 +66,6 @@ return [
     'nav_estatisticas' => 'Estatísticas',
     'nav_base' => 'Cadastro Base',
     'nav_fazenda' => 'Fazendas',
+    'nav_viveiro' => 'Viveiros',
     'id' => 'ID',
 ];

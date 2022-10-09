@@ -137,11 +137,11 @@ class ClienteController extends Controller
         $validator = validator($request->all(), [
             'f_nome' => 'required|max:250',
             'f_situacao' => 'required|numeric',
-            'f_fazendas' => 'required|numeric',
+            // 'f_fazendas' => 'required|numeric',
             'f_usuario' => 'required|max:250',
             'f_password' => 'required|confirmed|min:3|max:250',
             'f_password_confirmation' => 'required|min:3|max:250',
-            'f_data' => 'date_format:"d/m/Y"'
+            'f_data' => 'date_format:"d/m/Y"|nullable'
         ]);
 
         return $validator;

@@ -167,6 +167,11 @@
                                     <i class="dripicons-store"></i>@lang('gestor.nav_fazenda')
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.viveiros.index') }}">
+                                    <i class="dripicons-vibrate"></i>@lang('gestor.nav_viveiro')
+                                </a>
+                            </li>
                             @endif
                             <li style="height:100px;"></li>
                         </ul>

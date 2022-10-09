@@ -70,7 +70,7 @@
                             -
                             @endif
                         </td>
-                        <td class="align-middle">{{ $post->telefone }}</td>
+                        <td class="align-middle">{{ $post->telefone }}<br /><small>{{ $post->email }}</small></td>
                         <td class="align-middle">{{ $post->fazendas }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                         <td class="align-middle text-right">

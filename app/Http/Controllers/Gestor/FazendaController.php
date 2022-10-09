@@ -65,7 +65,9 @@ class FazendaController extends Controller
             $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
         }
 
-        return view('gestor.fazendas.edita', compact('fazenda', 'cliente', 'usuario'));
+        $planos = \App\Models\Plano::get();
+
+        return view('gestor.fazendas.edita', compact('fazenda', 'cliente', 'planos', 'usuario'));
     }
 
     /**
@@ -95,6 +97,7 @@ class FazendaController extends Controller
                             ->withInput();
         }
         $fazenda->cliente_id = $request->cliente_id;
+        $fazenda->plano_id = $request->f_plano;
         $fazenda->nome = $request->f_nome;
         $fazenda->email = $request->f_email;
         $fazenda->telefone = $request->f_telefone;
@@ -182,7 +185,7 @@ class FazendaController extends Controller
                             ->withErrors($validator)
                             ->withInput();
         }
-
+        $fazenda->plano_id = $request->f_plano;
         $fazenda->nome = $request->f_nome;
         $fazenda->email = $request->f_email;
         $fazenda->telefone = $request->f_telefone;

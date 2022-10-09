@@ -228,6 +228,20 @@
                 @endif
 
                 @if(!$fazenda->id)
+                <div class="form-row">
+                    <div class="form-group col-md">
+                        <label for="f_plano" class="form-control-label">* Escolha um Plano</label>
+                        <select name="f_plano" id="f_plano" required class="form-control selectpicker-custom" title="Escolha um Plano">
+                            <option value="" disabled>- Escolha um Plano</option>
+                            @foreach($planos as $plano)
+                            <option value="{{ $plano->id }}" {{ $plano->id == (old('f_plano') ? old('f_plano') : $cliente->categoria_id) ? ' selected' : '' }}>
+                            {{ $plano->nome }} / até {{ $plano->qtd_viveiros }} viveiro(s) / R$ {{ $plano->valor }} mensal</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-md"></div>
+                    <div class="form-group col-md"></div>
+                </div>
                 <div class="form-row p-2 d-flex">
                     <input type="checkbox" class="input checkbox mr-2 p-2 my-0" required name="termos" id="termos" value="1" />
                     <label for="termos" class="m-0">Concordo com os termos de cadastro em que cada fazendo gera uma liçença sendo assim cobrado um valor mensal por cada cadastrado.</label>

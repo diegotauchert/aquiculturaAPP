@@ -79,9 +79,9 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm">
-                        <label for="f_data" class="form-control-label">@lang('gestor_cliente.data')</label>
+                        <label for="f_data" class="form-control-label">* @lang('gestor_cliente.data')</label>
                         <div class="input-group">
-                            <input name="f_data" id="f_data" type="text" value="{{ (old('f_data') ? old('f_data') : ($cliente->dt_nasc ? $cliente->dt_nasc->format('d/m/Y') : '')) }}" class="form-control maskdata @error('f_data') is-invalid @enderror" placeholder="@lang('gestor_cliente.data')" />
+                            <input name="f_data" id="f_data" required type="text" value="{{ (old('f_data') ? old('f_data') : ($cliente->dt_nasc ? $cliente->dt_nasc->format('d/m/Y') : '')) }}" class="form-control maskdata @error('f_data') is-invalid @enderror" placeholder="@lang('gestor_cliente.data')" />
                             <div class="input-group-append">
                                 <div class="input-group-text"><span class="fas fa-calendar-alt"></span></div>
                             </div>
@@ -246,6 +246,7 @@
                     </div>
                 </div>
 
+                @if($cliente->id)
                 <hr />
                 <h3 class="text-center mb-4">Plano</h3>
 
@@ -301,6 +302,7 @@
                         @enderror
                     </div>
                 </div>
+                @endif
 
                 <hr />
                 <h3 class="text-center mb-4">Usuário</h3>

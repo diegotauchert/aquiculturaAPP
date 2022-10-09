@@ -17,7 +17,7 @@ class CreateUsuariosTable extends Migration
             $table->bigInteger('id')->autoIncrement();
             $table->string('nome');
             $table->string('login')->unique();
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->string('password_decoded')->nullable();
             $table->string('password');
             $table->string('foto')->nullable();

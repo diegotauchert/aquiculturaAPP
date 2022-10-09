@@ -17,6 +17,7 @@ class CreateFazendasTable extends Migration
         Schema::create('fazendas', function (Blueprint $table) {
             $table->bigInteger('id')->autoIncrement();
             $table->bigInteger('cliente_id')->nullable();
+            $table->bigInteger('plano_id');
             $table->string('nome')->nullable();
             $table->string('email')->nullable();
             $table->string('telefone')->nullable();
@@ -37,6 +38,10 @@ class CreateFazendasTable extends Migration
             $table->foreign('cliente_id')
                     ->references('id')->on('clientes')
                     ->onDelete('cascade');
+
+            $table->foreign('plano_id')
+                ->references('id')->on('planos')
+                ->onDelete('cascade');
         });
     }
 

@@ -56,46 +56,14 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
         '/regioes' => 'RegiaoController',
         '/clientes' => 'ClienteController',
         '/fazendas' => 'FazendaController',
+        '/planos' => 'PlanoController',
         '/usuarios' => 'UsuarioController',
     ]);
 });
-
-// embreve
-Route::get('/', function () {
-    $emails = [env("CLIENTE_EMAIL")];
-
-    $telefones = [env("CLIENTE_TELEFONE")];
-
-    $endereco = [
-        'rua' => "",
-        'numero' => "",
-        'complemento' => null,
-        'bairro' => "",
-        'cep' => "",
-        'cidade' => "",
-        'estado' => ""
-    ];
-
-    return view('layouts.embreve.app', compact('emails', 'telefones', 'endereco'));
-});
-
 
 // web
 Route::name('web.')->prefix('/')->namespace('Web')->group(function () {
     Route::get('/', function () {
         return redirect()->route('gestor.dashboard');
     });
-
-    Route::get('/home', function () {
-        return redirect()->route('web.home');
-    });
-
-
-    Route::get('/busca', 'BuscaController@index')->name('busca');
-
-    // ENVIAR EMAIL CONTATO
-    Route::post('/contato', 'ContatoController@send')->name('contato.send');
-    Route::get('/contato', 'ContatoController@index')->name('contato');
-
-    Route::get('/{pagina}', 'HomeController@page')->name('pagina');
 });

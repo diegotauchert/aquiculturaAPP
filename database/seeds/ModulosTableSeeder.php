@@ -78,6 +78,22 @@ class ModulosTableSeeder extends Seeder
 
         $modulo = [
             'modulo_id' => null,
+            'nome' => 'Planos',
+            'link' => 'gestor.planos',
+            'menu' => '2',
+            'situacao' => '1',
+            'exibe' => '1',
+        ];
+
+        $id = DB::table('modulos')->insertGetId([
+            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
+            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
+            'exibe' => $modulo['exibe'],
+        ]);
+        $this->subModulo($rules, $modulo, $id);
+
+        $modulo = [
+            'modulo_id' => null,
             'nome' => 'Clientes',
             'link' => 'gestor.clientes',
             'menu' => '2',

@@ -22,7 +22,7 @@ class CategoriaCliente extends Model
     protected $guarded = [
         'id', 'created_at', 'updated_at', 'deleted_at'
     ];
-    protected $softCascade = ['referencia', 'clientes', 'categorias'];
+    // protected $softCascade = ['referencia', 'categorias'];
 
     public function referencia()
     {

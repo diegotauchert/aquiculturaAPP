@@ -39,6 +39,16 @@ class Usuario extends Authenticatable
     ];
     protected $softCascade = ['permissoes'];
 
+    public function cliente()
+    {
+        return $this->belongsTo('App\Models\Cliente', 'cliente_id', 'id');
+    }
+
+    public function fazenda()
+    {
+        return $this->belongsTo('App\Models\Fazenda', 'fazenda_id', 'id');
+    }
+
     public function permissoes()
     {
         return $this->hasMany('App\Models\Permissao', 'usuario_id', 'id');

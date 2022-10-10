@@ -68,5 +68,8 @@ return [
     'nav_fazenda' => 'Fazendas',
     'nav_viveiro' => 'Viveiros',
     'nav_estoque' => 'Estoque',
+    'nav_producao' => 'Produção',
+    'nav_mensagem' => 'Mensagem',
+    'nav_financeiro' => 'Financeiro',
     'id' => 'ID',
 ];

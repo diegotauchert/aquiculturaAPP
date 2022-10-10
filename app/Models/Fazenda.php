@@ -36,4 +36,9 @@ class Fazenda extends Model
     {
         return $this->belongsTo('App\Models\Cliente', 'cliente_id', 'id');
     }
+
+    public function usuarios()
+    {
+        return $this->hasMany('App\Models\Usuario', 'fazenda_id', 'id');
+    }
 }

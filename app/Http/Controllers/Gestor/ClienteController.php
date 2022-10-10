@@ -117,7 +117,7 @@ class ClienteController extends Controller
             $data = Carbon::createFromFormat('d/m/Y', $request->f_data)->format('Y-m-d H:i:s');
             $cliente->dt_nasc = $data;
         }
-        // $cliente->categoria_id = $request->f_categoria;
+        $cliente->categoria_id = $request->f_categoria;
 
         $isSaved = $cliente->save();
 
@@ -211,6 +211,7 @@ class ClienteController extends Controller
         $cliente->plano = $request->f_plano;
         $cliente->fazendas = $request->f_fazendas;
         $cliente->valor = $request->f_valor;
+        $cliente->categoria_id = $request->f_categoria;
         
         $cliente->obs = $request->f_texto;
         $cliente->situacao = $request->f_situacao;

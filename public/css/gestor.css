@@ -68921,6 +68921,23 @@ hr.thick {
   margin-bottom: .5rem;
 }
 
+.users-fazenda .users-all {
+  max-height: 130px;
+  overflow: auto;
+}
+
+.users-fazenda .user-single {
+  border-bottom: 1px solid #EEE;
+  padding-bottom: .3rem;
+  margin-bottom: .3rem;
+}
+
+.users-fazenda .user-single:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
 .row {
   display: flex;
 }

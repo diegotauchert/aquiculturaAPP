@@ -123,20 +123,20 @@ class ModulosTableSeeder extends Seeder
         ]);
         $this->subModulo($rules, $modulo, $id);
 
-        $modulo = [
-            'modulo_id' => null,
-            'nome' => 'Menus',
-            'link' => 'gestor.menus',
-            'menu' => '2',
-            'situacao' => '1',
-            'exibe' => '1',
-        ];
-        $id = DB::table('modulos')->insertGetId([
-            'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
-            'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
-            'exibe' => $modulo['exibe'],
-        ]);
-        $this->subModulo($rules, $modulo, $id);
+        // $modulo = [
+        //     'modulo_id' => null,
+        //     'nome' => 'Menus',
+        //     'link' => 'gestor.menus',
+        //     'menu' => '2',
+        //     'situacao' => '1',
+        //     'exibe' => '1',
+        // ];
+        // $id = DB::table('modulos')->insertGetId([
+        //     'nome' => $modulo['nome'], 'link' => $modulo['link'] . '.index',
+        //     'menu' => $modulo['menu'], 'situacao' => $modulo['situacao'],
+        //     'exibe' => $modulo['exibe'],
+        // ]);
+        // $this->subModulo($rules, $modulo, $id);
 
         $modulo = [
             'modulo_id' => null,

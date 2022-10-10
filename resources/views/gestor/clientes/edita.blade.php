@@ -30,18 +30,18 @@
         <div class="card">
             <div class="card-header h5">@lang('gestor_cliente.informacoes')</div>
             <div class="card-body">
-                <!-- <div class="form-row">
+                <div class="form-row">
                     <div class="form-group col-md">
                         <label for="f_categoria" class="form-control-label">@lang('gestor_cliente.categoria')</label>
                         <select name="f_categoria" id="f_categoria" class="form-control selectpicker-custom" title="@lang('gestor_cliente.categoria')">
-                            <option value="">@lang('gestor_cliente.categoria')</option>
+                            <option value="" disabled>@lang('gestor_cliente.categoria')</option>
                             @foreach($s_categorias as $s_categoria)
                             <option value="{{ $s_categoria->id }}" {{ $s_categoria->id == (old('f_categoria') ? old('f_categoria') : $cliente->categoria_id) ? ' selected' : '' }}>
                                 {{ $s_categoria->nome }}</option>
                             @endforeach
                         </select>
                     </div>
-                </div> -->
+                </div>
                 <div class="form-row">
                     <div class="form-group col-md">
                         <label for="f_nome" class="form-control-label">* @lang('gestor_cliente.nome')</label>

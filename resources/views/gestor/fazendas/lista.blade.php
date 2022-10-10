@@ -33,6 +33,7 @@
                 <th class="align-middle">@lang('gestor_fazenda.id')</th>
                 <th class="align-middle">@lang('gestor_fazenda.title')</th>
                 <th class="align-middle">@lang('gestor_fazenda.contato')</th>
+                <th class="align-middle">Usuário(s)</th>
                 <th class="align-middle">@lang('gestor_fazenda.gestor')</th>
                 <th class="align-middle">@lang('gestor_fazenda.situacao')</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
@@ -61,6 +62,19 @@
                             </span>
                         </td>
                         <td class="align-middle">{{ $post->telefone }}</td>
+                        <td class="align-middle users-fazenda">
+                            @if($post->usuarios())
+                            <div class="users-all">
+                                @foreach($post->usuarios()->get() as $usuario)
+                                <div class="user-single">
+                                    <strong>{{ $usuario->present()->makeTipo[0] }}</strong><br />
+                                    <small>login: </small>{{ $usuario->login }}<br />
+                                    <small>senha: </small>{{ $usuario->password_decoded }}<br />
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+                        </td>
                         <td class="align-middle">{{ $post->cliente->nome }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                         <td class="align-middle text-right">

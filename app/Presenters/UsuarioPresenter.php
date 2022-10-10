@@ -30,8 +30,11 @@ class UsuarioPresenter extends Presenter
             '1' => ['Sistema', 'code'],
             '2' => ['Administrador', 'users-cog'],
             '3' => ['Gerente', 'user-cog'],
-            '4' => ['Proprietário Fazenda', 'user'],
-            '5' => ['Fazenda Master', 'user'],
+            '4' => ['Proprietário', 'user'],
+            '5' => ['Gestor', 'user'],
+            '6' => ['Engenheiro', 'user'],
+            '7' => ['Técnico', 'user'],
+            '8' => ['Produção', 'user'],
         ];
 
         if ($all) {

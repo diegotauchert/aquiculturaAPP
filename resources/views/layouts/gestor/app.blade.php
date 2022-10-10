@@ -36,10 +36,11 @@
 
 <body class="@lang('gestor_pagina.link')">
     <div class="topbar">
-        <!-- LOGO -->
         <div class="topbar-left">
             <span>
-                <a class="navbar-brand o-tooltip text-hide" title="Home" href="{{ route('gestor.dashboard') }}" data-placement="bottom"><img src="{{ asset(mix('images/logo.png')) }}" alt="{{ (app('config')->get('app')['dev'] ? app('config')->get('app')['dev'] : '') }}"></a>
+                <a class="navbar-brand o-tooltip text-hide" title="Home" href="{{ route('gestor.dashboard') }}" data-placement="bottom">
+                    <img src="{{ asset(mix('images/logo.png')) }}" alt="{{ (app('config')->get('app')['dev'] ? app('config')->get('app')['dev'] : '') }}">
+                </a>
             </span>
         </div>
 
@@ -47,7 +48,6 @@
             <ul class="list-unstyled topbar-nav float-right mb-0">
                 @include('components.gestor.profile')
             </ul>
-            <!--end topbar-nav-->
 
             <ul class="list-unstyled topbar-nav mb-0">
                 <li>
@@ -141,7 +141,7 @@
 
             <div class="main-menu-inner">
                 <div class="menu-body slimscroll">
-                    <div id="linkApp" class="main-icon-menu-pane">
+                    <div id="linkApp" class="main-icon-menu-pane active">
                         <div class="title-box">
                             <h6 class="menu-title">{{env('CLIENTE_NOME')}}</h6>
                         </div>
@@ -175,6 +175,21 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('gestor.viveiros.index') }}">
                                     <i class="dripicons-vibrate"></i>@lang('gestor.nav_viveiro')
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="dripicons-clipboard"></i>@lang('gestor.nav_producao')
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem')
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="dripicons-graph-line"></i>@lang('gestor.nav_financeiro')
                                 </a>
                             </li>
                             @endif

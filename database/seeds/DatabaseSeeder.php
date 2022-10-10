@@ -15,8 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ModulosTableSeeder::class,
             UsuariosTableSeeder::class,
-            ConfigTableSeeder::class,
-            MenuTableSeeder::class
+            ConfigTableSeeder::class
         ]);
     }
 }

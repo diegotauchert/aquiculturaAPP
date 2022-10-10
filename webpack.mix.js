@@ -26,21 +26,15 @@ mix.copy("resources/js/js/*", "public/js/js/");
 
 mix.sass("resources/sass/gestor.scss", "public/css");
 mix.sass("resources/sass/login.scss", "public/css");
-mix.sass("resources/sass/embreve.scss", "public/css");
-mix.sass("resources/sass/web.scss", "public/css");
 
 if (mix.inProduction()) {
-    mix.js("resources/js/embreve.js", "public/js");
     mix.js("resources/js/gestor.js", "public/js");
-    mix.js("resources/js/web.js", "public/js");
     mix.js("resources/js/dashboard.init.js", "public/js");
     mix.js("resources/js/app.js", "public/js");
 
     mix.version();
 } else {
     mix.js("resources/js/gestor.js", "public/js").sourceMaps();
-    mix.js("resources/js/embreve.js", "public/js").sourceMaps();
-    mix.js("resources/js/web.js", "public/js").sourceMaps();
     mix.js("resources/js/dashboard.init.js", "public/js").sourceMaps();
     mix.js("resources/js/app.js", "public/js").sourceMaps();
 }

@@ -168,6 +168,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.produtos.index') }}">
+                                    <i class="dripicons-experiment"></i>@lang('gestor.nav_estoque')
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('gestor.viveiros.index') }}">
                                     <i class="dripicons-vibrate"></i>@lang('gestor.nav_viveiro')
                                 </a>

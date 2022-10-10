@@ -1,13 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/dashboard.init.js": "/js/dashboard.init.js",
-    "/js/embreve.js": "/js/embreve.js",
     "/js/gestor.js": "/js/gestor.js",
     "/css/gestor.css": "/css/gestor.css",
     "/css/login.css": "/css/login.css",
-    "/css/embreve.css": "/css/embreve.css",
-    "/css/web.css": "/css/web.css",
-    "/js/web.js": "/js/web.js",
     "/icons/android-chrome-96x96.png": "/icons/android-chrome-96x96.png",
     "/icons/apple-touch-icon.png": "/icons/apple-touch-icon.png",
     "/icons/browserconfig.xml": "/icons/browserconfig.xml",

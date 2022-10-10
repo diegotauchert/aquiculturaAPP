@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -110,7 +110,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var apex
 
 /***/ }),
 
-/***/ 3:
+/***/ 1:
 /*!**********************************************!*\
   !*** multi ./resources/js/dashboard.init.js ***!
   \**********************************************/

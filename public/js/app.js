@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -97,7 +97,7 @@ eval("function initSlimscroll() {\n  $(\".slimscroll\").slimscroll({\n    height
 
 /***/ }),
 
-/***/ 4:
+/***/ 2:
 /*!***********************************!*\
   !*** multi ./resources/js/app.js ***!
   \***********************************/

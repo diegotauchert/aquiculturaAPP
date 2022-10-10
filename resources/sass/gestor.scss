@@ -94,6 +94,31 @@
 .invalid-feedback {
     display: block;
 }
+.batch{
+    border:1px solid #555;
+    border-radius:5px;
+    padding: .7rem;
+    margin-bottom: .5rem;
+}
+.row{
+    display: flex;
+}
+.cell{
+    padding: .7rem;
+    border:1px solid #888;
+    border-radius:5px;
+    margin: .4rem;
+    text-align: center;
+    flex: 1;
+
+    span{
+        display: block;
+        font-size: 12px;
+    }
+    strong{
+        font-size: 18px;
+    }
+}
 
 .dashboard {
     &.card-columns {

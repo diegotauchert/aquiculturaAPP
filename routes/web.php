@@ -58,6 +58,8 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
         '/fazendas' => 'FazendaController',
         '/planos' => 'PlanoController',
         '/viveiros' => 'ViveiroController',
+        '/produtos' => 'ProdutoController',
+        '/lotes' => 'LoteController',
         '/usuarios' => 'UsuarioController',
     ]);
 });

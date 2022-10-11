@@ -46,6 +46,9 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::post('/clientes-anexos-upload/{cliente}/{tipo}', 'ClienteAnexoController@upload');
     Route::post('/clientes-anexos-delete/{anexo}', 'ClienteAnexoController@delete');
 
+    Route::get('/fazendas/usuario/{id}', 'FazendaController@usuario')->name('fazendas.usuario');
+    Route::post('/fazendas/usuario', 'FazendaController@saveUsuario')->name('fazendas.usuario.save');
+
     Route::resources([
         '/categorias-clientes' => 'CategoriaClienteController',
         '/cidades' => 'CidadeController',

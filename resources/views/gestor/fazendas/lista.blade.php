@@ -24,6 +24,7 @@
         </div>
     </form>
 </div>
+
 @if(count($fazendas) > 0)
 <div class="table-responsive pt-2">
     <div class="card">
@@ -83,6 +84,7 @@
                                 @csrf
 
                                 <div class="btn-group">
+                                    <a href="{{ route('gestor.fazendas.usuario', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="Usuários"><span class="fas fa-user"></span> Usuários</a>
                                     <a href="{{ route('gestor.fazendas.edit', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
                                     <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button>
                                 </div>

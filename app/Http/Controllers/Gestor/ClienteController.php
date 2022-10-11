@@ -74,7 +74,7 @@ class ClienteController extends Controller
             return redirect()->route('gestor.clientes.create')
                             ->with('alert', [
                                 'type' => 'danger',
-                                'message' => 'O Usuário já existe no sistema'
+                                'message' => 'O Usuário já existe no sistema. Tente com outro login'
                             ]);
         }
 

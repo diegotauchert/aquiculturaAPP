@@ -19,6 +19,7 @@
         </h1>
     </div>
 </div>
+
 <form method="POST" action="{{ ($produto->id ? route('gestor.produtos.update', $produto->id) : route('gestor.produtos.store')) }}">
     @if($produto->id)
     @method('PUT')
@@ -29,7 +30,7 @@
     <div class="py-2">
         <div class="card">
             <input name="cliente_id" id="cliente_id" type="hidden" value="{{ $cliente->id }}" />
-            <div class="card-header h5">@lang('gestor_produto.informacoes')</div>
+            <div class="card-header h5">@lang('gestor_produto.informacoes') {{$produto->nome}}</div>
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md">
@@ -126,22 +127,9 @@
 
                 <div class="form-row">
                     <div class="form-group col-sm">
-                        <label for="f_tipo" class="form-control-label">@lang('gestor_produto.tipo')</label>
-                        <input name="f_tipo" id="f_tipo" type="text"
-                            value="{{ (old('f_tipo') ? old('f_tipo') : $produto->tipo) }}"
-                            class="form-control" maxlength="250" placeholder="@lang('gestor_produto.tipo')">
-
-                        @error('f_tipo')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group col-sm">
-                        <label for="f_categoria" class="form-control-label">@lang('gestor_produto.categoria')</label>
-                        <select name="f_categoria" id="f_categoria" class="form-control selectpicker-custom" title="@lang('gestor_produto.categoria')">
-                            <option value="">@lang('gestor_produto.situacao')</option>
+                        <label for="f_categoria" class="form-control-label">* @lang('gestor_produto.categoria')</label>
+                        <select name="f_categoria" id="f_categoria" class="form-control selectpicker-custom" title="@lang('gestor_produto.categoria')" required>
+                            <option value="" disabled>@lang('gestor_produto.situacao')</option>
                             @foreach($produto->present()->makeCategoriaAll as $sit_k => $sit_v)
                             <option value="{{ $sit_k }}" data-icon="fa-{{ $sit_v[1] }}" {{ $sit_k == (old('f_categoria') ? old('f_categoria') : $produto->categoria_id) ? ' selected' : ($sit_k == '1' ? ' selected' : '') }}>
                                 {{ $sit_v[0] }}
@@ -156,6 +144,19 @@
                         @enderror
                     </div>
                     
+                    <div class="form-group col-sm">
+                        <label for="f_tipo" class="form-control-label">@lang('gestor_produto.tipo')</label>
+                        <input name="f_tipo" id="f_tipo" type="text"
+                            value="{{ (old('f_tipo') ? old('f_tipo') : $produto->tipo) }}"
+                            class="form-control" maxlength="250" placeholder="@lang('gestor_produto.tipo')">
+
+                        @error('f_tipo')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
                     <div class="form-group col-sm">
                         <label for="f_validade" class="form-control-label">@lang('gestor_produto.validade')</label>
                         <div class="input-group">
@@ -186,7 +187,7 @@
                     </div>
                 </div>
 
-                @if($lotes)
+                @if(isset($lotes))
                 @foreach($lotes as $key => $lote)
                 <div class="batch">
                     <h5 class="d-inline m-0">Lote {{$key+1}}</h5>
@@ -252,6 +253,10 @@
             @lang('gestor.save')</button>
         <a class="btn btn-lg btn-outline-primary" href="{{ URL::previous() }}"><span class="fas fa-times"></span>
             @lang('gestor.cancel')</a>
+
+        @if($produto && $produto->id)
+        <a href="{{ route('gestor.lotes.create', ['id' => $produto->id]) }}" class="btn btn-secondary btn-lg ml-auto float-right" data-toggle="tooltip" title="Novo Lote"><span class="fas fa-plus"></span> Novo Lote</a>
+        @endif
     </div>
 </form>
 @endsection

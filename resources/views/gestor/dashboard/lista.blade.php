@@ -15,10 +15,58 @@
                 </ol>
             </div>
             <h4 class="page-title">Dashboard</h4>
-        </div><!--end page-title-box-->
-    </div><!--end col-->
+        </div>
+    </div>
 </div>
 
+@if(auth('gestor')->user()->tipo >= 5)
+<div class="row main-menu">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body d-flex gap-2">
+                <div class="item">
+                    <a href="{{ route('gestor.produtos.index') }}" title="Clique para acessar">
+                        <i class="fa-solid fa-box"></i>
+                        <span>Produtos</span>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#" title="Clique para acessar">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Mensagens</span>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#" title="Clique para acessar">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <span>Vendas</span>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#" title="Clique para acessar">
+                        <i class="fa-solid fa-fish"></i>
+                        <span>Viveiro</span>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#" title="Clique para acessar">
+                        <i class="fa-sharp fa-solid fa-seedling"></i>
+                        <span>Cultivo</span>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#" title="Clique para acessar">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Cadastro</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+@if(auth('gestor')->user()->tipo <= 4)
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -72,7 +120,9 @@
                 </div>
 
             </div>  <!--end card-body-->
-        </div><!--end card-->
+        </div>
     </div>
-</div><!--end row-->
+</div>
+@endif
+
 @endsection

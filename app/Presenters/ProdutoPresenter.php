@@ -41,7 +41,7 @@ class ProdutoPresenter extends Presenter
         if ($all) {
             return $arr;
         } else {
-            return $arr[$this->situacao];
+            return $arr[$this->categoria_id];
         }
     }
 

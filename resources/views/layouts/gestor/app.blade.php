@@ -193,6 +193,30 @@
                                 </a>
                             </li>
                             @endif
+
+                            <!-- TIPO USUARIO GESTOR -->
+                            @if(auth('gestor')->user()->tipo == 5)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.produtos.index') }}">
+                                    <i class="dripicons-experiment"></i>@lang('gestor.nav_estoque')
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.viveiros.index') }}">
+                                    <i class="dripicons-vibrate"></i>@lang('gestor.nav_viveiro')
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="dripicons-clipboard"></i> Cultivo
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem')
+                                </a>
+                            </li>
+                            @endif
                             <li style="height:100px;"></li>
                         </ul>
                     </div>

@@ -76,7 +76,7 @@ class UserEventSubscriber
         $session = session_id();
         $info = $_SERVER['HTTP_USER_AGENT'];
 
-        if ($event->guard == 'gestor') {
+        if ($event->guard == 'gestor' && auth()->guard('gestor')->user()) {
             auth()->guard('gestor')->user()->registerLogs(
                     null,
                     $ip,
@@ -96,7 +96,7 @@ class UserEventSubscriber
         $session = session_id();
         $info = $_SERVER['HTTP_USER_AGENT'];
 
-        if ($event->guard == 'gestor') {
+        if ($event->guard == 'gestor' && auth()->guard('gestor')->user()) {
             auth()->guard('gestor')->user()->registerLogs(
                     null,
                     $ip,

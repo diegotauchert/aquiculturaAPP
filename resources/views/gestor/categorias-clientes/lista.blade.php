@@ -6,8 +6,9 @@
 <div class="row">
     <div class="col-sm my-auto py-2">
         <h1>
+            <a href="/" title="Voltar para o Início" style="font-size:15px;"><i class="fa-solid fa-house"></i></a> <small>\</small> 
             @lang('gestor_categoria_cliente.titulo')
-            <small class="text-secondary d-block d-md-inline-block">\ @lang('gestor.listagem')</small>
+            <small class="text-secondary">\ @lang('gestor.listagem')</small>
         </h1>
     </div>
     @permissao('gestor', 'gestor.categorias-clientes.create')

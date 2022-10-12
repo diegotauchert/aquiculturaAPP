@@ -29,23 +29,36 @@ class ProdutoController extends Controller
     public function index(Request $request)
     {
         $f_p = $request->f_p;
+        $f_categoria = $request->f_categoria;
 
         if ($f_p) {
             $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)
                     ->where('nome', 'like', '%' . $f_p . '%')
-                    ->orWhere('nome', 'like', '%' . $f_p . '%')
+                    ->orWhere('tipo', 'like', '%' . $f_p . '%')
+                    ->orWhere('vl_total', 'like', '%' . $f_p . '%')
+                    ->orWhere('vl_unitario', 'like', '%' . $f_p . '%')
+                    ->orWhere('quantidade', 'like', '%' . $f_p . '%')
+                    ->orWhere('minimo', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
                     ->paginate(15);
         } else {
             $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(15);
         }
 
+        if($f_categoria){
+            $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)
+                    ->where('categoria_id', $f_categoria)
+                    ->orderBy('id', 'desc')
+                    ->paginate(15);
+        }
+
         $cliente = null;
         if(auth('gestor')->user()->cliente_id){
             $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
         }
+        $produto = new \App\Models\Produto;
 
-        return view('gestor.produtos.lista', compact('produtos', 'cliente', 'f_p'));
+        return view('gestor.produtos.lista', compact('produto', 'produtos', 'cliente', 'f_p', 'f_categoria'));
     }
 
     /**

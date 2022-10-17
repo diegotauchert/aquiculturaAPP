@@ -216,6 +216,13 @@
                                     <i class="dripicons-clipboard"></i> Cultivo
                                 </a>
                             </li>
+                            @if(auth('gestor')->user()->fazenda_id)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.vendas.index') }}">
+                                    <i class="dripicons-basket"></i> Vendas
+                                </a>
+                            </li>
+                            @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('gestor.mensagens.index') }}">
                                     <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Enviadas

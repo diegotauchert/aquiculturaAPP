@@ -47,6 +47,7 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::post('/clientes-anexos-delete/{anexo}', 'ClienteAnexoController@delete');
 
     Route::post('/mensagens-anexos-upload/{mensagem}', 'MensagemController@upload');
+    Route::post('/vendas-anexos-upload/{venda}', 'VendaController@upload');
 
     Route::get('/fazendas/usuario/{id}', 'FazendaController@usuario')->name('fazendas.usuario');
     Route::post('/fazendas/usuario', 'FazendaController@saveUsuario')->name('fazendas.usuario.save');
@@ -71,6 +72,7 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
         '/mensagens' => 'MensagemController',
         '/usuarios' => 'UsuarioController',
         '/cultivos' => 'CultivoController',
+        '/vendas' => 'VendaController',
     ]);
 });
 

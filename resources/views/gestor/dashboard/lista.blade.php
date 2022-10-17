@@ -36,12 +36,14 @@
                         <span>Mensagens</span>
                     </a>
                 </div>
+                @if(auth('gestor')->user()->fazenda_id)
                 <div class="item">
-                    <a href="#" title="Clique para acessar">
+                    <a href="{{ route('gestor.vendas.index') }}" title="Clique para acessar">
                         <i class="fa-solid fa-cart-plus"></i>
                         <span>Vendas</span>
                     </a>
                 </div>
+                @endif
                 <div class="item">
                     <a href="{{ route('gestor.viveiros.index') }}" title="Clique para acessar">
                         <i class="fa-solid fa-fish"></i>

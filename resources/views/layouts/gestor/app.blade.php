@@ -234,6 +234,36 @@
                                 </a>
                             </li>
                             @endif
+
+                            <!-- TIPO USUARIO ENGENHEIRO OU TECNICO -->
+                            @if(auth('gestor')->user()->tipo == 6 || auth('gestor')->user()->tipo == 7)
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.viveiros.index') }}">
+                                    <i class="dripicons-vibrate"></i>@lang('gestor.nav_viveiro')
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.cultivos.index') }}">
+                                    <i class="dripicons-clipboard"></i> Cultivo
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.producao.index') }}">
+                                    <i class="dripicons-broadcast"></i> Produção
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.mensagens.index') }}">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Enviadas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.mensagens.recebida') }}">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Recebidas
+                                </a>
+                            </li>
+                            @endif
                             <li style="height:100px;"></li>
                         </ul>
                     </div>

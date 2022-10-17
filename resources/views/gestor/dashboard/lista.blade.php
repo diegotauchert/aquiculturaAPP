@@ -19,7 +19,7 @@
     </div>
 </div>
 
-@if(auth('gestor')->user()->tipo >= 5)
+@if(auth('gestor')->user()->tipo == 5)
 <div class="row main-menu">
     <div class="col-lg-12">
         <div class="card">
@@ -60,6 +60,41 @@
                     <a href="{{route('gestor.editar-perfil')}}" title="Clique para acessar">
                         <i class="fa-solid fa-user-plus"></i>
                         <span>Cadastro</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+@if(auth('gestor')->user()->tipo == 6 || auth('gestor')->user()->tipo == 7)
+<div class="row main-menu">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body d-flex gap-2">
+                <div class="item">
+                    <a href="{{ route('gestor.mensagens.index') }}" title="Clique para acessar">
+                        <i class="fa-solid fa-message"></i>
+                        <span>Mensagens</span>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="{{ route('gestor.viveiros.index') }}" title="Clique para acessar">
+                        <i class="fa-solid fa-fish"></i>
+                        <span>Viveiro</span>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="{{ route('gestor.cultivos.index') }}" title="Clique para acessar">
+                        <i class="fa-sharp fa-solid fa-seedling"></i>
+                        <span>Cultivo</span>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="{{route('gestor.producao.index')}}" title="Clique para acessar">
+                        <i class="fa-solid fa-industry"></i>
+                        <span>Produção</span>
                     </a>
                 </div>
             </div>

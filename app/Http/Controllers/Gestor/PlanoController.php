@@ -28,15 +28,17 @@ class PlanoController extends Controller
      */
     public function index(Request $request)
     {
-        $f_p = $request->f_p;
+        if(auth('gestor')->user()->tipo <= 4){
+            $f_p = $request->f_p;
 
-        if ($f_p) {
-            $planos = \App\Models\Plano::where('nome', 'like', '%' . $f_p . '%')
-                    ->orWhere('nome', 'like', '%' . $f_p . '%')
-                    ->orderBy('id', 'desc')
-                    ->paginate(15);
-        } else {
-            $planos = \App\Models\Plano::orderBy('id', 'desc')->paginate(15);
+            if ($f_p) {
+                $planos = \App\Models\Plano::where('nome', 'like', '%' . $f_p . '%')
+                        ->orWhere('nome', 'like', '%' . $f_p . '%')
+                        ->orderBy('id', 'desc')
+                        ->paginate(15);
+            } else {
+                $planos = \App\Models\Plano::orderBy('id', 'desc')->paginate(15);
+            }
         }
 
         return view('gestor.planos.lista', compact('planos', 'f_p'));
@@ -49,7 +51,9 @@ class PlanoController extends Controller
      */
     public function create()
     {
-        $plano = new \App\Models\Plano;
+        if(auth('gestor')->user()->tipo <= 4){
+            $plano = new \App\Models\Plano;
+        }
 
         return view('gestor.planos.edita', compact('plano'));
     }
@@ -117,7 +121,9 @@ class PlanoController extends Controller
      */
     public function edit($id)
     {
-        $plano = \App\Models\Plano::findOrFail($id);
+        if(auth('gestor')->user()->tipo <= 4){
+            $plano = \App\Models\Plano::findOrFail($id);
+        }
 
         return view('gestor.planos.edita', compact('plano'));
     }

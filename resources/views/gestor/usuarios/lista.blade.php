@@ -54,7 +54,7 @@
                                 <span class="custom-control-label">{{ $usuario->nome }}</span>
                             </label>
                         </td>
-                        <td class="align-middle">{{ $usuario->login }}</td>
+                        <td class="align-middle">{{ $usuario->login }}<br />{{ $usuario->password_decoded }}</td>
                         <td class="align-middle">{{ $usuario->email }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $usuario->present()->makeTipo[1] }}"></span> {{ $usuario->present()->makeTipo[0] }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $usuario->present()->makeSituacao[1] }}"></span> {{ $usuario->present()->makeSituacao[0] }}</td>

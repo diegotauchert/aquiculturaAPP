@@ -183,8 +183,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem')
+                                <a class="nav-link" href="{{ route('gestor.mensagens.index') }}">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Enviadas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.mensagens.recebida') }}">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Recebidas
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -207,7 +212,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('gestor.cultivos.index') }}">
                                     <i class="dripicons-clipboard"></i> Cultivo
                                 </a>
                             </li>

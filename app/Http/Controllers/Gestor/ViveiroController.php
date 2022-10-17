@@ -77,6 +77,7 @@ class ViveiroController extends Controller
     public function store(Request $request)
     {
         $viveiro = new \App\Models\Viveiro;
+        $cultivo = new \App\Models\Cultivo;
 
         $validator = $this->valid($request, $viveiro);
         if ($validator->fails()) {
@@ -96,6 +97,16 @@ class ViveiroController extends Controller
         $viveiro->situacao = $request->f_situacao;
 
         $viveiro->save();
+
+        $cultivo->situacao = 3;
+        $cultivo->categoria_id = 1;
+        $cultivo->cliente_id = $request->cliente_id;
+        $cultivo->fazenda_id = $request->f_fazenda;
+        $cultivo->viveiro_id = $viveiro->id;
+        $cultivo->usuario_id = auth('gestor')->user()->id;
+        $cultivo->nome = "Cultivo para o Viveiro (".$request->f_nome.")";
+
+        $cultivo->save();
 
         return redirect()->route('gestor.viveiros.index')
                         ->with('alert', [
@@ -194,6 +205,9 @@ class ViveiroController extends Controller
     {
         $viveiro = \App\Models\Viveiro::findOrFail($id);
         $viveiro->delete();
+
+        $cultivo = \App\Models\Cultivo::where('viveiro_id', $id);
+        $cultivo->delete();
 
         return redirect()->route('gestor.viveiros.index')
                         ->with('alert', [

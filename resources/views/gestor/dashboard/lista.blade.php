@@ -43,19 +43,19 @@
                     </a>
                 </div>
                 <div class="item">
-                    <a href="#" title="Clique para acessar">
+                    <a href="{{ route('gestor.viveiros.index') }}" title="Clique para acessar">
                         <i class="fa-solid fa-fish"></i>
                         <span>Viveiro</span>
                     </a>
                 </div>
                 <div class="item">
-                    <a href="#" title="Clique para acessar">
+                    <a href="{{ route('gestor.cultivos.index') }}" title="Clique para acessar">
                         <i class="fa-sharp fa-solid fa-seedling"></i>
                         <span>Cultivo</span>
                     </a>
                 </div>
                 <div class="item">
-                    <a href="#" title="Clique para acessar">
+                    <a href="{{route('gestor.editar-perfil')}}" title="Clique para acessar">
                         <i class="fa-solid fa-user-plus"></i>
                         <span>Cadastro</span>
                     </a>

@@ -67,7 +67,9 @@ class LoteController extends Controller
             $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
         }
 
-        return view('gestor.produtos.lote', compact('lote', 'produto', 'cliente', 'fazendas'));
+        $lotes = \App\Models\Lote::where('produto_id',$request->id)->get();
+
+        return view('gestor.produtos.lote', compact('lote', 'produto', 'cliente', 'fazendas', 'lotes'));
     }
 
     /**

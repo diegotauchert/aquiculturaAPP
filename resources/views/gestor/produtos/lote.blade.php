@@ -157,6 +157,9 @@
                         @enderror
                     </div>
                 </div>
+                @if(isset($lotes))
+                @include('gestor.produtos.addlote')
+                @endif
             </div>
         </div>
     </div>

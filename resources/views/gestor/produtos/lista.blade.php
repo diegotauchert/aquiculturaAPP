@@ -67,9 +67,9 @@
                         <td class="align-middle">{{ $post->fazenda->nome }}</td>
                         <td class="align-middle">
                             <p>
-                                <small>Qtd Atual: <strong>{{ $post->quantidade }}</strong></small><br />
-                                <small>Mínimo: <strong>{{ $post->minimo }}</strong></small><br />
-                                <small>Valor Total: <strong>{{ $post->vl_total }}</strong></small><br />
+                                @if($post->quantidade)<small>Qtd Atual: <strong>{{ $post->quantidade }}</strong></small><br />@endif
+                                @if($post->minimo)<small>Mínimo: <strong>{{ $post->minimo }}</strong></small><br />@endif
+                                @if($post->vl_total)<small>Valor Total: <strong>{{ $post->vl_total }}</strong></small><br />@endif
                             </p>
                         </td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>

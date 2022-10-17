@@ -46,8 +46,13 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::post('/clientes-anexos-upload/{cliente}/{tipo}', 'ClienteAnexoController@upload');
     Route::post('/clientes-anexos-delete/{anexo}', 'ClienteAnexoController@delete');
 
+    Route::post('/mensagens-anexos-upload/{mensagem}', 'MensagemController@upload');
+
     Route::get('/fazendas/usuario/{id}', 'FazendaController@usuario')->name('fazendas.usuario');
     Route::post('/fazendas/usuario', 'FazendaController@saveUsuario')->name('fazendas.usuario.save');
+
+    Route::get('/mensagens/recebidas', 'MensagemController@recebidas')->name('mensagens.recebida');
+    Route::get('/mensagens/{id}/ver', 'MensagemController@edit')->name('mensagens.see');
 
     Route::resources([
         '/categorias-clientes' => 'CategoriaClienteController',
@@ -63,6 +68,7 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
         '/viveiros' => 'ViveiroController',
         '/produtos' => 'ProdutoController',
         '/lotes' => 'LoteController',
+        '/mensagens' => 'MensagemController',
         '/usuarios' => 'UsuarioController',
     ]);
 });

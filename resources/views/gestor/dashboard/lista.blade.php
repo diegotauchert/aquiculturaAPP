@@ -31,7 +31,7 @@
                     </a>
                 </div>
                 <div class="item">
-                    <a href="#" title="Clique para acessar">
+                    <a href="{{ route('gestor.mensagens.index') }}" title="Clique para acessar">
                         <i class="fa-solid fa-message"></i>
                         <span>Mensagens</span>
                     </a>

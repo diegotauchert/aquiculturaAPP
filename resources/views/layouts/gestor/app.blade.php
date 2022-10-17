@@ -212,8 +212,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem')
+                                <a class="nav-link" href="{{ route('gestor.mensagens.index') }}">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Enviadas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.mensagens.recebida') }}">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Recebidas
                                 </a>
                             </li>
                             @endif

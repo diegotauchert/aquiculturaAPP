@@ -50,7 +50,7 @@
         "tinymce-iconfonts": "^1.0.1",
         "url-slug-match": "^1.0.2"
     },
-    "name": "aju_fest",
+    "name": "aquicultura",
     "description": "## Instalação das dependências",
     "version": "1.0.0",
     "main": "webpack.mix.js",

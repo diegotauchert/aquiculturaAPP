@@ -497,6 +497,9 @@ function extraMasks(b) {
     $(".maskhora", b).mask("00:00:00", {
         placeholder: "__:__:__"
     });
+    $(".maskhorario", b).mask("00:00", {
+        placeholder: "__:__"
+    });
     $(".maskdatahora", b).mask("00/00/0000 00:00:00");
     $(".maskcep", b).mask("00000-000", {
         placeholder: "_____-___"

@@ -36,7 +36,7 @@ class UsuariosTableSeeder extends Seeder
 
         $id = DB::table('usuarios')->insertGetId([
             'nome' => 'Fabtech Admin',
-            'login' => 'root@admin',
+            'login' => 'coricori90',
             'email' => 'fabiocoriolano@fabtechinfo.com.br',
             'password' => password_hash('vagalume', PASSWORD_DEFAULT),
             //            'senha' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',

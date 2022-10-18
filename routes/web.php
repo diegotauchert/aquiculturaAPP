@@ -55,6 +55,9 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::get('/mensagens/recebidas', 'MensagemController@recebidas')->name('mensagens.recebida');
     Route::get('/mensagens/{id}/ver', 'MensagemController@edit')->name('mensagens.see');
 
+    Route::get('/producao/{id}/viveiro', 'ProducaoController@categoria')->name('producao.categoria');
+    Route::get('/producao/{id}/viveiro/{categoria}/categoria', 'ProducaoController@save')->name('producao.save');
+
     Route::resources([
         '/categorias-clientes' => 'CategoriaClienteController',
         '/cidades' => 'CidadeController',

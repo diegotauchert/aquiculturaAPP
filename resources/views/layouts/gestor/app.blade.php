@@ -193,7 +193,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('gestor.vendas.index') }}">
                                     <i class="dripicons-graph-line"></i>@lang('gestor.nav_financeiro')
                                 </a>
                             </li>

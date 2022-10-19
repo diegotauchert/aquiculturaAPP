@@ -14,8 +14,8 @@ class VendaPresenter extends Presenter
     public function makeSituacao($all = false)
     {
         $arr = [
-            '1' => ['Aberta', 'check', 'success'],
-            '2' => ['Finalizada', 'times', 'danger']
+            '1' => ['Aberta', 'times', 'danger'],
+            '2' => ['Finalizada', 'check', 'success']
         ];
 
         if ($all) {

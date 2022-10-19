@@ -35,6 +35,7 @@
                 <th class="align-middle">Cliente</th>
                 <th class="align-middle">Viveiro</th>
                 <th class="align-middle">Detalhes</th>
+                <th class="align-middle">Quantidades</th>
                 <th class="align-middle">Vendedor</th>
                 <th class="align-middle">@lang('gestor_venda.situacao')</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
@@ -61,6 +62,22 @@
                                 @if($post->tipo)<small>Tipo: <strong>{{ $post->tipo }}</strong></small><br />@endif
                                 @if($post->data)<small>Data: <strong>{{ Carbon\Carbon::parse($post->data)->format('d/m/Y') }}</strong></small><br />@endif
                             </p>
+                        </td>
+                        <td class="align-middle">
+                            @if($post->vl_peixe)
+                            <p style="line-height: 14px;border: 1px solid #DDD;border-radius: 4px;padding: 7px 9px; margin-bottom:.5rem;">
+                                @if($post->vl_peixe)<small><strong>Peixe: R$ {{ $post->vl_peixe }}</strong></small><br />@endif
+                                @if($post->qtd_peixe)<small>Qtd: <strong>{{ $post->qtd_peixe }}</strong></small><br />@endif
+                                @if($post->gramatura_peixe)<small>Gramatura: <strong>{{ $post->gramatura_peixe }}</strong></small><br />@endif
+                            </p>
+                            @endif
+                            @if($post->vl_camarao)
+                            <p style="line-height: 14px;border: 1px solid #DDD;border-radius: 4px;padding: 7px 9px;">
+                                @if($post->vl_camarao)<small><strong>Camarão: R$ {{ $post->vl_camarao }}</strong></small><br />@endif
+                                @if($post->qtd_camarao)<small>Qtd: <strong>{{ $post->qtd_camarao }}</strong></small><br />@endif
+                                @if($post->gramatura_camarao)<small>Gramatura: <strong>{{ $post->gramatura_camarao }}</strong></small><br />@endif
+                            </p>
+                            @endif
                         </td>
                         <td class="align-middle">{{ $post->usuario->nome }}</td>
                         <td class="align-middle text-{{ $post->present()->makeSituacao[2] }}"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>

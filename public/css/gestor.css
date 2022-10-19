@@ -68871,6 +68871,15 @@ hr.thick {
 }
 
 @media (max-width: 767.98px) {
+  .cookie-consent button {
+    font-size: 12px !important;
+    font-weight: normal !important;
+  }
+
+  .cookie-consent__message {
+    font-size: 11px !important;
+  }
+
   .navbar-brand img {
     max-height: 20px;
     margin-top: 1.3rem;
@@ -69431,5 +69440,43 @@ html body .form-signin .form-control:focus {
 h1 {
   font-size: 22px !important;
   line-height: normal !important;
+}
+
+button:disabled {
+  background-color: #AAA !important;
+  border-color: #CCC !important;
+}
+
+button:disabled span {
+  color: #FFF !important;
+}
+
+button:disabled:hover {
+  background-color: #AAA !important;
+  border-color: #CCC !important;
+}
+
+.arracoamento.disabled input,
+.arracoamento.disabled label {
+  color: #999 !important;
+}
+
+.arracoamento.registered {
+  padding: 1rem 1rem 0 1rem;
+  background-color: #d4f9d0;
+  margin-bottom: .6rem;
+}
+
+.arracoamento.registered * {
+  color: #349f29 !important;
+}
+
+.arracoamento.registered input:-moz-read-only {
+  background-color: #FFF !important;
+}
+
+.arracoamento.registered input:disabled,
+.arracoamento.registered input:read-only {
+  background-color: #FFF !important;
 }
 

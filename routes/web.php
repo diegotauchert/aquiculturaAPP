@@ -58,6 +58,8 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::get('/producao/{id}/viveiro', 'ProducaoController@categoria')->name('producao.categoria');
     Route::get('/producao/{id}/viveiro/{categoria}/categoria', 'ProducaoController@save')->name('producao.save');
 
+    Route::get('/acompanhamento/create/producao/{id}/viveiro/{viveiro}', 'AcompanhamentoController@create')->name('acompanhamento.save');
+
     Route::resources([
         '/categorias-clientes' => 'CategoriaClienteController',
         '/cidades' => 'CidadeController',
@@ -77,6 +79,7 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
         '/cultivos' => 'CultivoController',
         '/vendas' => 'VendaController',
         '/producao' => 'ProducaoController',
+        '/acompanhamento' => 'AcompanhamentoController',
     ]);
 });
 

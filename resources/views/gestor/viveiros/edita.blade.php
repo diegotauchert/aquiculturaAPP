@@ -42,18 +42,20 @@
                         @enderror
                     </div>
 
-                    @if($fazendas)
-                    <div class="form-group col-md">
-                        <label for="f_fazenda" class="form-control-label">* Escolha uma Fazenda</label>
-                        <select name="f_fazenda" id="f_fazenda" required class="form-control selectpicker-custom" title="Escolha um Plano">
-                            <option value="" disabled>- Escolha um Plano</option>
-                            @foreach($fazendas as $fazenda)
-                            <option value="{{ $fazenda->id }}" {{ $fazenda->id == (old('f_fazenda') ? old('f_fazenda') : $fazenda->id) ? ' selected' : '' }}>
-                                {{ $fazenda->nome }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @if(auth('gestor')->user()->fazenda_id)
+                        <input type="hidden" value="{{auth('gestor')->user()->fazenda_id}}" name="f_fazenda" />
+                    @elseif($fazendas)
+                        <div class="form-group col-md">
+                            <label for="f_fazenda" class="form-control-label">* Escolha uma Fazenda</label>
+                            <select name="f_fazenda" id="f_fazenda" required class="form-control selectpicker-custom" title="Escolha um Plano">
+                                <option value="" disabled>- Escolha um Plano</option>
+                                @foreach($fazendas as $fazenda)
+                                <option value="{{ $fazenda->id }}" {{ $fazenda->id == (old('f_fazenda') ? old('f_fazenda') : $fazenda->id) ? ' selected' : '' }}>
+                                    {{ $fazenda->nome }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
                     @endif
 
                     <div class="form-group col-md-auto">

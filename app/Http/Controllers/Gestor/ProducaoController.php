@@ -75,16 +75,9 @@ class ProducaoController extends Controller
      */
     public function create()
     {
-        $produto = new \App\Models\Producao;
+        $producao = new \App\Models\Producao;
 
-        $fazendas = \App\Models\Fazenda::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
-
-        $cliente = null;
-        if(auth('gestor')->user()->cliente_id){
-            $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
-        }
-
-        return view('gestor.producao.edita', compact('produto', 'cliente', 'fazendas'));
+        return view('gestor.producao.edita', compact('producao'));
     }
 
     /**
@@ -184,16 +177,9 @@ class ProducaoController extends Controller
      */
     public function edit($id)
     {
-        $produto = \App\Models\Producao::findOrFail($id);
-        $fazendas = \App\Models\Fazenda::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
-        $lotes = \App\Models\Lote::where('produto_id',$id)->get();
-
-        $cliente = null;
-        if(auth('gestor')->user()->cliente_id){
-            $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
-        }
-
-        return view('gestor.producao.edita', compact('produto', 'cliente', 'fazendas', 'lotes'));
+        $producao = \App\Models\Producao::findOrFail($id);
+        
+        return view('gestor.producao.edita', compact('producao'));
     }
 
     /**
@@ -205,32 +191,40 @@ class ProducaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $produto = \App\Models\Producao::findOrFail($id);
+        $producao = new \App\Models\Producao;
 
-        $validator = $this->valid($request, $produto);
-        
+        $validator = $this->valid($request, $producao);
         if ($validator->fails()) {
-            return redirect()->route('gestor.producao.edit', $id)
+            return redirect()->route('gestor.producao.create')
                             ->withErrors($validator)
                             ->withInput();
         }
-        $produto->fazenda_id = $request->f_fazenda;
-        $produto->nome = $request->f_nome;
-        $produto->categoria_id = $request->f_categoria;
-        $produto->quantidade = $request->f_quantidade;
-        $produto->minimo = $request->f_minimo;
-        $produto->vl_unitario = $request->f_vl_unitario;
-        $produto->vl_total = $request->f_vl_total;
-        $produto->tipo = $request->f_tipo;
-        $produto->detalhes = $request->f_detalhes;
-        $produto->situacao = $request->f_situacao;
+
+        $producao->cliente_id = auth('gestor')->user()->cliente_id;
+        $producao->fazenda_id = auth('gestor')->user()->fazenda_id;
+        $producao->usuario_id = auth('gestor')->user()->id;
+        $producao->viveiro_id = $request->f_viveiro;
+        $producao->categoria_id = $request->f_categoria;
+        $producao->qtd = $request->f_qtd;
+        $producao->produto_id = $request->f_produto;
+        $producao->ph = $request->f_ph;
+        $producao->salinidade = $request->f_salinidade;
+        $producao->turbidez = $request->f_turbidez;
+        $producao->alcalinidade = $request->f_alcalinidade;
+        $producao->oxigenio = $request->f_oxigenio;
+        $producao->temperatura = $request->f_temperatura;
+        $producao->gramatura = $request->f_gramatura;
+        $producao->tara = $request->f_tara;
+        $producao->situacao = 1;
         
-        if($request->f_validade){
-            $validade = Carbon::createFromFormat('d/m/Y', $request->f_validade)->format('Y-m-d H:i:s');
-            $produto->validade = $validade;
+        if($request->f_despesca){
+            $despesca = Carbon::createFromFormat('d/m/Y', $request->f_despesca)->format('Y-m-d H:i:s');
+            $producao->despesca = $despesca;
         }
 
-        $produto->save();
+        $producao->save();
+
+        $this->storeHorario($request, $producao);
 
         return redirect()->route('gestor.producao.index')
                         ->with('alert', [
@@ -247,8 +241,8 @@ class ProducaoController extends Controller
      */
     public function destroy($id)
     {
-        $produto = \App\Models\Producao::findOrFail($id);
-        $produto->delete();
+        $producao = \App\Models\Producao::findOrFail($id);
+        $producao->delete();
 
         return redirect()->route('gestor.producao.index')
                         ->with('alert', [

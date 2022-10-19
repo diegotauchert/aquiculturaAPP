@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
     <title>@yield('title', '404') - {{ ModelConfig::find('titulo')->valor ?? config('app.name', '') }} - {{ config('app.dev', 'Gestor') }}</title>
 
@@ -251,6 +251,24 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('gestor.producao.index') }}">
                                     <i class="dripicons-broadcast"></i> Produção
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.mensagens.index') }}">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Enviadas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.mensagens.recebida') }}">
+                                    <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Recebidas
+                                </a>
+                            </li>
+                            @endif
+
+                            @if(auth('gestor')->user()->tipo == 8)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.acompanhamento.index') }}">
+                                    <i class="dripicons-pencil"></i>Acompanhamento
                                 </a>
                             </li>
                             <li class="nav-item">

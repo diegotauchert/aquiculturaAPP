@@ -58,6 +58,15 @@
 }
 
 @include media-breakpoint-down(sm) {
+    .cookie-consent{
+        button{
+            font-size: 12px !important;
+            font-weight: normal !important;
+        }
+    }
+    .cookie-consent__message{
+        font-size: 11px !important;
+    }
     .navbar-brand img{
         max-height: 20px;
         margin-top: 1.3rem;
@@ -478,4 +487,31 @@ html {
 h1{
     font-size: 22px !important;
     line-height:normal !important;
+}
+button:disabled{
+    background-color: #AAA !important;
+    border-color:#CCC !important;
+    span{
+        color: #FFF !important;
+    }
+    &:hover{
+        background-color: #AAA !important;
+        border-color:#CCC !important;
+    }
+}
+.arracoamento.disabled input,
+.arracoamento.disabled label{
+    color:#999 !important;
+}
+.arracoamento.registered{
+    padding: 1rem 1rem 0 1rem;
+    background-color: #d4f9d0;
+    margin-bottom: .6rem;
+
+    *{
+        color:#349f29 !important;
+    }
+    input:disabled, input:read-only{
+        background-color: #FFF !important;
+    }
 }

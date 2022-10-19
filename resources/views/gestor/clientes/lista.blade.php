@@ -51,9 +51,10 @@
                             @if($post->anexos)
                             @if($post->anexos->where('tipo', 1)->count() > 0)
                             @if($post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto)
-                            <a href="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url() }}" title="{{ $post->nome }}" class="thumb-href mr-2" target="_blank">
-                                <img src="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url(['w' => 50, 'h' => 50]) }}" />
+                            <a href="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url() }}" title="{{ $post->nome }}" class="thumb-href mr-2 preview" target="_blank">
+                                <img src="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url() }}" alt="Imagem" width="100" />
                             </a>
+                            <br />
                             @endif
                             @endif
                             @endif

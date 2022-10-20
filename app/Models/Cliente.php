@@ -53,4 +53,8 @@ class Cliente extends Model
         return $this->hasMany('App\Models\ClienteAnexo', 'cliente_id', 'id');
     }
 
+    public function fazendasCliente()
+    {
+        return $this->hasMany('App\Models\Fazenda', 'cliente_id', 'id');
+    }
 }

@@ -90,24 +90,24 @@
                         @enderror
                     </div>
                     <div class="form-group col-sm">
-                        <label for="f_vl_total" class="form-control-label">@lang('gestor_produto.vl_total')</label>
-                        <input name="f_vl_total" id="f_vl_total" type="text"
-                            value="{{ (old('f_vl_total') ? old('f_vl_total') : $produto->vl_total) }}"
-                            class="form-control masknumv3" maxlength="250" placeholder="@lang('gestor_produto.vl_total')" />
+                        <label for="f_quantidade" class="form-control-label">* @lang('gestor_produto.quantidade')</label>
+                        <input name="f_quantidade" id="f_quantidade" type="text"
+                            value="{{ (old('f_quantidade') ? old('f_quantidade') : $produto->quantidade) }}"
+                            class="form-control maskano" maxlength="4" placeholder="@lang('gestor_produto.quantidade')" />
 
-                        @error('f_vl_total')
+                        @error('f_quantidade')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
                     <div class="form-group col-sm">
-                        <label for="f_quantidade" class="form-control-label">* @lang('gestor_produto.quantidade')</label>
-                        <input name="f_quantidade" id="f_quantidade" type="number"
-                            value="{{ (old('f_quantidade') ? old('f_quantidade') : $produto->quantidade) }}"
-                            class="form-control" maxlength="5" placeholder="@lang('gestor_produto.quantidade')" />
+                        <label for="f_vl_total" class="form-control-label">@lang('gestor_produto.vl_total')</label>
+                        <input name="f_vl_total" id="f_vl_total" type="text" readonly
+                            value="{{ (old('f_vl_total') ? old('f_vl_total') : $produto->vl_total) }}"
+                            class="form-control masknumv3" maxlength="250" placeholder="@lang('gestor_produto.vl_total')" />
 
-                        @error('f_quantidade')
+                        @error('f_vl_total')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -179,7 +179,7 @@
                     <div class="form-group col-sm">
                         <label for="f_detalhes" class="form-control-label">@lang('gestor_produto.detalhes')</label>
                         <textarea name="f_detalhes" id="f_detalhes" style="resize:vertical"
-                            class="form-control" maxlength="250" placeholder="@lang('gestor_produto.detalhes')">{{ (old('f_detalhes') ? old('f_detalhes') : $produto->detalhes) }}</textarea>
+                            class="form-control" rows="8" maxlength="250" placeholder="@lang('gestor_produto.detalhes')">{{ (old('f_detalhes') ? old('f_detalhes') : $produto->detalhes) }}</textarea>
 
                         @error('f_detalhes')
                         <span class="invalid-feedback" role="alert">
@@ -207,4 +207,36 @@
         @endif
     </div>
 </form>
+
+<script>
+    let vl_unitario = document.getElementById('f_vl_unitario');
+    let qtd = document.getElementById('f_quantidade');
+    let RealLocale = Intl.NumberFormat('pt-br');
+
+    vl_unitario.addEventListener('change', function (evt) {
+        let valor = Number(this.value.replace(".","").replace(",","."));
+        let total = Number(qtd.value) * valor;
+
+        if(!isNaN(total) && total > 0){
+            document.getElementById('f_vl_total').value = RealLocale.format(total);
+        }
+
+        if(!this.value){
+            document.getElementById('f_vl_total').value = "";
+        }
+    });
+
+    qtd.addEventListener('change', function (evt) {
+        let valor = Number(vl_unitario.value.replace(".","").replace(",","."))
+        let total = Number(this.value) * valor;
+        
+        if(!isNaN(total) && total > 0){
+            document.getElementById('f_vl_total').value = RealLocale.format(total);
+        }
+
+        if(!this.value){
+            document.getElementById('f_vl_total').value = "";
+        }
+    });
+</script>
 @endsection

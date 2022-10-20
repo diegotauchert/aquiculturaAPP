@@ -38,6 +38,7 @@
                 <th class="align-middle">@lang('gestor_cliente.data')</th>
                 <th class="align-middle">@lang('gestor_cliente.contato')</th>
                 <th class="align-middle">@lang('gestor_cliente.fazendas')</th>
+                <th class="align-middle">Usuário Principal</th>
                 <th class="align-middle">@lang('gestor_cliente.situacao')</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
@@ -73,7 +74,8 @@
                             @endif
                         </td>
                         <td class="align-middle">{{ $post->telefone }}<br /><small>{{ $post->email }}</small></td>
-                        <td class="align-middle">{{ $post->fazendas }}</td>
+                        <td class="align-middle">{{ $post->fazendasCliente->count() }}</td>
+                        <td class="align-middle">{{ $post->usuarioPrincipal }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.clientes.destroy', $post->id) }}">

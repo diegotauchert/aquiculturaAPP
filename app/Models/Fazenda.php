@@ -41,4 +41,14 @@ class Fazenda extends Model
     {
         return $this->hasMany('App\Models\Usuario', 'fazenda_id', 'id');
     }
+
+    public function viveiros()
+    {
+        return $this->hasMany('App\Models\Viveiro', 'fazenda_id', 'id');
+    }
+    
+    public function plano()
+    {
+        return $this->belongsTo('App\Models\Plano', 'plano_id', 'id');
+    }
 }

@@ -49,8 +49,10 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::post('/mensagens-anexos-upload/{mensagem}', 'MensagemController@upload');
     Route::post('/vendas-anexos-upload/{venda}', 'VendaController@upload');
 
-    Route::get('/fazendas/usuario/{id}', 'FazendaController@usuario')->name('fazendas.usuario');
+    Route::get('/fazendas/usuario/{fazenda_id}/{id?}', 'FazendaController@usuario')->name('fazendas.usuario');
     Route::post('/fazendas/usuario', 'FazendaController@saveUsuario')->name('fazendas.usuario.save');
+    Route::put('/fazendas/usuario/{id}', 'FazendaController@updateUsuario')->name('fazendas.usuario.update');
+    Route::delete('/fazendas/usuario/{fazenda_id}/deletar/{id}', 'FazendaController@destroyUsuario')->name('fazendas.usuario.destroy');
 
     Route::get('/mensagens/recebidas', 'MensagemController@recebidas')->name('mensagens.recebida');
     Route::get('/mensagens/{id}/ver', 'MensagemController@edit')->name('mensagens.see');

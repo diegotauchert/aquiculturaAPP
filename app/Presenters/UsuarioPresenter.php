@@ -52,8 +52,8 @@ class UsuarioPresenter extends Presenter
     public function makeSituacao($all = false)
     {
         $arr = [
-            '1' => ['Liberado', 'check'],
-            '2' => ['Bloqueado', 'times']
+            '1' => ['Liberado', 'check', 'success'],
+            '2' => ['Bloqueado', 'times', 'danger']
         ];
 
         if ($all) {

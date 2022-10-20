@@ -127,11 +127,12 @@ class FazendaController extends Controller
     {
         $validator = validator($request->all(), [
             'cliente_id' => 'required|numeric',
+            'f_plano' => 'required|numeric',
             'f_nome' => 'required|max:250',
             'f_situacao' => 'required|numeric',
-            'f_usuario' => 'required|max:250',
-            'f_password' => 'required|confirmed|min:3|max:250',
-            'f_password_confirmation' => 'required|min:3|max:250'
+            'f_usuario' => 'nullable|max:250',
+            'f_password' => 'nullable|confirmed|min:3|max:250',
+            'f_password_confirmation' => 'nullable|min:3|max:250'
         ]);
 
         return $validator;
@@ -164,7 +165,9 @@ class FazendaController extends Controller
             $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
         }
 
-        return view('gestor.fazendas.edita', compact('fazenda', 'cliente', 'usuario'));
+        $planos = \App\Models\Plano::get();
+
+        return view('gestor.fazendas.edita', compact('fazenda', 'cliente', 'usuario', 'planos'));
     }
 
     /**
@@ -232,7 +235,7 @@ class FazendaController extends Controller
     public function saveUsuario(\App\Models\Fazenda $fazenda, Request $request)
     {
         $userIsNotAvailable = \App\Models\Usuario::where('login', '=', strtolower($request->f_usuario))->first();
-
+        
         if ($userIsNotAvailable) {
             return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)
                             ->with('alert', [
@@ -260,9 +263,64 @@ class FazendaController extends Controller
         $usuario->fazenda_id = $request->fazenda_id ?? $fazenda->id;
         $usuario->email = $fazenda->email ?? 'admin-'.uniqid().'@gmail.com';
         $usuario->tipo = $request->f_tipo ?? 5;
-        $usuario->situacao = 1;
+        $usuario->situacao = $request->f_situacao ?? 1;
 
         $usuario->save();
+
+        return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)->with('alert', ['type' => 'success',
+                    'message' => 'Usuário incluído com sucesso!']);
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUsuario(Request $request, $id)
+    {
+        $usuario = \App\Models\Usuario::findOrFail($id);
+
+        $userIsNotAvailable = \App\Models\Usuario::where('login', '=', strtolower($request->f_usuario))
+                                                ->where('id', '!=', $id)
+                                                ->first();
+        if ($userIsNotAvailable) {
+            return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)
+                            ->with('alert', [
+                                'type' => 'danger',
+                                'message' => 'O Usuário já existe no sistema'
+                            ]);
+        }
+
+        $validator = $this->validUserEdit($request, $usuario);
+
+        if ($validator->fails()) {
+            return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)->withErrors($validator)->withInput();
+        }
+
+        if ($request->f_password == $request->f_password_confirmation) {
+            $usuario->password = Hash::make($request->f_password);
+        }
+
+        $usuario->password_decoded = $request->f_password;
+        $usuario->nome = $request->f_nome ?? $fazenda->nome;
+        $usuario->login = $request->f_usuario;
+        $usuario->cliente_id = $request->cliente_id;
+        $usuario->fazenda_id = $request->fazenda_id ?? $fazenda->id;
+        $usuario->email = $fazenda->email ?? 'admin-'.uniqid().'@gmail.com';
+        $usuario->tipo = $request->f_tipo;
+        $usuario->situacao = $request->f_situacao;
+
+        try{
+            $usuario->save();
+        } catch(PDOException $e){
+            echo $e->getMessage();
+        }
+
+        return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)->with('alert', ['type' => 'success',
+                    'message' => 'Usuário editado com sucesso!']);
     }
 
      /**
@@ -271,17 +329,25 @@ class FazendaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function usuario($id)
+    public function usuario($fazenda_id, $id = null)
     {
-        $fazenda = \App\Models\Fazenda::findOrFail($id);
-        $usuarios = \App\Models\Usuario::where('cliente_id', auth('gestor')->user()->cliente_id)->where('fazenda_id', $id)->get();
+        $fazenda = \App\Models\Fazenda::findOrFail($fazenda_id);
+        $usuarios = \App\Models\Usuario::where('cliente_id', auth('gestor')->user()->cliente_id)->where('fazenda_id', $fazenda_id)->get();
+        
+        $usuario = new \App\Models\Usuario;
+        if($id){
+            $usuario = $usuario->where('cliente_id', auth('gestor')->user()->cliente_id)
+                                            ->where('fazenda_id', $fazenda_id)
+                                            ->where('id', $id)
+                                            ->first();
+        }
 
         $cliente = null;
         if(auth('gestor')->user()->cliente_id){
             $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
         }
 
-        return view('gestor.fazendas.usuario', compact('fazenda', 'cliente', 'usuarios'));
+        return view('gestor.fazendas.usuario', compact('fazenda', 'cliente', 'usuarios', 'usuario'));
     }
 
     public function validUser(Request $request)
@@ -289,10 +355,45 @@ class FazendaController extends Controller
         $validator = validator($request->all(), [
             'f_usuario' => 'required|alpha_num|min:3|max:250|unique:usuarios,login',
             'f_password' => 'required|confirmed|min:3|max:100',
-            'f_tipo' => 'required|numeric',
             'f_nome' => 'required|max:250',
+            'f_tipo' => 'required|numeric',
+            'f_situacao' => 'required|numeric',
         ]);
 
         return $validator;
+    }
+
+    public function validUserEdit(Request $request)
+    {
+        $validator = validator($request->all(), [
+            'f_usuario' => 'required|alpha_num|min:3|max:250',
+            'f_password' => 'required|confirmed|min:3|max:100',
+            'f_nome' => 'required|max:250',
+            'f_tipo' => 'required|numeric',
+            'f_situacao' => 'required|numeric',
+        ]);
+
+        return $validator;
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyUsuario($fazenda_id, $id)
+    {
+        $usuario = \App\Models\Usuario::findOrFail($id);
+        $usuario->login = md5(uniqid(rand(), true));
+        $usuario->save();
+        $usuario->delete();
+
+        return redirect()->route('gestor.fazendas.usuario', $fazenda_id)
+                        ->with('alert', [
+                            'type' => 'success',
+                            'message' => 'Usuário excluído com sucesso!'
+        ]);
     }
 }

@@ -29,7 +29,7 @@
     <div class="py-2">
         <div class="card">
             <input name="cliente_id" id="cliente_id" type="hidden" value="{{ $cliente->id }}" />
-            <div class="card-header h5">@lang('gestor_viveiro.informacoes')</div>
+            <div class="card-header h5">@lang('gestor_viveiro.informacoes') @if($viveiro && $viveiro->fazenda) | {{$viveiro->fazenda->nome}}@endif</div>
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md">
@@ -44,15 +44,21 @@
 
                     @if(auth('gestor')->user()->fazenda_id)
                         <input type="hidden" value="{{auth('gestor')->user()->fazenda_id}}" name="f_fazenda" />
+                    @elseif($viveiro->fazenda_id)
+                        <input type="hidden" value="{{$viveiro->fazenda_id}}" name="f_fazenda" />
                     @elseif($fazendas)
                         <div class="form-group col-md">
                             <label for="f_fazenda" class="form-control-label">* Escolha uma Fazenda</label>
-                            <select name="f_fazenda" id="f_fazenda" required class="form-control selectpicker-custom" title="Escolha um Plano">
+                            <select name="f_fazenda" id="f_fazenda" required class="form-control selectpicker-custom" title="Escolha uma Fazenda">
                                 <option value="" disabled>- Escolha um Plano</option>
                                 @foreach($fazendas as $fazenda)
-                                <option value="{{ $fazenda->id }}" {{ $fazenda->id == (old('f_fazenda') ? old('f_fazenda') : $fazenda->id) ? ' selected' : '' }}>
+
+                                @if($fazenda->viveiros->count() < $fazenda->plano->qtd_viveiros)
+                                <option value="{{ $fazenda->id }}" {{ $fazenda->id == (old('f_fazenda') ? old('f_fazenda') : $viveiro->fazenda_id) ? ' selected' : '' }}>
                                     {{ $fazenda->nome }}
                                 </option>
+                                @endif
+
                                 @endforeach
                             </select>
                         </div>

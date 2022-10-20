@@ -30,6 +30,7 @@
         <div class="card">
             <div class="card-header h5">@lang('gestor_cliente.informacoes')</div>
             <div class="card-body">
+                @if(count($s_categorias) > 0)
                 <div class="form-row">
                     <div class="form-group col-md">
                         <label for="f_categoria" class="form-control-label">@lang('gestor_cliente.categoria')</label>
@@ -42,6 +43,7 @@
                         </select>
                     </div>
                 </div>
+                @endif
                 <div class="form-row">
                     <div class="form-group col-md">
                         <label for="f_nome" class="form-control-label">* @lang('gestor_cliente.nome')</label>
@@ -246,7 +248,7 @@
                     </div>
                 </div>
 
-                @if($cliente->id)
+                <!-- @if($cliente->id)
                 <hr />
                 <h3 class="text-center mb-4">Plano</h3>
 
@@ -302,7 +304,7 @@
                         @enderror
                     </div>
                 </div>
-                @endif
+                @endif -->
 
                 <hr />
                 <h3 class="text-center mb-4">Usuário</h3>

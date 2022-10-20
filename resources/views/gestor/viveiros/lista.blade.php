@@ -52,11 +52,11 @@
                         <td class="align-middle">{{ $post->fazenda->nome }}</td>
                         <td class="align-middle">
                             <p>
-                                <small>Comprimento: <strong>{{ $post->comprimento }}</strong></small><br />
-                                <small>Largura: <strong>{{ $post->largura }}</strong></small><br />
-                                <small>Profundidade: <strong>{{ $post->profundidade }}</strong></small><br />
-                                <small>Volume: <strong>{{ $post->volume }}</strong></small><br />
-                                <small>Area: <strong>{{ $post->area }}</strong></small><br />
+                                @if($post->comprimento)<small>Comprimento: <strong>{{ $post->comprimento }}</strong></small><br />@endif
+                                @if($post->largura)<small>Largura: <strong>{{ $post->largura }}</strong></small><br />@endif
+                                @if($post->profundidade)<small>Profundidade: <strong>{{ $post->profundidade }}</strong></small><br />@endif
+                                @if($post->volume)<small>Volume: <strong>{{ $post->volume }}</strong></small><br />@endif
+                                @if($post->area)<small>Area: <strong>{{ $post->area }}</strong></small><br />@endif
                             </p>
                         </td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>

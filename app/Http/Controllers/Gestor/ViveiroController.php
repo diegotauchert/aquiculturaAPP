@@ -147,7 +147,9 @@ class ViveiroController extends Controller
     public function edit($id)
     {
         $viveiro = \App\Models\Viveiro::findOrFail($id);
-        $fazendas = \App\Models\Fazenda::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
+        
+        $fazendas = \App\Models\Fazenda::where('cliente_id', auth('gestor')->user()->cliente_id)
+                                        ->get();
 
         $cliente = null;
         if(auth('gestor')->user()->cliente_id){

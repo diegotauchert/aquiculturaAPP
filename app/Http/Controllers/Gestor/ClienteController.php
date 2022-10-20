@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 class ClienteController extends Controller
 {
@@ -31,14 +32,17 @@ class ClienteController extends Controller
         $f_p = $request->f_p;
 
         if ($f_p) {
-            $clientes = \App\Models\Cliente::where('nome', 'like', '%' . $f_p . '%')
+            $clientes = \App\Models\Cliente::select('clientes.*')
+                    ->where('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('texto', 'like', '%' . $f_p . '%')
                     ->orWhere('email', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
                     ->paginate(15);
         } else {
-            $clientes = \App\Models\Cliente::orderBy('id', 'desc')->paginate(15);
+            $clientes = \App\Models\Cliente::select('clientes.*', DB::raw('(SELECT login FROM usuarios WHERE cliente_id = clientes.id AND deleted_at IS NULL AND tipo = 4 ORDER BY id ASC LIMIT 1) as usuarioPrincipal'))
+                                        ->orderBy('id', 'desc')
+                                        ->paginate(15);
         }
 
         return view('gestor.clientes.lista', compact('clientes', 'f_p'));

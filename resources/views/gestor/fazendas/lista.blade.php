@@ -34,9 +34,9 @@
                 <thead>
                 <th class="align-middle">@lang('gestor_fazenda.id')</th>
                 <th class="align-middle">@lang('gestor_fazenda.title')</th>
-                <th class="align-middle">@lang('gestor_fazenda.contato')</th>
+                <th class="align-middle">Plano</th>
                 <th class="align-middle">Usuário(s)</th>
-                <th class="align-middle">@lang('gestor_fazenda.gestor')</th>
+                <th class="align-middle">Cadastrado por</th>
                 <th class="align-middle">@lang('gestor_fazenda.situacao')</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
@@ -57,13 +57,13 @@
                             @endif
                             @endif
                             <span>
-                                @if($post->categoria)
-                                <small class="badge badge-primary text-white">{{ $post->categoria->nome }}</small><br />
-                                @endif
-                                {{ $post->nome }}
+                                {{ $post->nome }}<br />
+                                <span class="badge badge-primary text-white">{{ $post->viveiros->count() }} <small>Viveiros</small></span>
                             </span>
                         </td>
-                        <td class="align-middle">{{ $post->telefone }}</td>
+                        <td class="align-middle">
+                            <small>{{ $post->plano->nome }}<br />até {{ $post->plano->qtd_viveiros }} viveiro(s)<br />R$ {{ $post->plano->valor }} mensal</small>
+                        </td>
                         <td class="align-middle users-fazenda">
                             @if($post->usuarios())
                             <div class="users-all">

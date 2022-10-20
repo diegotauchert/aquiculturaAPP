@@ -30,7 +30,7 @@
         <div class="card">
             <div class="card-header h5">@lang('gestor_venda.informacoes')</div>
             <div class="card-body">
-                @if($viveiros)
+                @if($viveiros && count($viveiros) > 0)
                 <div class="viveiros mb-4 border p-3 rounded border-light text-center">
                     <h5>* Escolha um Viveiro</h5>
                     @foreach($viveiros as $viveiro)
@@ -40,6 +40,8 @@
                     </div>
                     @endforeach
                 </div>
+                @else
+                <p class="alert alert-danger h6 text-center mb-4"><i class="fa-solid fa-triangle-exclamation"></i> Essa venda não poderá ser realizada porque você não possui viveiro cadastrado.</p>
                 @endif
                 @error('f_viveiro')
                 <span class="invalid-feedback" role="alert">
@@ -249,8 +251,11 @@
     </div>
 
     <div class="py-2 text-center">
-        <button type="submit" class="btn btn-lg btn-primary"><span class="fas fa-save"></span>
-            @lang('gestor.save')</button>
+        @if($viveiros && count($viveiros) > 0)
+            <button type="submit" class="btn btn-lg btn-primary"><span class="fas fa-save"></span>
+                @lang('gestor.save')
+            </button>
+        @endif
         <a class="btn btn-lg btn-outline-primary" href="{{ URL::previous() }}"><span class="fas fa-times"></span>
             @lang('gestor.cancel')</a>
     </div>

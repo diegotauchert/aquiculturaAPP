@@ -170,15 +170,14 @@
                         @enderror
                     </div>
                 </div>
-
+                @if(!$fazenda->id)
                 <hr />
-                <h3 class="text-center mb-4">Usuário Master da Fazenda</h3>
+                <h4 class="text-center mb-4">Usuário Gestor da Fazenda</h4>
 
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="f_usuario" class="form-control-label">* @lang('gestor_usuario.login')</label>
                         <input name="f_usuario" id="f_usuario" type="text"
-                            value="{{ (old('f_usuario') ? old('f_usuario') : ($usuario ? $usuario->login : '')) }}"
                             class="form-control" maxlength="100" placeholder="@lang('gestor_usuario.login')" @if($fazenda->id) readonly @else required @endif />
                     
                         @error('f_usuario')
@@ -191,7 +190,6 @@
                         <label for="f_password" class="form-control-label">* @lang('gestor_usuario.password')</label>
                         <div class="input-group">
                             <input name="f_password" id="f_password" type="password" 
-                            value="{{ (old('f_password') ? old('f_password') : ($usuario ? $usuario->password_decoded : '')) }}"
                             class="form-control @error('f_password') is-invalid @enderror" maxlength="100" placeholder="@lang('gestor_usuario.password')" @if($fazenda->id) readonly @else required @endif />
 
                             <div class="input-group-append">
@@ -208,7 +206,6 @@
                         <label for="f_password_confirmation" class="form-control-label">* @lang('gestor_usuario.password_confirmation')</label>
                         <div class="input-group">
                             <input name="f_password_confirmation" id="f_password_confirmation" type="password"
-                            value="{{ (old('f_password') ? old('f_password') : ($usuario ? $usuario->password_decoded : '')) }}" 
                             class="form-control @error('f_password') is-invalid @enderror" maxlength="100" placeholder="@lang('gestor_usuario.password_confirmation')" @if($fazenda->id) readonly @else required @endif />
                             <div class="input-group-append">
                                 <button class="mostrar-senha btn btn-secondary o-tooltip" title="@lang('gestor.show')/@lang('gestor.hide')" type="button"><span class="fas fa-eye"></span></button>
@@ -221,30 +218,40 @@
                         @enderror
                     </div>
                 </div>
-                @error('errorPassword')
-                <div class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </div>
                 @endif
 
-                @if(!$fazenda->id)
                 <div class="form-row">
+                    @if($planos && count($planos) > 0)
                     <div class="form-group col-md">
                         <label for="f_plano" class="form-control-label">* Escolha um Plano</label>
                         <select name="f_plano" id="f_plano" required class="form-control selectpicker-custom" title="Escolha um Plano">
                             <option value="" disabled>- Escolha um Plano</option>
                             @foreach($planos as $plano)
-                            <option value="{{ $plano->id }}" {{ $plano->id == (old('f_plano') ? old('f_plano') : $cliente->categoria_id) ? ' selected' : '' }}>
+                            <option value="{{ $plano->id }}" {{ $plano->id == (old('f_plano') ? old('f_plano') : $fazenda->plano_id) ? ' selected' : '' }}>
                             {{ $plano->nome }} / até {{ $plano->qtd_viveiros }} viveiro(s) / R$ {{ $plano->valor }} mensal</option>
                             @endforeach
                         </select>
+
+                        @error('f_plano')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
+                    @endif
                     <div class="form-group col-md"></div>
                     <div class="form-group col-md"></div>
                 </div>
+                @if(!$fazenda->id)
                 <div class="form-row p-2 d-flex">
                     <input type="checkbox" class="input checkbox mr-2 p-2 my-0" required name="termos" id="termos" value="1" />
-                    <label for="termos" class="m-0">Concordo com os termos de cadastro em que cada fazendo gera uma liçença sendo assim cobrado um valor mensal por cada cadastrado.</label>
+                    <label for="termos" class="m-0">Concordo com os termos de cadastro em que cada fazenda gera uma liçença sendo assim cobrado um valor mensal por cada cadastrado.</label>
+
+                    @error('termos')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
                 @endif
             </div>

@@ -58,7 +58,7 @@
                 </thead>
                 <tbody>
                     @foreach($produtos as $post)
-                    <tr>
+                    <tr class="@if($post->minimo < $post->quantidade) estoque-ok @elseif($post->minimo == $post->quantidade) estoque-igual alert-warning @else sem-estoque alert-danger bg-warning @endif">
                         <td class="align-middle">
                             {{$post->id}}
                         </td>
@@ -69,7 +69,11 @@
                             <p>
                                 @if($post->quantidade)<small>Qtd Atual: <strong>{{ $post->quantidade }}</strong></small><br />@endif
                                 @if($post->minimo)<small>Mínimo: <strong>{{ $post->minimo }}</strong></small><br />@endif
-                                @if($post->vl_total)<small>Valor Total: <strong>{{ $post->vl_total }}</strong></small><br />@endif
+                                @if($post->vl_total)<small>Valor Total: <strong>R$ {{ $post->vl_total }}</strong></small><br />@endif
+
+                                @if($post->minimo >= $post->quantidade)
+                                <span class="badge badge-danger text-white"><i class="fa-solid fa-triangle-exclamation"></i> Ver Estoque</span>
+                                @endif
                             </p>
                         </td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>

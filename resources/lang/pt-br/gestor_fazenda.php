@@ -13,7 +13,7 @@ return [
     'create' => 'Cadastrar Fazenda',
     
     'id' => 'ID',
-    'nome' => 'Nome Completo',
+    'nome' => 'Nome da Fazenda',
     'email' => 'E-mail',
     'telefone' => 'Celular',
     'cep' => 'CEP',

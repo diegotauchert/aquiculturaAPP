@@ -217,7 +217,6 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         $usuario = \App\Models\Usuario::findOrFail($id);
-
         if ($usuario->tipo >= auth('gestor')->user()->tipo && $usuario->id != auth('gestor')->user()->id
         ) {
             $usuario->delete();

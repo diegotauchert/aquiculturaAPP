@@ -119,7 +119,7 @@
                             <div class="form-group col-sm">
                                 <label for="f_situacao" class="form-control-label">* @lang('gestor_usuario.situacao')</label>
                                 <select name="f_situacao" id="f_situacao" class="form-control selectpicker-custom" title="@lang('gestor_usuario.situacao')">
-                                    <option value="">@lang('gestor_usuario.situacao')</option>
+                                    <option value="" disabled>@lang('gestor_usuario.situacao')</option>
                                     @foreach($usuario->present()->makeSituacaoAll as $sit_k => $sit_v)
                                     <option value="{{ $sit_k }}" data-icon="fa-{{ $sit_v[1] }}" {{ $sit_k == (old('f_situacao') ? old('f_situacao') : $usuario->situacao) ? ' selected' : '' }}>{{ $sit_v[0] }}</option>
                                     @endforeach

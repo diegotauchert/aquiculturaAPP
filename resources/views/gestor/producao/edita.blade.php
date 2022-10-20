@@ -19,8 +19,8 @@
         </h1>
     </div>
 </div>
-<form method="POST" action="{{ ($producao->id ? route('gestor.producao.update', $producao->id) : route('gestor.producao.store')) }}">
-    @if($producao->id)
+<form method="POST" action="{{ ($racao && $racao->id ? route('gestor.producao.update', $racao->id) : route('gestor.producao.store')) }}">
+    @if($racao && $racao->id)
     @method('PUT')
     @endif
 
@@ -31,7 +31,7 @@
             <input type="hidden" name="f_categoria" value="{{ $producao->categoria_id }}" />
             <input type="hidden" name="f_viveiro" value="{{ $viveiro->id }}" />
 
-            <div class="card-header h5 text-center">{{$producao->present()->makeCategoria[0]}}</div>
+            <div class="card-header h5 text-center">@if($racao && $racao->id) <small>#{{$racao->id}}</small> @endif {{$producao->present()->makeCategoria[0]}} <small>{{date('d/m/Y')}}</small></div>
             @if($producao->categoria_id == 1)
                 @include('gestor.producao.categorias.racao')
             @elseif($producao->categoria_id == 2)
@@ -48,5 +48,44 @@
         <a class="btn btn-lg btn-outline-primary" href="{{ URL::previous() }}"><span class="fas fa-times"></span>
             @lang('gestor.cancel')</a>
     </div>
+
+    @if($acompanhamentos && count($acompanhamentos) > 0)
+    <p>Últimos 20 registros</p>
+    <div class="table-responsive pt-2">
+        <div class="card">
+            <div class="card-body">
+                <table width="100%" class="table table-striped table-hover" id="datatable">
+                    <thead>
+                        <th class="align-middle">Usuário</th>
+                        <th class="align-middle">Realizado dia</th>
+                        <th class="align-middle">Detalhes</th>
+                    </thead>
+                    <tbody>
+                        @foreach($acompanhamentos as $post)
+                        <tr>
+                            <td class="align-middle"><strong>{{ $post->usuario->nome }}</strong></td>
+                            <td class="align-middle"><i class="fa-solid fa-check"></i> {{ $post->created_at->format("d/m/Y H:i") }}</td>
+                            <td class="align-middle">
+                                <small>
+                                    @if($post->qtd)<span>Quantidade: <strong>{{ $post->qtd }}</strong></span><br />@endif
+                                    @if($post->ph)<span>PH: <strong>{{ $post->ph }}</strong></span><br />@endif
+                                    @if($post->salinidade)<span>Salinidade: <strong>{{ $post->salinidade }}</strong></span><br />@endif
+                                    @if($post->turbidez)<span>Turbidez: <strong>{{ $post->turbidez }}</strong></span><br />@endif
+                                    @if($post->alcalinidade)<span>Alcalinidade: <strong>{{ $post->alcalinidade }}</strong></span><br />@endif
+                                    @if($post->oxigenio)<span>Oxigênio Dissolvido: <strong>{{ $post->oxigenio }}</strong></span><br />@endif
+                                    @if($post->temperatura)<span>Temperatura: <strong>{{ $post->temperatura }}</strong></span><br />@endif
+                                    @if($post->tara)<span>Tara da Balança: <strong>{{ $post->tara }}</strong></span><br />@endif
+                                    @if($post->gramatura)<span>Gramatura Total: <strong>{{ $post->gramatura }}</strong></span><br />@endif
+                                    @if($post->despesca)<span>Previsão de despesca: <strong>{{ $post->despesca->format('d/m/Y') }}</strong></span><br />@endif
+                                </small>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @endif
 </form>
 @endsection

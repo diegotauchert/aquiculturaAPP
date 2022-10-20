@@ -65,7 +65,35 @@ class ProducaoController extends Controller
         $producao = new \App\Models\Producao;
         $producao->categoria_id = $categoria_id;
 
-        return view('gestor.producao.edita', compact('producao', 'produtos', 'viveiro', 'categoria_id'));
+        $racao = null;
+        $racaoHorario = [];
+        $acompanhamentos = null;
+
+        if($categoria_id == 1){
+            $racao = \App\Models\Producao::where('categoria_id', $categoria_id)
+                                            ->where('fazenda_id', auth('gestor')->user()->fazenda_id)
+                                            ->where('cliente_id', auth('gestor')->user()->cliente_id)
+                                            ->where('viveiro_id', $viveiro_id)
+                                            ->orderBy('id', 'DESC')
+                                            ->first();
+            if($racao && $racao->id){
+                $racaoHorario = \App\Models\ProducaoHorario::where('fazenda_id', auth('gestor')->user()->fazenda_id)
+                                            ->where('cliente_id', auth('gestor')->user()->cliente_id)
+                                            ->where('viveiro_id', $viveiro_id)
+                                            ->where('producao_id', $racao->id)
+                                            ->get();
+            }
+        }else{
+            $acompanhamentos = \App\Models\Producao::where('categoria_id', $categoria_id)
+                                            ->where('fazenda_id', auth('gestor')->user()->fazenda_id)
+                                            ->where('cliente_id', auth('gestor')->user()->cliente_id)
+                                            ->where('viveiro_id', $viveiro_id)
+                                            ->orderBy('id', 'DESC')
+                                            ->limit(20)
+                                            ->get();
+                                        }
+
+        return view('gestor.producao.edita', compact('producao', 'produtos', 'viveiro', 'categoria_id', 'racao', 'racaoHorario', 'acompanhamentos'));
     }
 
     /**
@@ -133,9 +161,9 @@ class ProducaoController extends Controller
     public function storeHorario(Request $request, \App\Models\Producao $producao)
     {
         if($request->f_horario){
-            foreach($request->f_horario as $horario){
-                $producaoHorario = new \App\Models\ProducaoHorario;
-        
+            foreach($request->f_horario as $key => $horario){
+                $producaoHorario = $request->f_horario_id[$key] ? \App\Models\ProducaoHorario::find($request->f_horario_id[$key]) : new \App\Models\ProducaoHorario;
+
                 $producaoHorario->cliente_id = auth('gestor')->user()->cliente_id;
                 $producaoHorario->fazenda_id = auth('gestor')->user()->fazenda_id;
                 $producaoHorario->usuario_id = auth('gestor')->user()->id;
@@ -191,7 +219,7 @@ class ProducaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $producao = new \App\Models\Producao;
+        $producao = \App\Models\Producao::find($id);
 
         $validator = $this->valid($request, $producao);
         if ($validator->fails()) {

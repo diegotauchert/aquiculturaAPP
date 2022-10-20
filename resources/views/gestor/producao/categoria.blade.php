@@ -21,7 +21,7 @@
         <h4 class="mb-3 text-center">{{ $viveiro->nome }}</h4>
 
         @foreach($producao->present()->makeCategoriaAll as $sit_k => $sit_v)
-        <a href="{{route('gestor.producao.save', ['id' => $viveiro->id, 'categoria' => $sit_k])}}" class="btn btn-primary d-block mb-3 mx-2">
+        <a href="{{route('gestor.producao.save', ['id' => $viveiro->id, 'categoria_id' => $sit_k])}}" class="btn btn-primary d-block mb-3 mx-2">
             {{ $sit_v[0] }}
         </a>
         @endforeach

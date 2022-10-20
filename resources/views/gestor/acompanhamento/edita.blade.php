@@ -133,6 +133,33 @@
         </div>
     </div>
 
+    @if($acompanhamentosAntigos && count($acompanhamentosAntigos) > 0)
+    <h4>Histórico <small>Registros feitos antes do dia {{date('d/m/Y')}}</small></h4>
+    <p>Últimos 20 registros</p>
+    <div class="table-responsive pt-2">
+        <div class="card">
+            <div class="card-body">
+                <table width="100%" class="table table-striped table-hover" id="datatable">
+                    <thead>
+                        <th class="align-middle">Dia</th>
+                        <th class="align-middle">Horário</th>
+                        <th class="align-middle">Arraçoamento</th>
+                    </thead>
+                    <tbody>
+                        @foreach($acompanhamentosAntigos as $post)
+                        <tr>
+                            <td class="align-middle"><i class="fa-solid fa-check"></i> {{ $post->data->format("d/m/Y H:i") }}</td>
+                            <td class="align-middle"><strong>{{ $post->horario }}</strong></td>
+                            <td class="align-middle">{{ $post->arracoamento }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="py-2 text-center">
         <a class="btn btn-lg btn-outline-primary" href="{{ URL::previous() }}"><span class="fas fa-times"></span>
             @lang('gestor.cancel')</a>

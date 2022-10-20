@@ -6,6 +6,7 @@ $user->tipo = auth('gestor')->user()->tipo;
 <li class="dropdown">
     <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
     aria-haspopup="false" aria-expanded="false">
+        @if(Auth::guard('gestor')->user()->fazenda)<small>{{ Auth::guard('gestor')->user()->fazenda->nome }}</small><i class="fa-solid fa-arrow-right mx-2"></i> @endif
         <small class="mr-2">{{ $user->present()->makeTipo[0] }}</small>
         @if(auth('gestor')->user()->foto)
         <img src="{{ auth('gestor')->user()->foto->url(['width' => 200]) }}" alt="{{ auth('gestor')->user()->nome }}" class="rounded-circle" />

@@ -81,7 +81,11 @@ class AcompanhamentoController extends Controller
 
         $producaoHorarios = DB::table('producao_horario as ph')
                                     ->select(['ph.id as horario_id', 'ph.hora', 'a.horario', 'a.data', 'a.arracoamento'])
-                                    ->leftJoin('acompanhamento as a', 'a.producao_horario_id', 'ph.id')
+                                    ->leftJoin('acompanhamento as a', function($leftJoin)
+                                    {
+                                        $leftJoin->on('ph.id', 'a.producao_horario_id');
+                                        $leftJoin->whereBetween('a.data', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')]);
+                                    })
                                     ->where('ph.cliente_id', auth('gestor')->user()->cliente_id)
                                     ->where('ph.producao_id', $producao_id)
                                     ->where('ph.viveiro_id', $viveiro_id)
@@ -91,7 +95,16 @@ class AcompanhamentoController extends Controller
         
         $acompanhamento = new \App\Models\Acompanhamento;
 
-        return view('gestor.acompanhamento.edita', compact('acompanhamento', 'producao', 'producaoHorarios'));
+        $acompanhamentosAntigos = \App\Models\Acompanhamento::whereDate('data', '<', date("Y-m-d"))
+                                                    ->where('cliente_id', auth('gestor')->user()->cliente_id)
+                                                    ->where('producao_id', $producao_id)
+                                                    ->where('viveiro_id', $viveiro_id)
+                                                    ->where('fazenda_id', auth('gestor')->user()->fazenda_id)
+                                                    ->orderBy('data', 'desc')
+                                                    ->limit(20)
+                                                    ->get();
+
+        return view('gestor.acompanhamento.edita', compact('acompanhamento', 'producao', 'producaoHorarios', 'acompanhamentosAntigos'));
     }
 
     /**

@@ -58,7 +58,7 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::get('/mensagens/{id}/ver', 'MensagemController@edit')->name('mensagens.see');
 
     Route::get('/producao/{id}/viveiro', 'ProducaoController@categoria')->name('producao.categoria');
-    Route::get('/producao/{id}/viveiro/{categoria}/categoria', 'ProducaoController@save')->name('producao.save');
+    Route::get('/producao/{id}/viveiro/{categoria_id}/categoria', 'ProducaoController@save')->name('producao.save');
 
     Route::get('/acompanhamento/create/producao/{id}/viveiro/{viveiro}', 'AcompanhamentoController@create')->name('acompanhamento.save');
 

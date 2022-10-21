@@ -37,10 +37,10 @@ class UsuarioController extends Controller
                                 ->orWhere('login', 'like', '%' . $f_p . '%')
                                 ->orWhere('email', 'like', '%' . $f_p . '%');
                             })
-                            ->orderBy('id', 'desc')->paginate(15);
+                            ->orderBy('id', 'desc')->paginate(10);
         } else {
             $usuarios = \App\Models\Usuario::where('usuarios.tipo', '>=', auth('gestor')->user()->tipo)
-                            ->orderBy('id', 'desc')->paginate(15);
+                            ->orderBy('id', 'desc')->paginate(10);
         }
 
         return view('gestor.usuarios.lista', compact('usuarios', 'f_p'));

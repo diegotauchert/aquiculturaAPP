@@ -38,11 +38,11 @@ class ClienteController extends Controller
                     ->orWhere('texto', 'like', '%' . $f_p . '%')
                     ->orWhere('email', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
             $clientes = \App\Models\Cliente::select('clientes.*', DB::raw('(SELECT login FROM usuarios WHERE cliente_id = clientes.id AND deleted_at IS NULL AND tipo = 4 ORDER BY id ASC LIMIT 1) as usuarioPrincipal'))
                                         ->orderBy('id', 'desc')
-                                        ->paginate(15);
+                                        ->paginate(10);
         }
 
         return view('gestor.clientes.lista', compact('clientes', 'f_p'));

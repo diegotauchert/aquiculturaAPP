@@ -40,9 +40,9 @@ class CultivoController extends Controller
                     ->orWhere('quantidade', 'like', '%' . $f_p . '%')
                     ->orWhere('minimo', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $cultivos = \App\Models\Cultivo::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(15);
+            $cultivos = \App\Models\Cultivo::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(10);
         }
 
         $cliente = null;

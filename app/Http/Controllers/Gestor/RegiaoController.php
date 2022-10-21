@@ -31,9 +31,9 @@ class RegiaoController extends Controller
         if ($f_p) {
             $regioes = \App\Models\Regiao::where('nome', 'like', '%' . $f_p . '%')
                 ->orderBy('id', 'desc')
-                ->paginate(15);
+                ->paginate(10);
         } else {
-            $regioes = \App\Models\Regiao::orderBy('id', 'desc')->paginate(15);
+            $regioes = \App\Models\Regiao::orderBy('id', 'desc')->paginate(10);
         }
 
         return view('gestor.regioes.lista', compact('regioes', 'f_p'));

@@ -44,9 +44,9 @@ class AcompanhamentoController extends Controller
                     ->orWhere('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('email', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $acompanhamento = \App\Models\Acompanhamento::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(15);
+            $acompanhamento = \App\Models\Acompanhamento::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(10);
         }
 
         return view('gestor.acompanhamento.lista', compact('acompanhamento', 'f_p', 'viveiros'));

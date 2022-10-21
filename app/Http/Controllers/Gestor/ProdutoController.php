@@ -40,16 +40,16 @@ class ProdutoController extends Controller
                     ->orWhere('quantidade', 'like', '%' . $f_p . '%')
                     ->orWhere('minimo', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(15);
+            $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(10);
         }
 
         if($f_categoria){
             $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)
                     ->where('categoria_id', $f_categoria)
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         }
 
         $cliente = null;

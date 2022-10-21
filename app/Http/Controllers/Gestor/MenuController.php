@@ -32,9 +32,9 @@ class MenuController extends Controller
             $menus = \App\Models\Menu::where('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('link', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $menus = \App\Models\Menu::orderBy('id', 'desc')->paginate(15);
+            $menus = \App\Models\Menu::orderBy('id', 'desc')->paginate(10);
         }
 
         return view('gestor.menus.lista', compact('menus', 'f_p'));

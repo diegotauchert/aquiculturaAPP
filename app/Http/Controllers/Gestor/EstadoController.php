@@ -32,9 +32,9 @@ class EstadoController extends Controller
             $estados = \App\Models\Estado::where('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('sigla', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $estados = \App\Models\Estado::orderBy('id', 'desc')->paginate(15);
+            $estados = \App\Models\Estado::orderBy('id', 'desc')->paginate(10);
         }
 
         return view('gestor.estados.lista', compact('estados', 'f_p'));

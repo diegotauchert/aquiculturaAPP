@@ -37,9 +37,9 @@ class CidadeController extends Controller
                     ->orWhere('estados.nome', 'like', '%' . $f_p . '%')
                     ->orWhere('estados.sigla', 'like', '%' . $f_p . '%')
                     ->orderBy('cidades.id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $cidades = \App\Models\Cidade::orderBy('id', 'desc')->paginate(15);
+            $cidades = \App\Models\Cidade::orderBy('id', 'desc')->paginate(10);
         }
 
         return view('gestor.cidades.lista', compact('cidades', 'f_p'));

@@ -36,9 +36,9 @@ class ViveiroController extends Controller
                     ->orWhere('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('email', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(15);
+            $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(10);
         }
 
         $cliente = null;

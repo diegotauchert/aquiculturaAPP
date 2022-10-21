@@ -77,7 +77,10 @@
                             </div>
                             @endif
                         </td>
-                        <td class="align-middle">{{ $post->cliente->nome }}</td>
+                        <td class="align-middle">
+                            {{ $post->cliente->nome }}<br />
+                            <small><i class="fas fa-calendar-alt"></i> {{ $post->created_at->format("d/m/Y") }}</small>
+                        </td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.fazendas.destroy', $post->id) }}">

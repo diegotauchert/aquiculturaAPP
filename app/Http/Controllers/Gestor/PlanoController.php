@@ -35,9 +35,9 @@ class PlanoController extends Controller
                 $planos = \App\Models\Plano::where('nome', 'like', '%' . $f_p . '%')
                         ->orWhere('nome', 'like', '%' . $f_p . '%')
                         ->orderBy('id', 'desc')
-                        ->paginate(15);
+                        ->paginate(10);
             } else {
-                $planos = \App\Models\Plano::orderBy('id', 'desc')->paginate(15);
+                $planos = \App\Models\Plano::orderBy('id', 'desc')->paginate(10);
             }
         }
 

@@ -41,9 +41,9 @@ class MensagemController extends Controller
                     ->orWhere('quantidade', 'like', '%' . $f_p . '%')
                     ->orWhere('minimo', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $mensagens = \App\Models\Mensagem::where('cliente_id', auth('gestor')->user()->cliente_id)->where('usuario_id_remetente', auth('gestor')->user()->id)->orderBy('id', 'desc')->paginate(15);
+            $mensagens = \App\Models\Mensagem::where('cliente_id', auth('gestor')->user()->cliente_id)->where('usuario_id_remetente', auth('gestor')->user()->id)->orderBy('id', 'desc')->paginate(10);
         }
 
         $cliente = null;
@@ -75,9 +75,9 @@ class MensagemController extends Controller
                     ->orWhere('quantidade', 'like', '%' . $f_p . '%')
                     ->orWhere('minimo', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $mensagens = \App\Models\Mensagem::where('cliente_id', auth('gestor')->user()->cliente_id)->where('usuario_id_destino', auth('gestor')->user()->id)->orderBy('id', 'desc')->paginate(15);
+            $mensagens = \App\Models\Mensagem::where('cliente_id', auth('gestor')->user()->cliente_id)->where('usuario_id_destino', auth('gestor')->user()->id)->orderBy('id', 'desc')->paginate(10);
         }
 
         $cliente = null;

@@ -31,9 +31,9 @@ class CategoriaClienteController extends Controller
         if ($f_p) {
             $categorias = \App\Models\CategoriaCliente::where('nome', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $categorias = \App\Models\CategoriaCliente::orderBy('id', 'desc')->paginate(15);
+            $categorias = \App\Models\CategoriaCliente::orderBy('id', 'desc')->paginate(10);
         }
 
         return view('gestor.categorias-clientes.lista', compact('categorias', 'f_p'));

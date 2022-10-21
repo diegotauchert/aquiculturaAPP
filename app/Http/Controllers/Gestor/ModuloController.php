@@ -32,9 +32,9 @@ class ModuloController extends Controller
             $modulos = \App\Models\Modulo::where('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('link', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
-            $modulos = \App\Models\Modulo::orderBy('id', 'desc')->paginate(15);
+            $modulos = \App\Models\Modulo::orderBy('id', 'desc')->paginate(10);
         }
 
         return view('gestor.modulos.lista', compact('modulos', 'f_p'));

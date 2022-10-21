@@ -41,12 +41,12 @@ class VendaController extends Controller
                     ->orWhere('quantidade', 'like', '%' . $f_p . '%')
                     ->orWhere('minimo', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
-                    ->paginate(15);
+                    ->paginate(10);
         } else {
             $vendas = \App\Models\Venda::where('cliente_id', auth('gestor')->user()->cliente_id)
                                 //->where('usuario_id', auth('gestor')->user()->id)
                                 ->orderBy('id', 'desc')
-                                ->paginate(15);
+                                ->paginate(10);
         }
 
         $venda = new \App\Models\Venda;

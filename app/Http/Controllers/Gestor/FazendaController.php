@@ -203,10 +203,6 @@ class FazendaController extends Controller
 
         $isSaved = $fazenda->save();
 
-        // if($isSaved){
-        //     $this->saveUsuario($fazenda, $request);
-        // }
-
         return redirect()->route('gestor.fazendas.index')
                         ->with('alert', [
                             'type' => 'success',
@@ -237,7 +233,7 @@ class FazendaController extends Controller
         $userIsNotAvailable = \App\Models\Usuario::where('login', '=', strtolower($request->f_usuario))->first();
         
         if ($userIsNotAvailable) {
-            return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)
+            return redirect()->back()
                             ->with('alert', [
                                 'type' => 'danger',
                                 'message' => 'O Usuário já existe no sistema'
@@ -249,7 +245,7 @@ class FazendaController extends Controller
         $validator = $this->validUser($request, $usuario);
 
         if ($validator->fails()) {
-            return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)->withErrors($validator)->withInput();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         if ($request->f_password == $request->f_password_confirmation) {
@@ -266,9 +262,9 @@ class FazendaController extends Controller
         $usuario->situacao = $request->f_situacao ?? 1;
 
         $usuario->save();
-
-        return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)->with('alert', ['type' => 'success',
-                    'message' => 'Usuário incluído com sucesso!']);
+        
+        return redirect()->route('gestor.fazendas.usuario', ["fazenda_id" => $request->fazenda_id ?? $fazenda->id])->with('alert', ['type' => 'success',
+                    'message' => 'Usuário criado com sucesso!']);
     }
 
 
@@ -287,7 +283,7 @@ class FazendaController extends Controller
                                                 ->where('id', '!=', $id)
                                                 ->first();
         if ($userIsNotAvailable) {
-            return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)
+            return redirect()->route('gestor.fazendas.usuario', ["fazenda_id" => $request->fazenda_id, "id" => $id])
                             ->with('alert', [
                                 'type' => 'danger',
                                 'message' => 'O Usuário já existe no sistema'
@@ -297,7 +293,7 @@ class FazendaController extends Controller
         $validator = $this->validUserEdit($request, $usuario);
 
         if ($validator->fails()) {
-            return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)->withErrors($validator)->withInput();
+            return redirect()->route('gestor.fazendas.usuario', ["fazenda_id" => $request->fazenda_id, "id" => $id])->withErrors($validator)->withInput();
         }
 
         if ($request->f_password == $request->f_password_confirmation) {
@@ -319,7 +315,7 @@ class FazendaController extends Controller
             echo $e->getMessage();
         }
 
-        return redirect()->route('gestor.fazendas.usuario', $request->fazenda_id)->with('alert', ['type' => 'success',
+        return redirect()->route('gestor.fazendas.usuario', ["fazenda_id" => $request->fazenda_id, "id" => $id])->with('alert', ['type' => 'success',
                     'message' => 'Usuário editado com sucesso!']);
     }
 
@@ -356,8 +352,6 @@ class FazendaController extends Controller
             'f_usuario' => 'required|alpha_num|min:3|max:250|unique:usuarios,login',
             'f_password' => 'required|confirmed|min:3|max:100',
             'f_nome' => 'required|max:250',
-            'f_tipo' => 'required|numeric',
-            'f_situacao' => 'required|numeric',
         ]);
 
         return $validator;
@@ -386,6 +380,7 @@ class FazendaController extends Controller
     public function destroyUsuario($fazenda_id, $id)
     {
         $usuario = \App\Models\Usuario::findOrFail($id);
+
         $usuario->login = md5(uniqid(rand(), true));
         $usuario->save();
         $usuario->delete();

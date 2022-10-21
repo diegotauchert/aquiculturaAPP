@@ -26,4 +26,9 @@ class Plano extends Model
     protected $guarded = [
         'id', 'created_at', 'updated_at', 'deleted_at'
     ];
+
+    public function fazendas()
+    {
+        return $this->hasMany('App\Models\Fazenda', 'plano_id', 'id');
+    }
 }

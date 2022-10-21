@@ -221,6 +221,8 @@ class FazendaController extends Controller
         $fazenda = \App\Models\Fazenda::findOrFail($id);
         $fazenda->delete();
 
+        $this->destroyUsuarioByFazenda($id);
+
         return redirect()->route('gestor.fazendas.index')
                         ->with('alert', [
                             'type' => 'success',
@@ -370,7 +372,6 @@ class FazendaController extends Controller
         return $validator;
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -381,8 +382,10 @@ class FazendaController extends Controller
     {
         $usuario = \App\Models\Usuario::findOrFail($id);
 
-        $usuario->login = md5(uniqid(rand(), true));
+        $usuario->login = $usuario->login.'-deletado'.'-'.md5(uniqid(rand(), true));
+        $usuario->situacao = 2;
         $usuario->save();
+
         $usuario->delete();
 
         return redirect()->route('gestor.fazendas.usuario', $fazenda_id)
@@ -390,5 +393,25 @@ class FazendaController extends Controller
                             'type' => 'success',
                             'message' => 'Usuário excluído com sucesso!'
         ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyUsuarioByFazenda($fazenda_id)
+    {
+        $usuario = \App\Models\Usuario::where("fazenda_id", $fazenda_id)->get();
+
+        if($usuario){
+            foreach($usuario as $u){
+                $u->login = $u->login.'-deletado'.'-'.md5(uniqid(rand(), true));
+                $u->situacao = 2;
+                $u->save();
+                $u->delete();
+            }
+        }
     }
 }

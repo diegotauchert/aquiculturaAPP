@@ -28,9 +28,14 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+        $logs = \App\Models\UsuarioLog::where('situacao', '=', '1')->orderBy('id', 'desc')->paginate(10);
 
-        $logs = \App\Models\UsuarioLog::where('situacao', '=', '1')->orderBy('id', 'desc')->paginate(100);
+        $producao = \App\Models\Producao::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
 
-        return view('gestor.dashboard.lista', compact('logs'));
+        if(auth('gestor')->user()->fazenda_id){
+            $producao = $producao->where('p.fazenda_id', auth('gestor')->user()->fazenda_id);
+        }
+
+        return view('gestor.dashboard.lista', compact('logs', 'producao'));
     }
 }

@@ -37,7 +37,9 @@
                 <th class="align-middle">@lang('gestor_plano.title')</th>
                 <th class="align-middle">@lang('gestor_plano.qtd_viveiros')</th>
                 <th class="align-middle">@lang('gestor_plano.valor')</th>
+                <th class="align-middle">Qtd. Fazendas Utilizando</th>
                 <th class="align-middle">@lang('gestor_plano.situacao')</th>
+                <th class="align-middle">Cadastrado dia</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
                 <tbody>
@@ -65,7 +67,9 @@
                         </td>
                         <td class="align-middle">{{ $post->qtd_viveiros }}</td>
                         <td class="align-middle">R$ {{ $post->valor }}</td>
+                        <td class="align-middle">{{ $post->fazendas->count() }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
+                        <td class="align-middle"><small>{{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small></td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.planos.destroy', $post->id) }}">
                                 @method('DELETE')

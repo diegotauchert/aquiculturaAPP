@@ -36,6 +36,7 @@
                 <th class="align-middle">Fazenda</th>
                 <th class="align-middle">Dimensão</th>
                 <th class="align-middle">@lang('gestor_viveiro.situacao')</th>
+                <th class="align-middle">Cadastrado dia</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
                 <tbody>
@@ -49,7 +50,7 @@
                                 {{ $post->nome }}
                             </span>
                         </td>
-                        <td class="align-middle">{{ $post->fazenda->nome }}</td>
+                        <td class="align-middle">@if($post->fazenda){{ $post->fazenda->nome }}@else <small class="text-danger">-- Fazenda Deletada, favor excluir viveiro --</small> @endif</td>
                         <td class="align-middle">
                             <p>
                                 @if($post->comprimento)<small>Comprimento: <strong>{{ $post->comprimento }}</strong></small><br />@endif
@@ -60,6 +61,7 @@
                             </p>
                         </td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
+                        <td class="align-middle"><small>{{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small></td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.viveiros.destroy', $post->id) }}">
                                 @method('DELETE')

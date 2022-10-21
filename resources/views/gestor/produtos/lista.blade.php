@@ -54,6 +54,7 @@
                 <th class="align-middle">Fazenda</th>
                 <th class="align-middle">Detalhes</th>
                 <th class="align-middle">@lang('gestor_produto.situacao')</th>
+                <th class="align-middle">Cadastrado dia</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
                 <tbody>
@@ -77,6 +78,7 @@
                             </p>
                         </td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
+                        <td class="align-middle"><small>{{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small></td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.produtos.destroy', $post->id) }}">
                                 @method('DELETE')

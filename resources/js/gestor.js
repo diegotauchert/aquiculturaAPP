@@ -512,6 +512,10 @@ function extraMasks(b) {
         reverse: true,
         placeholder: "____"
     });
+    $(".maskfive", b).mask("00000", {
+        reverse: true,
+        placeholder: ""
+    });
     $(".maskcpf", b).mask("000.000.000-00", {
         reverse: true,
         placeholder: "___.___.___-__"

@@ -137,8 +137,8 @@ class VendaController extends Controller
             'f_nome' => 'required|max:250',
             'f_cpf' => 'required|max:250',
             'f_telefone' => 'required|max:250',
-            'f_qtd_peixe' => 'nullable|numeric|max:999',
-            'f_qtd_camarao' => 'nullable|numeric|max:999',
+            'f_qtd_peixe' => 'nullable|numeric|max:99999',
+            'f_qtd_camarao' => 'nullable|numeric|max:99999',
             'f_data' => 'date_format:"d/m/Y"|nullable'
         ]);
 

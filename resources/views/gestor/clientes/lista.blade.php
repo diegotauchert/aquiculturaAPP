@@ -40,6 +40,7 @@
                 <th class="align-middle">@lang('gestor_cliente.fazendas')</th>
                 <th class="align-middle">Usuário Principal</th>
                 <th class="align-middle">@lang('gestor_cliente.situacao')</th>
+                <th class="align-middle">Cadastrado dia</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
                 <tbody>
@@ -77,6 +78,7 @@
                         <td class="align-middle">{{ $post->fazendasCliente->count() }}</td>
                         <td class="align-middle">{{ $post->usuarioPrincipal }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
+                        <td class="align-middle"><small>{{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small></td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.clientes.destroy', $post->id) }}">
                                 @method('DELETE')

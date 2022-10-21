@@ -159,7 +159,7 @@
             
             <div class="py-2 pb-5 text-center">
                 <button type="submit" class="btn btn-lg btn-primary"><span class="fas fa-save"></span> @lang('gestor.save')</button>
-                <a class="btn btn-lg btn-outline-primary" href="{{ URL::previous() }}"><span class="fas fa-times"></span> @lang('gestor.cancel')</a>
+                <a class="btn btn-lg btn-outline-primary" href="{{ route('gestor.fazendas.index') }}"><span class="fas fa-times"></span> @lang('gestor.cancel')</a>
             </div>
         </div>
     </div>

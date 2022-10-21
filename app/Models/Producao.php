@@ -55,4 +55,9 @@ class Producao extends Model
     {
         return $this->belongsTo('App\Models\Produto', 'produto_id', 'id');
     }
+
+    public function acompanhamentos()
+    {
+        return $this->hasMany('App\Models\Acompanhamento', 'acompanhamento_id', 'id');
+    }
 }

@@ -127,7 +127,7 @@
                                 <label for="f_qtd_peixe" class="form-control-label">@lang('gestor_venda.qtd')</label>
                                 <input name="f_qtd_peixe" id="f_qtd_peixe" type="text"
                                     value="{{ (old('f_qtd_peixe') ? old('f_qtd_peixe') : $venda->qtd_peixe) }}"
-                                    class="form-control" maxlength="3" placeholder="@lang('gestor_venda.qtd')">
+                                    class="form-control maskfive" maxlength="5" placeholder="@lang('gestor_venda.qtd')">
 
                                 @error('f_qtd_peixe')
                                 <span class="invalid-feedback" role="alert">
@@ -166,7 +166,7 @@
                                 <label for="f_qtd_camarao" class="form-control-label">@lang('gestor_venda.qtd')</label>
                                 <input name="f_qtd_camarao" id="f_qtd_camarao" type="text"
                                     value="{{ (old('f_qtd_camarao') ? old('f_qtd_camarao') : $venda->qtd_camarao) }}"
-                                    class="form-control" maxlength="3" placeholder="@lang('gestor_venda.qtd')">
+                                    class="form-control maskfive" maxlength="5" placeholder="@lang('gestor_venda.qtd')">
 
                                 @error('f_qtd_camarao')
                                 <span class="invalid-feedback" role="alert">

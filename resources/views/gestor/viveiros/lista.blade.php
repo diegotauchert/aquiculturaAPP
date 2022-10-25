@@ -53,11 +53,11 @@
                         <td class="align-middle">@if($post->fazenda){{ $post->fazenda->nome }}@else <small class="text-danger">-- Fazenda Deletada, favor excluir viveiro --</small> @endif</td>
                         <td class="align-middle">
                             <p>
-                                @if($post->comprimento)<small>Comprimento: <strong>{{ $post->comprimento }}</strong></small><br />@endif
-                                @if($post->largura)<small>Largura: <strong>{{ $post->largura }}</strong></small><br />@endif
-                                @if($post->profundidade)<small>Profundidade: <strong>{{ $post->profundidade }}</strong></small><br />@endif
-                                @if($post->volume)<small>Volume: <strong>{{ $post->volume }}</strong></small><br />@endif
-                                @if($post->area)<small>Area: <strong>{{ $post->area }}</strong></small><br />@endif
+                                @if($post->comprimento)<small>Comprimento: <strong>{{ $post->comprimento }} m</strong></small><br />@endif
+                                @if($post->largura)<small>Largura: <strong>{{ $post->largura }} m</strong></small><br />@endif
+                                @if($post->profundidade)<small>Profundidade: <strong>{{ $post->profundidade }} m</strong></small><br />@endif
+                                @if($post->volume)<small>Volume: <strong>{{ $post->volume }} m²</strong></small><br />@endif
+                                @if($post->area)<small>Area: <strong>{{ $post->area }}</strong> litros</small><br />@endif
                             </p>
                         </td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>

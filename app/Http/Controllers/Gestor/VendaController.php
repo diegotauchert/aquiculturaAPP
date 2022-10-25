@@ -74,7 +74,6 @@ class VendaController extends Controller
                 ->get();
         }
         
-
         return view('gestor.vendas.edita', compact('venda', 'viveiros', 'fazendas'));
     }
 
@@ -167,9 +166,13 @@ class VendaController extends Controller
     public function edit($id)
     {
         $venda = \App\Models\Venda::findOrFail($id);
-        $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)
+        if(!auth('gestor')->user()->fazenda_id && auth('gestor')->user()->tipo == 4){
+            $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
+        }else{
+            $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)
                 ->where('fazenda_id', auth('gestor')->user()->fazenda_id)
                 ->get();
+        }
 
         $fazendas = null; 
 

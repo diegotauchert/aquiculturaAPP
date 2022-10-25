@@ -234,7 +234,7 @@
                 @if($venda->id)
                 <div class="py-2">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" id="anexo">
                             <label for="f_anexo" class="form-control-label">Anexo</label>
                             <div class="row">
                                 <div class="col-md py-2">

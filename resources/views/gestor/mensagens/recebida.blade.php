@@ -11,9 +11,6 @@
             <small class="text-secondary">\ @lang('gestor.listagem')</small>
         </h1>
     </div>
-    <div class="col col-sm-auto my-auto py-2 text-center text-md-right">
-        <a href="{{ route('gestor.mensagens.create') }}" class="btn btn-primary"><i class="fas fa-asterisk"></i> @lang('gestor_mensagem.create')</a>
-    </div>
 </div>
 <div id="busca" class="pb-2">
     <form class="form-horizontal form-row" method="GET" action="{{ route('gestor.mensagens.index') }}">

@@ -121,7 +121,12 @@ class ViveiroController extends Controller
             'cliente_id' => 'required|numeric',
             'f_fazenda' => 'required|numeric',
             'f_nome' => 'required|max:250',
-            'f_situacao' => 'required|numeric'
+            'f_situacao' => 'required|numeric',
+            'f_area' => 'required|numeric',
+            'f_volume' => 'required|numeric',
+            'f_profundidade' => 'required|numeric',
+            'f_comprimento' => 'required|numeric',
+            'f_largura' => 'required|numeric'
         ]);
 
         return $validator;

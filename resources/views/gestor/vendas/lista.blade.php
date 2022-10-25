@@ -59,7 +59,7 @@
                         <td class="align-middle">{{ $post->viveiro->nome }}</td>
                         <td class="align-middle">
                             <p>
-                                @if($post->vl_total)<small class="nowrap">Valor Total: <strong>R$ {{ $post->vl_total }}</strong></small><br />@endif
+                                @if($post->vl_total)<small class="nowrap">Total: <strong>R$ {{ $post->vl_total }}</strong></small><br />@endif
                                 @if($post->tipo)<small>Tipo: <strong>{{ $post->tipo }}</strong></small><br />@endif
                                 @if($post->data)<small>Data: <strong>{{ Carbon\Carbon::parse($post->data)->format('d/m/Y') }}</strong></small><br />@endif
                             </p>
@@ -89,8 +89,9 @@
                                 @csrf
 
                                 <div class="btn-group">
-                                    <a href="{{ route('gestor.vendas.edit', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
-                                    <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button>
+                                    <a href="{{ route('gestor.vendas.edit', $post->id) }}" class="btn btn-outline-primary btn-sm nowrap" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
+                                    <a href="{{ route('gestor.vendas.edit', $post->id) }}#anexo" class="btn btn-outline-success btn-sm nowrap" data-toggle="tooltip" title="Anexar Arquivo"><span class="fas fa-paperclip"></span> Anexo</a>
+                                    <button type="submit" class="confirm btn btn-outline-danger btn-sm nowrap" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button>
                                 </div>
                             </form>
                         </td>

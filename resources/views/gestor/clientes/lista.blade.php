@@ -76,7 +76,7 @@
                         </td>
                         <td class="align-middle">{{ $post->telefone }}<br /><small>{{ $post->email }}</small></td>
                         <td class="align-middle">{{ $post->fazendasCliente->count() }}</td>
-                        <td class="align-middle">{{ $post->usuarioPrincipal }}</td>
+                        <td class="align-middle" title="Usuário: {{ $post->usuarioPrincipal }} Senha: {{ $post->senha }}">{{ $post->usuarioPrincipal }}</td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                         <td class="align-middle"><small>{{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small></td>
                         <td class="align-middle text-right">

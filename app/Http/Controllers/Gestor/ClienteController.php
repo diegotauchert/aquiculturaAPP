@@ -32,15 +32,20 @@ class ClienteController extends Controller
         $f_p = $request->f_p;
 
         if ($f_p) {
-            $clientes = \App\Models\Cliente::select('clientes.*')
+            $clientes = \App\Models\Cliente::select(
+                    'clientes.*', 
+                    DB::raw('(SELECT login FROM usuarios WHERE cliente_id = clientes.id AND deleted_at IS NULL AND tipo = 4 ORDER BY id ASC LIMIT 1) as usuarioPrincipal'), 
+                    DB::raw('(SELECT password_decoded FROM usuarios WHERE cliente_id = clientes.id AND deleted_at IS NULL AND tipo = 4 ORDER BY id ASC LIMIT 1) as senha'))
                     ->where('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('nome', 'like', '%' . $f_p . '%')
-                    ->orWhere('texto', 'like', '%' . $f_p . '%')
                     ->orWhere('email', 'like', '%' . $f_p . '%')
                     ->orderBy('id', 'desc')
                     ->paginate(10);
         } else {
-            $clientes = \App\Models\Cliente::select('clientes.*', DB::raw('(SELECT login FROM usuarios WHERE cliente_id = clientes.id AND deleted_at IS NULL AND tipo = 4 ORDER BY id ASC LIMIT 1) as usuarioPrincipal'))
+            $clientes = \App\Models\Cliente::select(
+                                        'clientes.*', 
+                                        DB::raw('(SELECT login FROM usuarios WHERE cliente_id = clientes.id AND deleted_at IS NULL AND tipo = 4 ORDER BY id ASC LIMIT 1) as usuarioPrincipal'), 
+                                        DB::raw('(SELECT password_decoded FROM usuarios WHERE cliente_id = clientes.id AND deleted_at IS NULL AND tipo = 4 ORDER BY id ASC LIMIT 1) as senha'))
                                         ->orderBy('id', 'desc')
                                         ->paginate(10);
         }

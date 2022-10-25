@@ -62,6 +62,8 @@ class VendaController extends Controller
     public function create()
     {
         $venda = new \App\Models\Venda;
+
+        $fazendas = \App\Models\Fazenda::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
         
         if(!auth('gestor')->user()->fazenda_id && auth('gestor')->user()->tipo == 4){
             $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)
@@ -73,7 +75,7 @@ class VendaController extends Controller
         }
         
 
-        return view('gestor.vendas.edita', compact('venda', 'viveiros'));
+        return view('gestor.vendas.edita', compact('venda', 'viveiros', 'fazendas'));
     }
 
     /**
@@ -94,7 +96,7 @@ class VendaController extends Controller
         }
 
         $venda->cliente_id = auth('gestor')->user()->cliente_id;
-        $venda->fazenda_id = auth('gestor')->user()->fazenda_id;
+        $venda->fazenda_id = auth('gestor')->user()->fazenda_id ?? $request->f_fazenda;
         $venda->usuario_id = auth('gestor')->user()->id;
         $venda->viveiro_id = $request->f_viveiro;
         $venda->nome = $request->f_nome;
@@ -169,7 +171,9 @@ class VendaController extends Controller
                 ->where('fazenda_id', auth('gestor')->user()->fazenda_id)
                 ->get();
 
-        return view('gestor.vendas.edita', compact('venda', 'viveiros'));
+        $fazendas = null;
+
+        return view('gestor.vendas.edita', compact('venda', 'viveiros', 'fazendas'));
     }
 
     /**

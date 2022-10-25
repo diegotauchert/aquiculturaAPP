@@ -30,6 +30,22 @@
         <div class="card">
             <div class="card-header h5">@lang('gestor_venda.informacoes')</div>
             <div class="card-body">
+                @if(auth('gestor')->user()->fazenda_id)
+                    <input type="hidden" value="{{auth('gestor')->user()->fazenda_id}}" name="f_fazenda" />
+                @elseif(isset($fazendas) && count($fazendas) > 0)
+                    <div class="form-group col-md">
+                        <label for="f_fazenda" class="form-control-label">* Escolha uma Fazenda</label>
+                        <select name="f_fazenda" id="f_fazenda" required class="form-control selectpicker-custom" title="Escolha um Plano">
+                            <option value="" disabled>- Escolha um Plano</option>
+                            @foreach($fazendas as $fazenda)
+                            <option value="{{ $fazenda->id }}" {{ $fazenda->id == (old('f_fazenda') ? old('f_fazenda') : $fazenda->id) ? ' selected' : '' }}>
+                                {{ $fazenda->nome }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
+                
                 @if($viveiros && count($viveiros) > 0)
                 <div class="viveiros mb-4 border p-3 rounded border-light text-center">
                     <h5>* Escolha um Viveiro</h5>

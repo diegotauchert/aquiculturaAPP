@@ -171,7 +171,7 @@ class VendaController extends Controller
                 ->where('fazenda_id', auth('gestor')->user()->fazenda_id)
                 ->get();
 
-        $fazendas = null;
+        $fazendas = null; 
 
         return view('gestor.vendas.edita', compact('venda', 'viveiros', 'fazendas'));
     }

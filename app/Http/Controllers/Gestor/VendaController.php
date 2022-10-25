@@ -96,7 +96,7 @@ class VendaController extends Controller
         }
 
         $venda->cliente_id = auth('gestor')->user()->cliente_id;
-        $venda->fazenda_id = auth('gestor')->user()->fazenda_id ?? $request->f_fazenda;
+        $venda->fazenda_id = $request->f_fazenda ?? auth('gestor')->user()->fazenda_id;
         $venda->usuario_id = auth('gestor')->user()->id;
         $venda->viveiro_id = $request->f_viveiro;
         $venda->nome = $request->f_nome;
@@ -137,7 +137,7 @@ class VendaController extends Controller
         $validator = validator($request->all(), [
             'f_viveiro' => 'required|numeric',
             'f_nome' => 'required|max:250',
-            'f_cpf' => 'required|max:250',
+            'f_cpf' => 'required|min:14|max:14',
             'f_telefone' => 'required|max:250',
             'f_qtd_peixe' => 'nullable|numeric|max:99999',
             'f_qtd_camarao' => 'nullable|numeric|max:99999',

@@ -30,10 +30,14 @@ class UsuarioPerfilController extends Controller
     public function perfil()
     {
         $usuario = auth()->guard('gestor')->user();
+        
         $logs = $usuario->logs()
                 ->orderBy('data', 'desc')
                 ->paginate(5);
-        return view('gestor.usuarios.perfil', compact('usuario', 'logs'));
+
+        $fazendas = \App\Models\Fazenda::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
+
+        return view('gestor.usuarios.perfil', compact('usuario', 'logs', 'fazendas'));
     }
 
     /**
@@ -53,6 +57,7 @@ class UsuarioPerfilController extends Controller
                             ->withInput();
         }
 
+        $usuario->fazenda_id = $request->f_fazenda;
         $usuario->nome = $request->f_nome;
         $usuario->login = $request->f_login;
         $usuario->email = $request->f_email;

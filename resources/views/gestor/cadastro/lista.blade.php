@@ -1,15 +1,33 @@
 @extends('layouts.gestor.app')
 
-@section('title', __('gestor.novo') . ' - ' . __('gestor_usuario.titulo'))
+@section('title', __('gestor.listagem') . ' - ' . __('gestor_usuario.titulo'))
 
 @section('content')
 <div class="row">
     <div class="col-sm my-auto py-2">
         <h1>
-            {{$cliente->nome}} <small>/</small> {{$fazenda->nome}} <h4>@lang('gestor_usuario.titulo')</h4>
+            <a href="/" title="Voltar para o Início" style="font-size:15px;"><i class="fa-solid fa-house"></i></a> <small>\</small> 
+            @lang('gestor_usuario.titulo')
+            <small class="text-secondary">\ @lang('gestor.listagem')</small>
         </h1>
     </div>
 </div>
+<div id="busca" class="pb-2">
+    <form class="form-horizontal" method="GET" action="{{ route('gestor.fazendas.index') }}">
+        <div class="input-group">
+            <input name="f_p" id="f_p" value="{{ $f_p }}" type="text" maxlength="250" class="form-control" placeholder="@lang('gestor.search')">
+            <span class="input-group-append">
+                <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+            </span>
+        </div>
+    </form>
+</div>
+
+@if(!auth('gestor')->user()->fazenda_id)
+<p class="alert alert-danger h6 text-center mb-4">
+    <a href="{{route('gestor.editar-perfil')}}" class="text-white" style="font-size:14px;" title="Clique aqui para editar o usuário"><span><i class="fa-solid fa-triangle-exclamation"></i> Esse usuário não está vinculado a uma fazenda, você precisa editar seu usuário aqui antes de criar novos usuários.</span></a>
+</p>
+@endif
 
 @if(count($usuarios) > 0)
 <div class="table-responsive pt-2">
@@ -25,29 +43,26 @@
                     <th>@lang('gestor_usuario.nome')</th>
                     <th class="align-middle">@lang('gestor_usuario.login')</th>
                     <th class="align-middle">@lang('gestor_usuario.tipo')</th>
+                    <th class="align-middle">Fazenda</th>
+                    <th class="align-middle">Cliente</th>
                     <th class="align-middle">@lang('gestor_usuario.situacao')</</th>
-                    <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
                 <tbody>
                     @foreach($usuarios as $post)
                     <tr>
                         <td class="align-middle">{{ $post->nome }}</td>
-                        <td class="align-middle"><strong>{{ $post->login }}<br/>{{ $post->password_decoded }}</strong></td>
-                        <td class="align-middle"><span class="fas fa-{{ $post->present()->makeTipo[1] }}"></span> {{ $post->present()->makeTipo[0] }}</td>
-                        <td class="align-middle text-{{ $post->present()->makeSituacao[2] }}"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
-                        <td class="align-middle text-right">
-                            <form method="POST" action="{{ route('gestor.fazendas.usuario.destroy', ['fazenda_id' => $fazenda->id, 'id' => $post->id]) }}">
-                                @method('DELETE')
-                                @csrf
-
-                                <div class="btn-group">
-                                    <a href="{{ route('gestor.fazendas.usuario', ['fazenda_id' => $fazenda->id, 'id' => $post->id]) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
-                                    @if($post->tipo > 5)
-                                    <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button>
-                                    @endif
-                                </div>
-                            </form>
+                        <td class="align-middle">
+                            <strong>{{ $post->login }}</strong>
+                            <!-- <br/>{{ $post->password_decoded }} -->
                         </td>
+                        <td class="align-middle"><span class="fas fa-{{ $post->present()->makeTipo[1] }}"></span> {{ $post->present()->makeTipo[0] }}</td>
+                        <td class="align-middle">
+                            @if($post->fazenda)<small>{{ $post->fazenda->nome }}</small>@else <small class="text-danger">-- Nenhuma Fazenda Encontrada --</small> @endif
+                        </td>
+                        <td class="align-middle">
+                            <small>{{ $post->cliente->nome }}</small> 
+                        </td>
+                        <td class="align-middle text-{{ $post->present()->makeSituacao[2] }}"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -57,14 +72,21 @@
 </div>
 @endif
 
-<form method="POST" action="{{ ($usuario->id ? route('gestor.fazendas.usuario.update', $usuario->id) : route('gestor.fazendas.usuario.save')) }}">
+@if(auth('gestor')->user()->fazenda_id)
+<form method="POST" action="{{ ($usuario->id ? route('gestor.cadastro.update', $usuario->id) : route('gestor.cadastro.store')) }}">
     @if($usuario->id)
     @method('PUT')
     @endif
 
     @csrf
     <input name="cliente_id" id="cliente_id" type="hidden" value="{{ $cliente->id }}" />
-    <input name="fazenda_id" id="fazenda_id" type="hidden" value="{{ $fazenda->id }}" />
+    <input name="fazenda_id" id="fazenda_id" type="hidden" value="{{ auth('gestor')->user()->fazenda_id }}" />
+
+    @error('cliente_id')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
 
     <div class="row">
         <div class="col-md">
@@ -114,7 +136,7 @@
                                 <select name="f_situacao" id="f_situacao" class="form-control selectpicker-custom" title="@lang('gestor_usuario.situacao')">
                                     <option value="" disabled>@lang('gestor_usuario.situacao')</option>
                                     @foreach($usuario->present()->makeSituacaoAll as $sit_k => $sit_v)
-                                    <option value="{{ $sit_k }}" data-icon="fa-{{ $sit_v[1] }}" {{ $sit_k == (old('f_situacao') ? old('f_situacao') : $usuario->situacao) ? ' selected' : '' }}>{{ $sit_v[0] }}</option>
+                                    <option value="{{ $sit_k }}" data-icon="fa-{{ $sit_v[1] }}" {{ $sit_k == (old('f_situacao') ? old('f_situacao') : $usuario->situacao) ? 'selected' : '' }}>{{ $sit_v[0] }}</option>
                                     @endforeach
                                 </select>
                                 @error('f_situacao')
@@ -169,4 +191,5 @@
         </div>
     </div>
 </form>
+@endif
 @endsection

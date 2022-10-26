@@ -29,7 +29,12 @@
 @if(count($fazendas) > 0)
 <div class="table-responsive pt-2">
     <div class="card">
-        <div class="card-body">
+        <div class="d-flex pt-3 pr-3">
+            <div class="mobile-scroll-auto text-muted ml-auto">
+                <i class="fas fa-exchange-alt mr-2"></i> <small>Role para os lados</small>
+            </div>
+        </div>
+        <div class="card-body overflow-auto">
             <table width="100%" class="table table-striped table-hover" id="datatable">
                 <thead>
                 <th class="align-middle">@lang('gestor_fazenda.id')</th>
@@ -58,18 +63,20 @@
                             @endif
                             <span>
                                 {{ $post->nome }}<br />
-                                <span class="badge badge-primary text-white">{{ $post->viveiros->count() }} <small>Viveiros</small></span>
+                                @if($post->viveiros->count() > 0)<span class="badge badge-primary text-white">{{ $post->viveiros->count() }} <small>Viveiros</small></span>@endif
                             </span>
                         </td>
                         <td class="align-middle">
-                            <small>{{ $post->plano->nome }}<br />até {{ $post->plano->qtd_viveiros }} viveiro(s)<br />R$ {{ $post->plano->valor }} mensal</small>
+                            <small>{{ $post->plano->nome }}<br />até {{ $post->plano->qtd_viveiros }} viveiro<small>(s)</small><br />R$ {{ $post->plano->valor }} mensal</small>
                         </td>
                         <td class="align-middle users-fazenda">
                             @if($post->usuarios())
                             <div class="users-all">
-                                @foreach($post->usuarios()->get() as $usuario)
+                                <h6>{{$post->usuarios()->count()}} usuário<small>(s)</small></h6>
+                                <hr class="mb-2 mt-0 mx-0" />
+                                @foreach($post->usuarios()->get() as $index => $usuario)
                                 <div class="user-single">
-                                    <strong>{{ $usuario->present()->makeTipo[0] }}</strong><br />
+                                    <strong><small>{{$index + 1}}.</small> {{ $usuario->present()->makeTipo[0] }}</strong><br />
                                     <small>login: </small>{{ $usuario->login }}<br />
                                     <small>senha: </small>{{ $usuario->password_decoded }}<br />
                                 </div>

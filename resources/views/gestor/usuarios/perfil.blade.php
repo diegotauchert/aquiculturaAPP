@@ -40,6 +40,26 @@
                                 @enderror
                             </div>
                         </div>
+                        @if(isset($fazendas) && count($fazendas) > 0 && auth('gestor')->user()->tipo == 5)
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                                <label for="f_fazenda" class="form-control-label">* Escolha uma Fazenda</label>
+                                <select name="f_fazenda" id="f_fazenda" required class="form-control selectpicker-custom" title="Escolha uma Fazenda">
+                                    <option value="" disabled @if(!$usuario->fazenda_id) 'selected' @endif>- Escolha uma Fazenda</option>
+                                    @foreach($fazendas as $fazenda)
+                                    <option value="{{ $fazenda->id }}" {{ $fazenda->id == (old('f_fazenda') ? old('f_fazenda') : $usuario->fazenda_id) ? 'selected' : '' }}>
+                                        {{ $fazenda->nome }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('f_fazenda')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

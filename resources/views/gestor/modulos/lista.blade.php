@@ -29,7 +29,12 @@
 @if(count($modulos) > 0)
 <div class="table-responsive pt-2">
     <div class="card">
-        <div class="card-body">
+        <div class="d-flex pt-3 pr-3">
+            <div class="mobile-scroll-auto text-muted ml-auto">
+                <i class="fas fa-exchange-alt mr-2"></i> <small>Role para os lados</small>
+            </div>
+        </div>
+        <div class="card-body overflow-auto">
             <table width="100%" class="table table-striped table-hover" id="datatable">
                 <thead>
                 <th class="align-middle">

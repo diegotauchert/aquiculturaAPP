@@ -135,6 +135,7 @@ class VendaController extends Controller
     {
         $validator = validator($request->all(), [
             'f_viveiro' => 'required|numeric',
+            'f_fazenda' => 'required|numeric',
             'f_nome' => 'required|max:250',
             'f_cpf' => 'required|min:14|max:14',
             'f_telefone' => 'required|max:250',

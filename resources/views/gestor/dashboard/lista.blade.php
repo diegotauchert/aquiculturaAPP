@@ -57,7 +57,7 @@
                     </a>
                 </div>
                 <div class="item">
-                    <a href="{{route('gestor.editar-perfil')}}" title="Clique para acessar">
+                    <a href="{{route('gestor.cadastro.index')}}" title="Clique para acessar">
                         <i class="fa-solid fa-user-plus"></i>
                         <span>Cadastro</span>
                     </a>
@@ -132,8 +132,13 @@
     <div class="col-lg-12">
         <div class="table-responsive pt-2">
             <div class="card">
-                <div class="card-body">
-                    <h4 class="header-title mt-0 mb-4"><i class="fa-solid fa-industry"></i> Produção</h4>
+                <div class="card-body overflow-auto">
+                    <div class="d-flex">
+                        <h4 class="header-title mt-0 mb-4"><i class="fa-solid fa-industry"></i> Produção</h4>
+                        <div class="mobile-scroll-auto text-muted ml-auto">
+                            <i class="fas fa-exchange-alt mr-2"></i> <small>Role para os lados</small>
+                        </div>
+                    </div>
                     <table width="100%" class="table table-striped table-hover" id="datatable">
                         <thead>
                             <th class="align-middle">Usuário</th>
@@ -159,7 +164,7 @@
                                         @if($post->gramatura)<span class="nowrap">Gramatura Total: <strong>{{ $post->gramatura }}</strong></span><br />@endif
                                         @if($post->despesca)<span class="nowrap">Previsão de despesca: <strong>{{ $post->despesca->format('d/m/Y') }}</strong></span><br />@endif
                                         @if($post->produto)<span class="nowrap">Produto: <strong>{{ $post->produto->nome }}</strong></span><br />@endif
-                                        @if($post->categoria_id == 1)
+                                        <!-- @if($post->categoria_id == 1)
                                             @php
                                                 $acompanhamentos = \App\Models\Acompanhamento::where('cliente_id', auth('gestor')->user()->cliente_id)
                                                             ->where('fazenda_id', auth('gestor')->user()->fazenda_id)
@@ -194,7 +199,7 @@
                                                 </div>
                                             </div>
                                             @endif
-                                        @endif
+                                        @endif -->
                                     </small>
                                 </td>
                                 <td class="align-middle"><small>{{ $post->created_at->diffForHumans()}}<br />{{ $post->created_at->format("d/m/Y H:i") }}</small></td>

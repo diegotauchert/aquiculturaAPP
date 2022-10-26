@@ -224,6 +224,11 @@
                             </li>
                             @endif
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('gestor.cadastro.index') }}">
+                                    <i class="dripicons-user"></i> Cadastro
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('gestor.mensagens.index') }}">
                                     <i class="dripicons-conversation"></i>@lang('gestor.nav_mensagem') Enviadas
                                 </a>

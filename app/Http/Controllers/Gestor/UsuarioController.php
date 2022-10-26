@@ -56,6 +56,7 @@ class UsuarioController extends Controller
         $usuario = new \App\Models\Usuario;
         $modulos = \App\Models\Modulo::whereNull('modulo_id')
                         ->orderBy('nome', 'asc')->get();
+
         return view('gestor.usuarios.edita', compact('usuario', 'modulos'));
     }
 
@@ -145,9 +146,11 @@ class UsuarioController extends Controller
         $modulos = \App\Models\Modulo::whereNull('modulo_id')
                 ->orderBy('nome', 'asc')
                 ->get();
+
         $logs = $usuario->logs()
                 ->orderBy('data', 'desc')
                 ->paginate(5);
+
         return view('gestor.usuarios.edita', compact('usuario', 'modulos', 'logs'));
     }
 

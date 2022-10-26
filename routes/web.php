@@ -80,6 +80,7 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
         '/usuarios' => 'UsuarioController',
         '/cultivos' => 'CultivoController',
         '/vendas' => 'VendaController',
+        '/cadastro' => 'CadastroController',
         '/producao' => 'ProducaoController',
         '/acompanhamento' => 'AcompanhamentoController',
     ]);

@@ -56,8 +56,14 @@
     max-height: 50px;
     margin-top:.4rem;
 }
+.mobile-scroll-auto{
+    display: none;
+}
 
 @include media-breakpoint-down(sm) {
+    .mobile-scroll-auto{
+        display: block;
+    }
     .cookie-consent{
         button{
             font-size: 12px !important;

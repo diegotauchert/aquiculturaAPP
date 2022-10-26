@@ -30,7 +30,7 @@
 @if(count($categorias) > 0)
 <div class="table-responsive pt-2">
     <div class="card">
-        <div class="card-body">
+        <div class="card-body overflow-auto">
             <table width="100%" class="table table-striped table-hover" id="datatable">
                 <thead>
                 <th class="align-middle">

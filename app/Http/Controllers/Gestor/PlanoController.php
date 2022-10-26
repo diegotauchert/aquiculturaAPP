@@ -28,17 +28,19 @@ class PlanoController extends Controller
      */
     public function index(Request $request)
     {
-        if(auth('gestor')->user()->tipo <= 4){
-            $f_p = $request->f_p;
+        if(auth('gestor')->user()->tipo >= 4){
+            return redirect()->route('gestor.dashboard');
+        }
 
-            if ($f_p) {
-                $planos = \App\Models\Plano::where('nome', 'like', '%' . $f_p . '%')
-                        ->orWhere('nome', 'like', '%' . $f_p . '%')
-                        ->orderBy('id', 'desc')
-                        ->paginate(10);
-            } else {
-                $planos = \App\Models\Plano::orderBy('id', 'desc')->paginate(10);
-            }
+        $f_p = $request->f_p;
+
+        if ($f_p) {
+            $planos = \App\Models\Plano::where('nome', 'like', '%' . $f_p . '%')
+                    ->orWhere('nome', 'like', '%' . $f_p . '%')
+                    ->orderBy('id', 'desc')
+                    ->paginate(10);
+        } else {
+            $planos = \App\Models\Plano::orderBy('id', 'desc')->paginate(10);
         }
 
         return view('gestor.planos.lista', compact('planos', 'f_p'));

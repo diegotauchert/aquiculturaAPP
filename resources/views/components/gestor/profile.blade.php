@@ -6,7 +6,7 @@ $user->tipo = auth('gestor')->user()->tipo;
 <li class="dropdown">
     <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
     aria-haspopup="false" aria-expanded="false">
-        @if(Auth::guard('gestor')->user()->cliente->dt_expira && Auth::guard('gestor')->user()->cliente->externo && Auth::guard('gestor')->user()->cliente->dt_expira >= date("Y-m-d H:i:s"))
+        @if(Auth::guard('gestor')->user()->cliente && Auth::guard('gestor')->user()->cliente->dt_expira && Auth::guard('gestor')->user()->cliente->externo && Auth::guard('gestor')->user()->cliente->dt_expira >= date("Y-m-d H:i:s"))
         <small class="mr-2 text-danger">
             <i class="fas fa-exclamation-triangle"></i> Seu acesso expira <strong>{{ Carbon\Carbon::parse(Auth::guard('gestor')->user()->cliente->dt_expira)->diffForHumans() }}</strong>
         </small>

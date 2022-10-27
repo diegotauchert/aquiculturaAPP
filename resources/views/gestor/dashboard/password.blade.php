@@ -28,7 +28,7 @@
             @enderror
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">@lang('gestor_dashboard.recuperar_password')</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="dripicons-lock-open mr-1" style="vertical-align: sub;"></i> @lang('gestor_dashboard.recuperar_password')</button>
         <a href="{{ route('gestor.login', ['next' => $next]) }}" class="btn btn-sm btn-block"><span class="fas fa-chevron-left"></span> @lang('gestor_dashboard.voltar')</a>
     </form>
 </div>

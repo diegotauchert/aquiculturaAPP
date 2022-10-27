@@ -24,7 +24,7 @@
     </head>
 
     <body class="account-body accountbg @if(isset($saudacao)){{ str_replace(" ","-",strtolower($saudacao)) }}@endif">
-        <div class="row vh-100">
+        <div class="row vh-100 overflow-auto">
             <div class="auth-page">
                 <div class="card auth-card shadow-lg">
                     <div class="card-body">

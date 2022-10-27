@@ -37,6 +37,8 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::get('/logout', 'LoginController@logout')->name('logout');
     Route::get('/login', 'LoginController@index')->name('login');
     Route::post('/login', 'LoginController@login')->name('login');
+    Route::get('/registrar', 'LoginController@register')->name('register');
+    Route::post('/registrar', 'LoginController@registerStore')->name('register');
     Route::get('/password', 'PasswordController@index')->name('password');
     Route::post('/password', 'PasswordController@password')->name('password');
 

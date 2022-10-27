@@ -24,6 +24,7 @@ return [
     'fazer_login' => 'Fazer Login',
     'voltar' => 'Voltar',
     'sair' => 'Sair',
+    'register' => 'Cadastre-se',
 
     'relacionamentos' => 'Relacionamentos',
     'matriculas-analise-credito' => 'Matrículas em analise de crédito',

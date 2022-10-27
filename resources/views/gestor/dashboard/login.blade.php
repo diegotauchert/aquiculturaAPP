@@ -40,9 +40,10 @@
             </span>
             @enderror
         </div>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">@lang('gestor_dashboard.entrar')</button>
-        <a href="{{ route('gestor.password', ['next' => $next]) }}" class="btn btn-sm btn-block">@lang('gestor_dashboard.perdeu_password')</a>
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="dripicons-enter mr-1" style="vertical-align: sub;"></i> @lang('gestor_dashboard.entrar')</button>
+        <a href="{{ route('gestor.register', ['next' => $next]) }}" class="btn btn-lg btn-info btn-block"><i class="dripicons-user mr-1" style="vertical-align: sub;"></i> Cadastre-se</a>
+        <a href="{{ route('gestor.password', ['next' => $next]) }}" class="btn btn-sm btn-block"><i class="dripicons-lock-open mr-1" style="vertical-align: sub;"></i> @lang('gestor_dashboard.perdeu_password')</a>
     </form>
 </div>
 @endsection

@@ -485,6 +485,9 @@ function selects(b) {
 }
 
 function extraMasks(b) {
+    $(".maskdate", b).mask("00/00/0000", {
+        placeholder: "__/__/____"
+    });
     $(".maskdata", b)
         .mask("00/00/0000", {
             placeholder: "__/__/____"

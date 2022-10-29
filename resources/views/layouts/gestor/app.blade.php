@@ -178,7 +178,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{ route('gestor.producao.report.gramatura') }}">
                                     <i class="dripicons-clipboard"></i>@lang('gestor.nav_producao')
                                 </a>
                             </li>

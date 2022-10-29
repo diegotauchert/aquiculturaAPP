@@ -73,8 +73,8 @@
             @enderror
         </div>
         <div class="form-group col-md">
-            <label for="f_gramatura" class="form-control-label">Gramatura Total</label>
-            <input name="f_gramatura" id="f_gramatura" required type="text" value="{{ (old('f_gramatura') ? old('f_gramatura') : $producao->gramatura) }}" class="form-control normatize @error('f_gramatura') is-invalid @enderror" maxlength="250" />
+            <label for="f_gramatura" class="form-control-label">Gramatura Total <small>(Apenas números)</small></label>
+            <input name="f_gramatura" id="f_gramatura" onkeyup="this.value=this.value.replace(/[^\d]/,'')" required type="text" value="{{ (old('f_gramatura') ? old('f_gramatura') : $producao->gramatura) }}" class="form-control normatize @error('f_gramatura') is-invalid @enderror" maxlength="250" />
             @error('f_gramatura')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

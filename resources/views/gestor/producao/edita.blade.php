@@ -69,7 +69,7 @@
                         @foreach($acompanhamentos as $post)
                         <tr>
                             <td class="align-middle"><strong>{{ $post->usuario->nome }}</strong></td>
-                            <td class="align-middle"><i class="fa-solid fa-check"></i> {{ $post->created_at->format("d/m/Y H:i") }}</td>
+                            <td class="align-middle"><i class="fa-solid fa-check"></i> {{ $post->created_at->format("d/m/Y H:i") }}<br /><small>{{ $post->created_at->diffForHumans() }}</small></td>
                             <td class="align-middle">
                                 <small>
                                     @if($post->qtd)<span>Quantidade: <strong>{{ $post->qtd }}</strong></span><br />@endif

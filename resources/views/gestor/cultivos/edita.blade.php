@@ -180,7 +180,7 @@
                     <div class="form-group col-sm">
                         <label for="f_detalhes" class="form-control-label">@lang('gestor_cultivo.detalhes')</label>
                         <textarea name="f_detalhes" id="f_detalhes" style="resize:vertical"
-                            class="form-control" maxlength="250" placeholder="@lang('gestor_cultivo.detalhes')">{{ (old('f_detalhes') ? old('f_detalhes') : $cultivo->detalhes) }}</textarea>
+                            class="form-control" rows="8" placeholder="@lang('gestor_cultivo.detalhes')">{{ (old('f_detalhes') ? old('f_detalhes') : $cultivo->detalhes) }}</textarea>
 
                         @error('f_detalhes')
                         <span class="invalid-feedback" role="alert">

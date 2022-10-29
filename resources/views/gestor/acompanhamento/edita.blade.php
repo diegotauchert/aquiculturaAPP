@@ -148,7 +148,7 @@
                     <tbody>
                         @foreach($acompanhamentosAntigos as $post)
                         <tr>
-                            <td class="align-middle"><i class="fa-solid fa-check"></i> {{ $post->data->format("d/m/Y H:i") }}</td>
+                            <td class="align-middle"><i class="fa-solid fa-check"></i> {{ $post->data->format("d/m/Y H:i") }}<br /><small>{{ $post->data->diffForHumans() }}</small></td>
                             <td class="align-middle"><strong>{{ $post->horario }}</strong></td>
                             <td class="align-middle">{{ $post->arracoamento }}</td>
                         </tr>

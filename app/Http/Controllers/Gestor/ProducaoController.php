@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Gestor;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Response;
 use Illuminate\Support\Facades\Hash;
 
 class ProducaoController extends Controller
@@ -278,4 +279,52 @@ class ProducaoController extends Controller
                             'message' => 'Registro excluído com sucesso!'
         ]);
     }
+
+    public function reportGramatura(){
+        return view("gestor.producao.reportgramatura");
+    }
+
+    public function reportGramaturaJSON(){
+        $filterDate = Carbon::now()->startOfWeek()->toDateString();
+
+        $producao = \App\Models\Producao::select("gramatura")
+            ->where('categoria_id', 3)
+            ->where('cliente_id', auth('gestor')->user()->cliente_id)
+            ->whereDate('created_at', ">=" , $filterDate)
+            ->orderBy('id', 'DESC')
+            ->get()
+            ->toArray();
+
+        if(count($producao) > 0){
+            for($i =0; $i < count($producao); $i++){
+                $producao[$i]["classificacao"] = $this->classificaGramatura($producao[$i]["gramatura"]);
+            }
+        }
+
+        return Response::json($producao);
+    }
+
+    public function classificaGramatura($gramatura){
+        $classificacao = "";
+        switch($gramatura){
+            case ($gramatura < 6):
+                $classificacao = "Entre 04g a 06g";
+                break;
+            case ($gramatura > 6 && $gramatura < 8):
+                $classificacao = "Entre 06g a 08g";
+                break;
+            case ($gramatura > 8 && $gramatura < 10):
+                $classificacao = "Entre 08g a 10g";
+                break;
+            case ($gramatura > 10 && $gramatura < 12):
+                $classificacao = "Entre 10g a 12g";
+                break;
+            case ($gramatura > 12):
+                $classificacao = "Acima de 12g";
+                break;
+        }
+
+        return $classificacao;
+    }
+
 }

@@ -1,6 +1,6 @@
 {
     "/js/app.js": "/js/app.js?id=3079758d13f4ee7adf02",
-    "/js/dashboard.init.js": "/js/dashboard.init.js?id=0757d07c993a9488ea2f",
+    "/js/dashboard.init.js": "/js/dashboard.init.js?id=9e47806f563c1ebbacc0",
     "/js/gestor.js": "/js/gestor.js?id=b4a7ebc1e75c2a261136",
     "/css/gestor.css": "/css/gestor.css?id=f95c6afc75c4b6c6e247",
     "/css/login.css": "/css/login.css?id=1592d0c2c4ce74fce424",
@@ -192,9 +192,11 @@
     "/images/whatsapp.png": "/images/whatsapp.png?id=06eb44ae7eefa3b295ce",
     "/js/js/bootstrap.bundle.min.js": "/js/js/bootstrap.bundle.min.js?id=a454220fc07088bf1fdd",
     "/js/js/dataTables.bootstrap4.min.js": "/js/js/dataTables.bootstrap4.min.js?id=b63fdeeb4941fd4cab8a",
+    "/js/js/jquery.apexcharts.init.js": "/js/js/jquery.apexcharts.init.js?id=d41d8cd98f00b204e980",
     "/js/js/jquery.core.js": "/js/js/jquery.core.js?id=9cab9319308d02a2b395",
     "/js/js/jquery.dataTables.min.js": "/js/js/jquery.dataTables.min.js?id=bcf14f55a3878cef5e52",
     "/js/js/jquery.slimscroll.min.js": "/js/js/jquery.slimscroll.min.js?id=f1dbc7920f93bd2b1dcf",
     "/js/js/metisMenu.min.js": "/js/js/metisMenu.min.js?id=0dacc6a4754f01226ba1",
+    "/js/js/moment.js": "/js/js/moment.js?id=0941fc7ec3988352c959",
     "/js/js/waves.min.js": "/js/js/waves.min.js?id=9a5b3dfca09d9e3005dc"
 }

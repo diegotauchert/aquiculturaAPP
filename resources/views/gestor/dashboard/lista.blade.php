@@ -131,6 +131,34 @@
 </div>
 @endif
 
+@if(auth('gestor')->user()->tipo == 4)
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mt-0 mb-4">Ração em Estoque</h4>
+                <div id="chartRacao" class="apex-charts"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title mt-0 mb-4">Viveiros - Status</h4>
+                <div id="chartViveiros" class="apex-charts"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="header-title mt-0 mb-4"><i class="fas fa-balance-scale"></i> Biomassa estimada por gramatura <small id="current-week"><i class="fas fa-calendar-alt"></i> semana atual</small></h4>
+        <div id="chartProducao" class="apex-charts"></div>
+        <p id="no-data" class="text-danger"></p>
+    </div>
+</div>
+@endif
+
 @if($produtos && count($produtos) > 0)
 <div class="row">
     <div class="col-lg-12">
@@ -138,7 +166,7 @@
             <div class="card">
                 <div class="card-body overflow-auto">
                     <div class="d-flex">
-                        <h4 class="header-title mt-0 mb-4"><i class="fas fa-exclamation-triangle"></i> Produtos com estoque abaixo do Mínimo</h4>
+                        <h4 class="header-title mt-0 mb-4"><i class="fas fa-exclamation-triangle"></i> Produtos com estoque abaixo do Mínimo <small>({{$produtos->count()}} registros)</small></h4>
                         <div class="mobile-scroll-auto text-muted ml-auto">
                             <i class="fas fa-exchange-alt mr-2"></i> <small>Role para os lados</small>
                         </div>
@@ -179,7 +207,7 @@
             <div class="card">
                 <div class="card-body overflow-auto">
                     <div class="d-flex">
-                        <h4 class="header-title mt-0 mb-4"><i class="fa-solid fa-industry"></i> Produção</h4>
+                        <h4 class="header-title mt-0 mb-4"><i class="fa-solid fa-industry"></i> Produção <small>({{$producao->count()}} registros)</small></h4>
                         <div class="mobile-scroll-auto text-muted ml-auto">
                             <i class="fas fa-exchange-alt mr-2"></i> <small>Role para os lados</small>
                         </div>
@@ -266,16 +294,16 @@
         <div class="cards">
 
                 <div class="row mx-0 mb-4">
-                    <div class="col p-3 bg-white mr-3">
-                        <h4 class="header-title mt-0 mb-4"><i class="fas fa-users"></i> Clientes Ativos</h4>
+                    <div class="col p-3 bg-white mr-3 bg-dash">
+                        <h4 class="header-title my-2"><i class="fas fa-users"></i> Clientes Ativos</h4>
                         <h2>{{$clientesAtivos}}</h2>
                     </div>
-                    <div class="col p-3 bg-white mr-3">
-                        <h4 class="header-title mt-0 mb-4"><i class="fas fa-user-slash"></i> Clientes Inativos</h4>
+                    <div class="col p-3 bg-white mr-3 bg-dash">
+                        <h4 class="header-title my-2"><i class="fas fa-user-slash"></i> Clientes Inativos</h4>
                         <h2>{{$clientesInativos}}</h2>
                     </div>
-                    <div class="col p-3 bg-white">
-                        <h4 class="header-title mt-0 mb-4"><i class="fas fa-user-clock"></i> Clientes em Teste Gratuito</h4>
+                    <div class="col p-3 bg-white bg-dash">
+                        <h4 class="header-title my-2"><i class="fas fa-user-clock"></i> Clientes em Teste Gratuito</h4>
                         <h2>{{$clientesTeste}}</h2>
                     </div>
                 </div>
@@ -290,7 +318,7 @@
     <div class="col-lg-12 table-responsive">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title mt-0 mb-4"><i class="fas fa-user-secret"></i> Atividades no Sistema</h4>
+                <h4 class="header-title mt-0 mb-4"><i class="fas fa-user-secret"></i> Atividades no Sistema <small>({{$logs->count()}} registros)</small></h4>
                 <div class="slimscroll hospital-dash-activity">
                     <div class="activity">
                         <table width="100%" class="table table-striped table-hover" id="datatable">

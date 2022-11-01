@@ -304,6 +304,23 @@ class ProducaoController extends Controller
         return Response::json($producao);
     }
 
+    public function reportGramaturaTotalJSON(){
+        $producao = \App\Models\Producao::select("gramatura")
+            ->where('categoria_id', 3)
+            ->where('cliente_id', auth('gestor')->user()->cliente_id)
+            ->orderBy('id', 'DESC')
+            ->get()
+            ->toArray();
+
+        if(count($producao) > 0){
+            for($i =0; $i < count($producao); $i++){
+                $producao[$i]["classificacao"] = $this->classificaGramatura($producao[$i]["gramatura"]);
+            }
+        }
+
+        return Response::json($producao);
+    }
+
     public function classificaGramatura($gramatura){
         $classificacao = "";
         switch($gramatura){
@@ -326,5 +343,4 @@ class ProducaoController extends Controller
 
         return $classificacao;
     }
-
 }

@@ -3,6 +3,8 @@
 @section('title', __('gestor.listagem') . ' - ' . __('gestor_produto.titulo'))
 
 @section('content')
+<script defer src="{{ asset(mix('js/dashboard.init.js')) }}" type="text/javascript"></script>
+
 <div class="row">
     <div class="col-sm my-auto py-2">
         <h1>
@@ -105,4 +107,11 @@
 @else
 <p class="h2 text-center py-5">@lang('gestor.no_data')</p>
 @endif
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="header-title mt-0 mb-4">Ração em Estoque</h4>
+        <div id="chartRacao" class="apex-charts"></div>
+    </div>
+</div>
 @endsection

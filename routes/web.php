@@ -63,7 +63,10 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::get('/producao/{id}/viveiro/{categoria_id}/categoria', 'ProducaoController@save')->name('producao.save');
     Route::get('/producao/report/gramatura', 'ProducaoController@reportGramatura')->name('producao.report.gramatura');
     Route::get('/producao/report/gramatura/json', 'ProducaoController@reportGramaturaJSON')->name('producao.report.gramatura.json');
-
+    Route::get('/producao/report/gramatura/total/json', 'ProducaoController@reportGramaturaTotalJSON')->name('producao.report.gramatura.total.json');
+    Route::get('/viveiros/status/report/json', 'CultivoController@reportStatusJSON')->name('viveiros.report.status.json');
+    Route::get('/produtos/estoque/report/json', 'ProdutoController@reportEstoqueJSON')->name('produtos.report.estoque.json');
+    
     Route::get('/acompanhamento/create/producao/{id}/viveiro/{viveiro}', 'AcompanhamentoController@create')->name('acompanhamento.save');
 
     Route::resources([

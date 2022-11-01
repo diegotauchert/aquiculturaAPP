@@ -43,7 +43,7 @@
                     <th class="align-middle">@lang('gestor_cliente.contato')</th>
                     <th class="align-middle">@lang('gestor_cliente.fazendas')</th>
                     <th class="align-middle">Usuário Principal</th>
-                    <th class="align-middle">Cliente em período de teste</th>
+                    <th class="align-middle">Cliente em período de teste?</th>
                     <th class="align-middle">@lang('gestor_cliente.situacao')</th>
                     <th class="align-middle">Cadastrado dia</th>
                     <th class="align-middle text-right">@lang('gestor.action')</th>
@@ -81,8 +81,8 @@
                         <td class="align-middle">{{ $post->fazendasCliente->count() }}</td>
                         <td class="align-middle" title="Usuário: {{ $post->usuarioPrincipal }} Senha: {{ $post->senha }}">{{ $post->usuarioPrincipal }}</td>
                         <td class="align-middle">
-                            @if($post->externo == 1 && $post->situacao == 1)
-                            <span class="nowrap"><i class="fas fa-check-square"></i> Teste</span>
+                            @if($post->externo == 1 && $post->situacao == 1&& $post->dt_expira >= Carbon\Carbon::today())
+                            <span class="nowrap"><i class="fas fa-check-square"></i> <small>até dia</small> {{Carbon\Carbon::parse($post->dt_expira)->format("d/m/Y")}}<br /><small>expira {{Carbon\Carbon::parse($post->dt_expira)->diffForHumans()}}</small></span>
                             @endif
                         </td>
                         <td class="align-middle text-{{ $post->present()->makeSituacao[2] }}"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>

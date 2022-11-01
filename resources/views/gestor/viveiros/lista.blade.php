@@ -3,6 +3,7 @@
 @section('title', __('gestor.listagem') . ' - ' . __('gestor_viveiro.titulo'))
 
 @section('content')
+<script defer src="{{ asset(mix('js/dashboard.init.js')) }}" type="text/javascript"></script>
 <div class="row">
     <div class="col-sm my-auto py-2">
         <h1>
@@ -73,7 +74,7 @@
                                 @csrf
 
                                 <div class="btn-group">
-                                    <a href="{{ route('gestor.viveiros.edit', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
+                                    <a href="{{ route('gestor.viveiros.edit', $post->id) }}" class="btn btn-outline-primary btn-sm nowrap" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
                                     <!-- <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button> -->
                                 </div>
                             </form>
@@ -89,4 +90,11 @@
 @else
 <p class="h2 text-center py-5">@lang('gestor.no_data')</p>
 @endif
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="header-title mt-0 mb-4">Viveiros - Status</h4>
+        <div id="chartViveiros" class="apex-charts"></div>
+    </div>
+</div>
 @endsection

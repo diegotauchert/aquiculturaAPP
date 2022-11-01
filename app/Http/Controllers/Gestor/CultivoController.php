@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Gestor;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Response;
 use Illuminate\Support\Facades\Hash;
 
 class CultivoController extends Controller
@@ -214,5 +215,38 @@ class CultivoController extends Controller
                             'type' => 'success',
                             'message' => 'Registro excluído com sucesso!'
         ]);
+    }
+
+    public function reportStatusJSON(){
+        $cultivos = \App\Models\Cultivo::select("situacao")
+            ->where('cliente_id', auth('gestor')->user()->cliente_id)
+            ->orderBy('situacao', 'ASC')
+            ->get()
+            ->toArray();
+
+        if(count($cultivos) > 0){
+            for($i =0; $i < count($cultivos); $i++){
+                $cultivos[$i]["classificacao"] = $this->classificaStatus($cultivos[$i]["situacao"]);
+            }
+        }
+
+        return Response::json($cultivos);
+    }
+
+    public function classificaStatus($status){
+        $classificacao = "";
+        switch($status){
+            case ($status == 1):
+                $classificacao = "Produzindo";
+                break;
+            case ($status == 2):
+                $classificacao = "Manutenção";
+                break;
+            case ($status == 3):
+                $classificacao = "Entre Ciclo";
+                break;
+        }
+
+        return $classificacao;
     }
 }

@@ -62,6 +62,31 @@
 p#no-data{
     font-size: 22px;
 }
+.bg-dash{
+    background: url(../images/bgDash.jpg) center no-repeat;
+    background-size: 100%;
+    position: relative;
+    z-index: 1;
+
+    &::before{
+        content: '';
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        z-index: 0;
+        width: auto;
+        height: auto;
+        background-color: #FFF;
+        opacity: .94;
+    }
+    h2,h4{
+        position: relative;
+        z-index: 3;
+        text-align: center;
+    }
+}
 
 @include media-breakpoint-down(sm) {
     .mobile-scroll-auto{

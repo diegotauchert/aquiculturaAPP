@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Gestor;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Response;
 use Illuminate\Support\Facades\Hash;
 
 class ProdutoController extends Controller
@@ -231,5 +232,16 @@ class ProdutoController extends Controller
                             'type' => 'success',
                             'message' => 'Registro excluído com sucesso!'
         ]);
+    }
+
+    public function reportEstoqueJSON(){
+        $produtos = \App\Models\Produto::select("nome as produto", "quantidade", "minimo")
+            ->where('cliente_id', auth('gestor')->user()->cliente_id)
+            ->where('situacao', '1')
+            ->orderBy('nome', 'ASC')
+            ->get()
+            ->toArray();
+        
+        return Response::json($produtos);
     }
 }

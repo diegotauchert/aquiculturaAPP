@@ -66,9 +66,9 @@
 
                                 <div class="btn-group">
                                     <a href="{{ route('gestor.cultivos.edit', $post->id) }}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> Visualizar</a>
-                                    @if(auth('gestor')->user()->tipo == 4)
+                                    <!-- @if(auth('gestor')->user()->tipo == 4)
                                     <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button>
-                                    @endif
+                                    @endif -->
                                 </div>
                             </form>
                         </td>

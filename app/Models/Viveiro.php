@@ -41,4 +41,9 @@ class Viveiro extends Model
     {
         return $this->belongsTo('App\Models\Fazenda', 'fazenda_id', 'id');
     }
+
+    public function cultivo()
+    {
+        return $this->hasMany('App\Models\Cultivo', 'viveiro_id', 'id')->where("situacao", "1")->first();
+    }
 }

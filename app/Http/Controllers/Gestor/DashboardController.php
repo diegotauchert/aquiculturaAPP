@@ -36,7 +36,7 @@ class DashboardController extends Controller
             $logs = $logs->where('usuario.fazenda_id', auth('gestor')->user()->fazenda_id);
         }
 
-        $producao = \App\Models\Producao::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
+        $producao = \App\Models\Producao::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy("id", "DESC")->limit(12)->get();
 
         if(auth('gestor')->user()->fazenda_id){
             $producao = $producao->where('p.fazenda_id', auth('gestor')->user()->fazenda_id);

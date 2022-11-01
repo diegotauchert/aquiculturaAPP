@@ -59,6 +59,9 @@
 .mobile-scroll-auto{
     display: none;
 }
+p#no-data{
+    font-size: 22px;
+}
 
 @include media-breakpoint-down(sm) {
     .mobile-scroll-auto{

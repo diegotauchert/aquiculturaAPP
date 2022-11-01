@@ -49,12 +49,24 @@
                 @if($viveiros && count($viveiros) > 0)
                 <div class="viveiros mb-4 border p-3 rounded border-light text-center">
                     <h5>* Escolha um Viveiro</h5>
+                    @php
+                    $hasViveiro = false;
+                    @endphp
                     @foreach($viveiros as $viveiro)
+                    @if($viveiro->cultivo())
+                    @php
+                    $hasViveiro = true;
+                    @endphp
                     <div class="viveiro">
                         <input @if($viveiro->id == $venda->viveiro_id) checked @endif type="radio" value="{{$viveiro->id}}" id="viveiro-{{$viveiro->id}}" name="f_viveiro" class="mt-0 mr-2" style="transform: scale(1.5);vertical-align: text-top;" />
-                        <label for="viveiro-{{$viveiro->id}}"><h4 class="m-0 mt-2">{{$viveiro->nome}}</h4></label>
+                        <label for="viveiro-{{$viveiro->id}}"><h4 class="m-0 mt-2">{{$viveiro->nome}} @if($viveiro->cultivo()) | {{$viveiro->cultivo()->present()->makeCategoria[0]}} @endif</h4></label>
                     </div>
+                    @endif
                     @endforeach
+
+                    @if(!$hasViveiro)
+                    <p class="alert alert-danger h6 text-center mb-4"><i class="fa-solid fa-triangle-exclamation"></i> Essa venda não poderá ser realizada porque você não possui viveiro em produção.</p>
+                    @endif
                 </div>
                 @else
                 <p class="alert alert-danger h6 text-center mb-4"><i class="fa-solid fa-triangle-exclamation"></i> Essa venda não poderá ser realizada porque você não possui viveiro cadastrado.</p>
@@ -254,7 +266,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <input @if($venda->situacao == 2) checked @endif name="f_finalizado" id="f_finalizado" type="checkbox" value="1" class="mr-2" />
-                        <label for="f_finalizado" class="form-control-label">@lang('gestor_venda.finalizado')</label>
+                        <label for="f_finalizado" class="form-control-label">@lang('gestor_venda.finalizado') <small>(Tira o viveiro de produção)</small></label>
                         @error('f_finalizado')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -267,7 +279,7 @@
     </div>
 
     <div class="py-2 text-center">
-        @if($viveiros && count($viveiros) > 0)
+        @if($viveiros && count($viveiros) > 0 && $hasViveiro)
             <button type="submit" class="btn btn-lg btn-primary"><span class="fas fa-save"></span>
                 @lang('gestor.save')
             </button>

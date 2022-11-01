@@ -149,7 +149,7 @@
                         <tbody>
                             @foreach($producao as $post)
                             <tr>
-                                <td class="align-middle"><strong>{{ $post->usuario->nome }}</strong></td>
+                                <td class="align-middle"><strong><i class="fas fa-user"></i> {{ $post->usuario->nome }}</strong></td>
                                 <td class="align-middle"><strong>{{ $post->present()->makeCategoria[0] }}</strong></td>
                                 <td class="align-middle">
                                     <small>
@@ -202,7 +202,7 @@
                                         @endif -->
                                     </small>
                                 </td>
-                                <td class="align-middle"><small>{{ $post->created_at->diffForHumans()}}<br />{{ $post->created_at->format("d/m/Y H:i") }}</small></td>
+                                <td class="align-middle"><small><i class="fas fa-calendar-alt"></i> {{ $post->created_at->diffForHumans()}}<br />{{ $post->created_at->format("d/m/Y H:i") }}</small></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -257,7 +257,7 @@
                                             <div class="item-info m-0">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <h5 class="m-0 mt-2">{{ $log->usuario->nome }} <small>({{ $log->usuario->login }})</small></h5>
-                                                    <span class="text-muted">{{ $log->data->format("d/m/Y H:i") }}<br />{{ $log->data->diffForHumans() }}</span>
+                                                    <span class="text-muted"> {{ $log->data->format("d/m/Y H:i") }}<br />{{ $log->data->diffForHumans() }}</span>
                                                 </div>
                                                 <p class="text-muted mt-2">{{ $log->present()->descricao }}
                                                     <a href="" class="text-info"><strong>{{ $log->ip }}</strong></a>

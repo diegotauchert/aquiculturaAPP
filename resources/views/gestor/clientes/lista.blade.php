@@ -93,9 +93,9 @@
                                     @permissao('gestor', 'gestor.clientes.edit')
                                     <a href="{{ route('gestor.clientes.edit', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
                                     @endpermissao
-                                    @permissao('gestor', 'gestor.clientes.destroy')
+                                    <!-- @permissao('gestor', 'gestor.clientes.destroy')
                                     <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button>
-                                    @endpermissao
+                                    @endpermissao -->
                                 </div>
                             </form>
                         </td>

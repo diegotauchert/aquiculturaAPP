@@ -190,6 +190,7 @@
                     </div>
                 </div>
                 
+                @if($cultivo && $cultivo->situacao == "1")
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <input name="f_inativar" id="f_inativar" type="checkbox" value="1" class="mr-2" />
@@ -201,6 +202,7 @@
                         @enderror
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

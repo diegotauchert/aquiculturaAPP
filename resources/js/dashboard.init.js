@@ -51,5 +51,7 @@ axios({
 
       var chart = new ApexCharts(document.querySelector("#chartProducao"), options);
       chart.render();
+    }else{
+      document.querySelector("#no-data").innerHTML = "Sem dados de gramatura para essa semana"
     }
   });

@@ -31,8 +31,15 @@ class AcompanhamentoController extends Controller
     {
         $f_p = $request->f_p;
         $viveiros = DB::table('producao as p')
-                                    ->select(['p.id as producao_id', 'v.id as viveiro_id', 'v.nome'])
+                                    ->select(['p.id as producao_id', 'v.id as viveiro_id', 'v.nome', 'c.situacao as situacaoCultivo', 'c.categoria_id as categoriaCultivo'])
                                     ->join('viveiros as v', 'v.id', 'p.viveiro_id')
+                                    ->leftJoin('cultivo as c', function($join)
+                                    {
+                                        $join->on('c.viveiro_id', '=', 'v.id')
+                                             ->where('c.cliente_id', auth('gestor')->user()->cliente_id)
+                                             ->where('c.fazenda_id', auth('gestor')->user()->fazenda_id)
+                                             ->where('c.situacao', "1");
+                                    })
                                     ->where("p.cliente_id", auth('gestor')->user()->cliente_id)
                                     ->where("p.fazenda_id", auth('gestor')->user()->fazenda_id)
                                     ->where("p.categoria_id", 1)
@@ -49,7 +56,9 @@ class AcompanhamentoController extends Controller
             $acompanhamento = \App\Models\Acompanhamento::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(10);
         }
 
-        return view('gestor.acompanhamento.lista', compact('acompanhamento', 'f_p', 'viveiros'));
+        $cultivo = new \App\Models\Cultivo;
+
+        return view('gestor.acompanhamento.lista', compact('acompanhamento', 'f_p', 'viveiros', 'cultivo'));
     }
 
     /**
@@ -59,7 +68,10 @@ class AcompanhamentoController extends Controller
      */
     public function create(int $producao_id, int $viveiro_id)
     {
-        $viveiro = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)->where('id', $viveiro_id)->where('fazenda_id', auth('gestor')->user()->fazenda_id)->first();
+        $viveiro = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)
+                                        ->where('id', $viveiro_id)
+                                        ->where('fazenda_id', auth('gestor')->user()->fazenda_id)
+                                        ->first();
         if(!$viveiro){
             return redirect()->route('gestor.acompanhamento.index')
                             ->withInput();

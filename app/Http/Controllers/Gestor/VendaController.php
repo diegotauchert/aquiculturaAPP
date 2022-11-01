@@ -65,13 +65,13 @@ class VendaController extends Controller
 
         $fazendas = \App\Models\Fazenda::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
         
-        if(!auth('gestor')->user()->fazenda_id && auth('gestor')->user()->tipo == 4){
-            $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)
-            ->get();
-        }else{
+        if(auth('gestor')->user()->fazenda_id){
             $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)
                 ->where('fazenda_id', auth('gestor')->user()->fazenda_id)
                 ->get();
+        }else{
+            $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)
+            ->get();
         }
         
         return view('gestor.vendas.edita', compact('venda', 'viveiros', 'fazendas'));
@@ -112,6 +112,7 @@ class VendaController extends Controller
         $venda->gramatura_camarao = $request->f_gramatura_camarao;
 
         if($request->f_finalizado){
+            $this->finalizaCultivo($venda);
             $venda->situacao = 2;
         }else{
             $venda->situacao = 1;
@@ -213,6 +214,7 @@ class VendaController extends Controller
         $venda->gramatura_camarao = $request->f_gramatura_camarao;
 
         if($request->f_finalizado){
+            $this->finalizaCultivo($venda);
             $venda->situacao = 2;
         }else{
             $venda->situacao = 1;
@@ -288,5 +290,14 @@ class VendaController extends Controller
         }
 
         return response()->json($ret);
+    }
+
+    public function finalizaCultivo(\App\Models\Venda $venda){
+        $cultivo = new \App\Models\Cultivo;
+        $cultivo->where("cliente_id", auth('gestor')->user()->cliente_id)
+                                ->where("fazenda_id", auth('gestor')->user()->fazenda_id)
+                                ->where("viveiro_id", $venda->viveiro_id)
+                                ->where("situacao", "1")
+                                ->update(["situacao" => "3"]);
     }
 }

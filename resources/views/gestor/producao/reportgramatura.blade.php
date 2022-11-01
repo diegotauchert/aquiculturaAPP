@@ -20,8 +20,9 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h3>Biomassa estimada por gramatura</h3>
+        <h3>Biomassa estimada por gramatura <small><i class="fas fa-calendar-alt"></i> semana atual</small></h3>
         <div id="chartProducao" class="apex-charts"></div>
+        <p id="no-data" class="text-danger"></p>
     </div>
 </div>
 

@@ -30,6 +30,10 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $produtos = null;
+        $clientesAtivos = null;
+        $clientesInativos = null;
+        $clientesTeste = null;
+
         $logs = \App\Models\UsuarioLog::with('usuario')->where('situacao', '=', '1')->orderBy('id', 'desc')->paginate(30);
 
         if(auth('gestor')->user()->cliente_id){
@@ -51,6 +55,12 @@ class DashboardController extends Controller
                                             ->get();
         }
 
-        return view('gestor.dashboard.lista', compact('logs', 'producao', 'produtos'));
+        if(auth('gestor')->user()->tipo <= 3){
+            $clientesAtivos = \App\Models\Cliente::where('situacao', "1")->count();
+            $clientesInativos = \App\Models\Cliente::where('situacao', "2")->count();
+            $clientesTeste = \App\Models\Cliente::where('externo', "1")->where('situacao', "1")->count();
+        }
+
+        return view('gestor.dashboard.lista', compact('logs', 'producao', 'produtos', 'clientesAtivos', 'clientesInativos', 'clientesTeste'));
     }
 }

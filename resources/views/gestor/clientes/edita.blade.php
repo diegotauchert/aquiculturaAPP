@@ -440,6 +440,59 @@
         </div>
     </div>
     @endif
+    
+    @if($fazendas && count($fazendas) > 0)
+        <div class="table-responsive pt-2">
+            <div class="card">
+                <div class="card-header h5"><i class="fas fa-tractor"></i> Fazendas Cadastradas</div>
+                <div class="d-flex pt-3 pr-3">
+                    <div class="mobile-scroll-auto text-muted ml-auto">
+                        <i class="fas fa-exchange-alt mr-2"></i> <small>Role para os lados</small>
+                    </div>
+                </div>
+                <div class="card-body overflow-auto">
+                    <table width="100%" class="table table-striped table-hover" id="datatable">
+                        <thead>
+                            <th class="align-middle">@lang('gestor_fazenda.title')</th>
+                            <th class="align-middle">Plano</th>
+                            <th class="align-middle">Cadastrado por</th>
+                            <th class="align-middle">@lang('gestor_fazenda.situacao')</th>
+                        </thead>
+                        <tbody>
+                            @foreach($fazendas as $post)
+                            <tr>
+                                <td class="align-middle">
+                                    @if($post->anexos)
+                                    @if($post->anexos->where('tipo', 1)->count() > 0)
+                                    @if($post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto)
+                                    <a href="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url() }}" title="{{ $post->nome }}" class="thumb-href mr-2" target="_blank">
+                                        <img src="{{ $post->anexos->where('tipo', 1)->sortBy('ordem')[0]->foto->url(['w' => 50, 'h' => 50]) }}" />
+                                    </a>
+                                    @endif
+                                    @endif
+                                    @endif
+                                    <span>
+                                        {{ $post->nome }}<br />
+                                        @if($post->viveiros->count() > 0)<span class="badge badge-primary text-white">{{ $post->viveiros->count() }} <small>Viveiros</small></span>@endif
+                                    </span>
+                                </td>
+                                <td class="align-middle">
+                                    <small>{{ $post->plano->nome }}<br />até {{ $post->plano->qtd_viveiros }} viveiro<small>(s)</small><br />R$ {{ $post->plano->valor }} mensal</small>
+                                </td>
+                                <td class="align-middle">
+                                    {{ $post->cliente->nome }}<br />
+                                    <small><i class="fas fa-calendar-alt"></i> {{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small>
+                                </td>
+                                <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="py-2 text-center">
         <button type="submit" class="btn btn-lg btn-primary"><span class="fas fa-save"></span>
             @lang('gestor.save')</button>

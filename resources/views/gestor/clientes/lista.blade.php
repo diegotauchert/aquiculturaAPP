@@ -38,22 +38,19 @@
         <div class="card-body overflow-auto">
             <table width="100%" class="table table-striped table-hover" id="datatable">
                 <thead>
-                <th class="align-middle">@lang('gestor_cliente.id')</th>
-                <th class="align-middle">@lang('gestor_cliente.nome')</th>
-                <th class="align-middle">@lang('gestor_cliente.data')</th>
-                <th class="align-middle">@lang('gestor_cliente.contato')</th>
-                <th class="align-middle">@lang('gestor_cliente.fazendas')</th>
-                <th class="align-middle">Usuário Principal</th>
-                <th class="align-middle">@lang('gestor_cliente.situacao')</th>
-                <th class="align-middle">Cadastrado dia</th>
-                <th class="align-middle text-right">@lang('gestor.action')</th>
+                    <th class="align-middle">@lang('gestor_cliente.nome')</th>
+                    <th class="align-middle">@lang('gestor_cliente.data')</th>
+                    <th class="align-middle">@lang('gestor_cliente.contato')</th>
+                    <th class="align-middle">@lang('gestor_cliente.fazendas')</th>
+                    <th class="align-middle">Usuário Principal</th>
+                    <th class="align-middle">Cliente em período de teste</th>
+                    <th class="align-middle">@lang('gestor_cliente.situacao')</th>
+                    <th class="align-middle">Cadastrado dia</th>
+                    <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
                 <tbody>
                     @foreach($clientes as $post)
                     <tr>
-                        <td class="align-middle">
-                            {{$post->id}}
-                        </td>
                         <td class="align-middle">
                             @if($post->anexos)
                             @if($post->anexos->where('tipo', 1)->count() > 0)
@@ -69,6 +66,7 @@
                                 @if($post->categoria)
                                 <small class="badge badge-primary text-white">{{ $post->categoria->nome }}</small><br />
                                 @endif
+                                <small><em>#<strong style="font-size:13px;">{{$post->id}}</strong></em></small><br />
                                 {{ $post->nome }}
                             </span>
                         </td>
@@ -82,7 +80,12 @@
                         <td class="align-middle">{{ $post->telefone }}<br /><small>{{ $post->email }}</small></td>
                         <td class="align-middle">{{ $post->fazendasCliente->count() }}</td>
                         <td class="align-middle" title="Usuário: {{ $post->usuarioPrincipal }} Senha: {{ $post->senha }}">{{ $post->usuarioPrincipal }}</td>
-                        <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
+                        <td class="align-middle">
+                            @if($post->externo == 1 && $post->situacao == 1)
+                            <span class="nowrap"><i class="fas fa-check-square"></i> Teste</span>
+                            @endif
+                        </td>
+                        <td class="align-middle text-{{ $post->present()->makeSituacao[2] }}"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                         <td class="align-middle"><small>{{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small></td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.clientes.destroy', $post->id) }}">
@@ -91,7 +94,7 @@
 
                                 <div class="btn-group">
                                     @permissao('gestor', 'gestor.clientes.edit')
-                                    <a href="{{ route('gestor.clientes.edit', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
+                                    <a href="{{ route('gestor.clientes.edit', $post->id) }}" class="btn btn-outline-primary btn-sm nowrap" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
                                     @endpermissao
                                     <!-- @permissao('gestor', 'gestor.clientes.destroy')
                                     <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button>

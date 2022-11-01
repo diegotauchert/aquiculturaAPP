@@ -177,11 +177,12 @@ class ClienteController extends Controller
     {
         $cliente = \App\Models\Cliente::findOrFail($id);
         $usuario = \App\Models\Usuario::where('cliente_id', '=', $id)->first();
+        $fazendas = \App\Models\Fazenda::where('cliente_id', '=', $id)->get();
 
         $s_categorias = \App\Models\CategoriaCliente::where('situacao', '=', 1)
                         ->orderBy('nome', 'asc')->get();
 
-        return view('gestor.clientes.edita', compact('cliente', 'usuario', 's_categorias'));
+        return view('gestor.clientes.edita', compact('cliente', 'usuario', 's_categorias', 'fazendas'));
     }
 
     /**

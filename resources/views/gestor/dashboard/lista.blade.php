@@ -260,6 +260,31 @@
 @endif
 @endif
 
+@if(auth('gestor')->user()->tipo <= 3)
+<div class="row">
+    <div class="col-lg-12 table-responsive">
+        <div class="cards">
+
+                <div class="row mx-0 mb-4">
+                    <div class="col p-3 bg-white mr-3">
+                        <h4 class="header-title mt-0 mb-4"><i class="fas fa-users"></i> Clientes Ativos</h4>
+                        <h2>{{$clientesAtivos}}</h2>
+                    </div>
+                    <div class="col p-3 bg-white mr-3">
+                        <h4 class="header-title mt-0 mb-4"><i class="fas fa-user-slash"></i> Clientes Inativos</h4>
+                        <h2>{{$clientesInativos}}</h2>
+                    </div>
+                    <div class="col p-3 bg-white">
+                        <h4 class="header-title mt-0 mb-4"><i class="fas fa-user-clock"></i> Clientes em Teste Gratuito</h4>
+                        <h2>{{$clientesTeste}}</h2>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>
+@endif
+
 @if(auth('gestor')->user()->tipo <= 4)
 <div class="row">
     <div class="col-lg-12 table-responsive">

@@ -22,8 +22,8 @@ class ClientePresenter extends Presenter
     public function makeSituacao($all = false)
     {
         $arr = [
-            '1' => ['Ativo', 'check'],
-            '2' => ['Inativo', 'times']
+            '1' => ['Ativo', 'check', 'success'],
+            '2' => ['Inativo', 'times', 'danger']
         ];
 
         if ($all) {

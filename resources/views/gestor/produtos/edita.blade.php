@@ -103,8 +103,8 @@
                     </div>
                     @if($produto->id && $produto->quantidadeInicial)
                     <div class="form-group col-sm">
-                        <label for="f_quantidade" class="form-control-label">* @lang('gestor_produto.quantidade') Inicial</label>
-                        <input name="f_quantidade" id="f_quantidade" type="text"
+                        <label for="f_quantidade_inicial" class="form-control-label">* @lang('gestor_produto.quantidade') Inicial</label>
+                        <input name="f_quantidade_inicial" id="f_quantidade_inicial" type="text"
                             value="{{ $produto->quantidadeInicial }}"
                             class="form-control maskano" readonly />
                     </div>

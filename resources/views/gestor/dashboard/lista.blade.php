@@ -14,7 +14,12 @@
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </div>
-            <h4 class="page-title">Dashboard</h4>
+            <h4 class="page-title"><i class="fas fa-tachometer-alt"></i> Dashboard <small class="mr-2"> / Usuário Tipo: {{ Auth::guard('gestor')->user()->present()->makeTipo[0] }}</small>@if(Auth::guard('gestor')->user()->fazenda)<small>/ {{ Auth::guard('gestor')->user()->fazenda->nome }}</small>@endif</h4>
+            @if(Auth::guard('gestor')->user()->cliente && Auth::guard('gestor')->user()->cliente->dt_expira && Auth::guard('gestor')->user()->cliente->externo && Auth::guard('gestor')->user()->cliente->dt_expira >= date("Y-m-d H:i:s"))
+            <small class="mr-2 text-danger">
+                <i class="fas fa-exclamation-triangle"></i> Seu acesso expira <strong>{{ Carbon\Carbon::parse(Auth::guard('gestor')->user()->cliente->dt_expira)->diffForHumans() }}</strong>
+            </small>
+            @endif
         </div>
     </div>
 </div>
@@ -119,6 +124,46 @@
                         <i class="fa-solid fa-pencil"></i>
                         <span>Acompanhamento</span>
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+@if($produtos && count($produtos) > 0)
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive pt-2">
+            <div class="card">
+                <div class="card-body overflow-auto">
+                    <div class="d-flex">
+                        <h4 class="header-title mt-0 mb-4"><i class="fas fa-exclamation-triangle"></i> Produtos com estoque abaixo do Mínimo</h4>
+                        <div class="mobile-scroll-auto text-muted ml-auto">
+                            <i class="fas fa-exchange-alt mr-2"></i> <small>Role para os lados</small>
+                        </div>
+                    </div>
+                    <table width="100%" class="table table-striped table-hover" id="datatable">
+                        <thead>
+                            <th class="align-middle">Nome</th>
+                            <th class="align-middle">Detalhes</th>
+                            <th class="align-middle"></th>
+                        </thead>
+                        <tbody>
+                            @foreach($produtos as $post)
+                            <tr>
+                                <td class="align-middle text-danger"><strong><i class="fas fa-exclamation-triangle"></i> {{ $post->nome }}</strong></td>
+                                <td class="align-middle text-danger"><strong> <small>Qtd Atual:</small> {{ $post->quantidade }}<br /><small>Mínimo:</small> {{ $post->minimo }}</strong></td>
+                                <td class="align-middle text-right">
+                                    <div class="btn-group">
+                                        <a href="{{ route('gestor.lotes.create', ['id' => $post->id]) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="Novo Lote"><span class="fas fa-plus"></span> Novo Lote</a>
+                                        <a href="{{ route('gestor.produtos.edit', $post->id) }}" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> Visualizar</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -53,7 +53,6 @@
         <div class="card-body overflow-auto">
             <table width="100%" class="table table-striped table-hover" id="datatable">
                 <thead>
-                <th class="align-middle">@lang('gestor_produto.id')</th>
                 <th class="align-middle">@lang('gestor_produto.title')</th>
                 <th class="align-middle">Categoria</th>
                 <th class="align-middle">Fazenda</th>
@@ -65,17 +64,14 @@
                 <tbody>
                     @foreach($produtos as $post)
                     <tr class="@if($post->minimo < $post->quantidade) estoque-ok @elseif($post->minimo == $post->quantidade) estoque-igual alert-warning @else sem-estoque alert-danger bg-warning @endif">
-                        <td class="align-middle">
-                            {{$post->id}}
-                        </td>
-                        <td class="align-middle">{{ $post->nome }}</td>
-                        <td class="align-middle">{{ $post->present()->makeCategoria[0] }}</td>
-                        <td class="align-middle">{{ $post->fazenda->nome }}</td>
+                        <td class="align-middle"><em><small>#</small>{{$post->id}}</em><br /><strong>{{ $post->nome }}</strong></td>
+                        <td class="align-middle"><i class="fas fa-box-open"></i> {{ $post->present()->makeCategoria[0] }}</td>
+                        <td class="align-middle"><i class="fas fa-tractor"></i> {{ $post->fazenda->nome }}</td>
                         <td class="align-middle">
                             <p>
                                 @if($post->quantidade)<small>Qtd Atual: <strong>{{ $post->quantidade }}</strong></small><br />@endif
                                 @if($post->minimo)<small>Mínimo: <strong>{{ $post->minimo }}</strong></small><br />@endif
-                                @if($post->vl_total)<small>Valor Total: <strong>R$ {{ $post->vl_total }}</strong></small><br />@endif
+                                @if($post->vl_total)<small><i class="fas fa-coins"></i> Valor Total: <strong>R$ {{ $post->vl_total }}</strong></small><br />@endif
 
                                 @if($post->minimo >= $post->quantidade)
                                 <span class="badge badge-danger text-white"><i class="fa-solid fa-triangle-exclamation"></i> Ver Estoque</span>
@@ -83,7 +79,7 @@
                             </p>
                         </td>
                         <td class="align-middle"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
-                        <td class="align-middle"><small>{{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small></td>
+                        <td class="align-middle"><i class="fas fa-calendar-alt"></i> <small>{{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small></td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.produtos.destroy', $post->id) }}">
                                 @method('DELETE')

@@ -13,7 +13,7 @@ $user->tipo = auth('gestor')->user()->tipo;
         @endif
 
         @if(Auth::guard('gestor')->user()->fazenda)<small>{{ Auth::guard('gestor')->user()->fazenda->nome }}</small><i class="fa-solid fa-arrow-right mx-2"></i> @endif
-        <small class="mr-2">{{ $user->present()->makeTipo[0] }}</small>
+        <small class="mr-2">{{ Auth::guard('gestor')->user()->present()->makeTipo[0] }}</small>
         @if(auth('gestor')->user()->foto)
         <img src="{{ auth('gestor')->user()->foto->url(['width' => 200]) }}" alt="{{ auth('gestor')->user()->nome }}" class="rounded-circle" />
         @else

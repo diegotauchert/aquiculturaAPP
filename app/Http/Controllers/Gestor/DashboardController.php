@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Gestor\Util;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -28,7 +29,9 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
+        $produtos = null;
         $logs = \App\Models\UsuarioLog::with('usuario')->where('situacao', '=', '1')->orderBy('id', 'desc')->paginate(30);
+
         if(auth('gestor')->user()->cliente_id){
             $logs = $logs->where('usuario.cliente_id', auth('gestor')->user()->cliente_id);
         }
@@ -42,6 +45,12 @@ class DashboardController extends Controller
             $producao = $producao->where('p.fazenda_id', auth('gestor')->user()->fazenda_id);
         }
 
-        return view('gestor.dashboard.lista', compact('logs', 'producao'));
+        if(auth('gestor')->user()->tipo == 4){
+            $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)
+                                            ->where('quantidade', '<=', DB::raw('minimo'))
+                                            ->get();
+        }
+
+        return view('gestor.dashboard.lista', compact('logs', 'producao', 'produtos'));
     }
 }

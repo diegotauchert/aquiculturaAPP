@@ -136,7 +136,7 @@
                     <div class="form-group col-sm">
                         <label for="f_validade" class="form-control-label">@lang('gestor_produto.validade')</label>
                         <div class="input-group">
-                            <input name="f_validade" id="f_validade" required type="text" value="" class="form-control maskdata @error('f_validade') is-invalid @enderror" placeholder="@lang('gestor_cliente.data')" />
+                            <input name="f_validade" id="f_validade" type="text" value="" class="form-control maskdata @error('f_validade') is-invalid @enderror" placeholder="@lang('gestor_cliente.data')" />
                             <div class="input-group-append">
                                 <div class="input-group-text"><span class="fas fa-calendar-alt"></span></div>
                             </div>

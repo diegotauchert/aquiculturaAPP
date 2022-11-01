@@ -49,12 +49,12 @@
                     @foreach($cultivos as $post)
                     <tr>
                         <td class="align-middle">{{ $post->nome }}</td>
-                        <td class="align-middle">{{ $post->present()->makeCategoria[0] }}</td>
-                        <td class="align-middle">{{ $post->fazenda->nome }}</td>
+                        <td class="align-middle"><i class="fas fa-box-open"></i> {{ $post->present()->makeCategoria[0] }}</td>
+                        <td class="align-middle"><i class="fas fa-tractor"></i> {{ $post->fazenda->nome }}</td>
                         <td class="align-middle">
                             <p>
-                                @if($post->povoado)<small>Povoado em: <strong>{{ $post->povoado->format('d/m/Y') }}</strong></small><br />@endif
-                                @if($post->despesca)<small>Previsão de Despesca: <strong>{{ $post->despesca->format('d/m/Y') }}</strong></small><br />@endif
+                                @if($post->povoado)<small><i class="fas fa-calendar-alt"></i> Povoado em: <strong>{{ $post->povoado->format('d/m/Y') }}</strong></small><br />@endif
+                                @if($post->despesca)<small><i class="fas fa-calendar-alt"></i> Previsão de Despesca: <strong>{{ $post->despesca->format('d/m/Y') }}</strong></small><br />@endif
                                 @if($post->tipo)<small>Tipo: <strong>{{ $post->tipo }}</strong></small><br />@endif
                             </p>
                         </td>

@@ -82,7 +82,7 @@ class AcompanhamentoController extends Controller
         }
         
         $producao = DB::table('producao as p')
-                        ->select(['p.id as producao_id', 'pp.nome as produto', 'p.qtd', 'p.viveiro_id', 'pp.quantidade as qtdProduto'])
+                        ->select(['p.id as producao_id', 'pp.nome as produto', 'pp.id as produtoId', 'p.qtd', 'p.viveiro_id', 'pp.quantidade as qtdProduto'])
                         ->leftJoin('produtos as pp', function($join)
                         {
                             $join->on('pp.id', 'p.produto_id')
@@ -158,6 +158,13 @@ class AcompanhamentoController extends Controller
 
         $acompanhamento->save();
 
+        if($request->qtd_lote){
+            $produto = \App\Models\Produto::findOrFail($request->produto_id);
+
+            $produto->quantidade = intval($produto->quantidade) - intval($request->qtd_lote);
+            $produto->save();
+        }
+
         return redirect()->route('gestor.acompanhamento.index')
                         ->with('alert', [
                             'type' => 'success',
@@ -226,18 +233,25 @@ class AcompanhamentoController extends Controller
                             ->withErrors($validator)
                             ->withInput();
         }
-        $acompanhamento->cliente_id = $request->cliente_id;
-        $acompanhamento->fazenda_id = $request->f_fazenda;
-        $acompanhamento->nome = $request->f_nome;
-        $acompanhamento->comprimento = $request->f_comprimento;
-        $acompanhamento->largura = $request->f_largura;
-        $acompanhamento->profundidade = $request->f_profundidade;
-        $acompanhamento->volume = $request->f_volume;
-        $acompanhamento->area = $request->f_area;
-        $acompanhamento->detalhes = $request->f_detalhes;
-        $acompanhamento->situacao = $request->f_situacao;
+        $acompanhamento->cliente_id = auth('gestor')->user()->cliente_id;
+        $acompanhamento->fazenda_id = auth('gestor')->user()->fazenda_id;
+        $acompanhamento->usuario_id = auth('gestor')->user()->id;
+        $acompanhamento->viveiro_id = $request->viveiro_id;
+        $acompanhamento->horario = $request->save_hour;
+        $acompanhamento->arracoamento = $request->save_message;
+        $acompanhamento->producao_id = $request->producao_id;
+        $acompanhamento->producao_horario_id = $request->producao_horario_id;
+        $acompanhamento->data = date('Y-m-d H:i:s');
+        $acompanhamento->situacao = 1;
 
         $acompanhamento->save();
+
+        if($request->qtd_lote){
+            $produto = \App\Models\Produto::findOrFail($request->produto_id);
+
+            $produto->quantidade = intval($produto->quantidade) - intval($request->qtd_lote);
+            $produto->save();
+        }
 
         return redirect()->route('gestor.acompanhamento.index')
                         ->with('alert', [
@@ -256,9 +270,6 @@ class AcompanhamentoController extends Controller
     {
         $acompanhamento = \App\Models\Acompanhamento::findOrFail($id);
         $acompanhamento->delete();
-
-        $cultivo = \App\Models\Cultivo::where('acompanhamento_id', $id);
-        $cultivo->delete();
 
         return redirect()->route('gestor.acompanhamento.index')
                         ->with('alert', [

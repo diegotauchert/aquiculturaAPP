@@ -102,6 +102,7 @@ class ProdutoController extends Controller
         $produto->nome = $request->f_nome;
         $produto->categoria_id = $request->f_categoria;
         $produto->quantidade = $request->f_quantidade;
+        $produto->quantidadeInicial = $request->f_quantidade;
         $produto->minimo = $request->f_minimo;
         $produto->vl_unitario = $request->f_vl_unitario;
         $produto->vl_total = $request->f_vl_total;
@@ -192,6 +193,7 @@ class ProdutoController extends Controller
         $produto->nome = $request->f_nome;
         $produto->categoria_id = $request->f_categoria;
         $produto->quantidade = $request->f_quantidade;
+        $produto->quantidadeInicial = $request->f_quantidade;
         $produto->minimo = $request->f_minimo;
         $produto->vl_unitario = $request->f_vl_unitario;
         $produto->vl_total = $request->f_vl_total;

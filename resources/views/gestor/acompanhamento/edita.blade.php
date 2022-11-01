@@ -24,6 +24,7 @@
     @csrf
 
     <input type="hidden" name="producao_id" id="producao_id" value="{{$producao->producao_id}}" />
+    <input type="hidden" name="produto_id" id="produto_id" value="{{$producao->produtoId}}" />
     <input type="hidden" name="viveiro_id" id="viveiro_id" value="{{$producao->viveiro_id}}" />
     <input type="hidden" name="producao_horario_id" id="producao_horario_id" />
     <input type="hidden" name="save_hour" id="save_hour" />
@@ -60,6 +61,13 @@
 
                 @if($producaoHorarios)
                 <h4>Registro Diário <small>{{date('d/m/Y')}}</small></h4>
+                @php
+                $totalHorarios = count($producaoHorarios);
+                @endphp
+
+                @if($producao->qtd && $totalHorarios)
+                <input name="qtd_lote" id="qtd_lote" type="hidden" value="{{$producao->qtd / $totalHorarios}}" />
+                @endif
 
                 <div class="arracoamentos">
                     @foreach($producaoHorarios as $key => $p)
@@ -93,15 +101,17 @@
                             @endif
                         
                             <div class="form-group col-md">
-                                <label for="f_arracoamento-{{$p->horario_id}}" class="form-control-label">
+                                <label for="f_arracoamento-{{$p->horario_id}}" class="form-control-label d-flex justify-content-between">
                                     <strong>Arraçoamento {{$key + 1}} </strong>
                                     @if($disabled)
-                                        <em><small> - Indisponivel no momento - Falta <strong>{{ sprintf("%02d", $hours) }}:{{sprintf("%02d", $minutes)}}</strong> hr para liberar</small></em>
+                                        <em><small> Indisponivel no momento - Falta <strong>{{ sprintf("%02d", $hours) }}:{{sprintf("%02d", $minutes)}}</strong> hr para liberar</small></em>
                                     @endif
                                     @if($registered)
                                     <em><small> - Registrado às <strong>{{ Carbon\Carbon::parse($p->data)->format("d/m/Y H:i") }}</strong></small></em>
                                     @endif
+                                    @if($producao->qtd && $totalHorarios)<small>Qtd: <strong>{{ $producao->qtd / $totalHorarios }}</strong></small>@endif
                                 </label>
+
                                 <input @if($disabled || $registered) disabled @endif name="f_arracoamento[{{$p->horario_id}}]" id="f_arracoamento-{{$p->horario_id}}" type="text" value="{{$p->arracoamento ?? date('d/m/Y')}}" class="form-control" />
                                 @error('save_message')
                                 <span class="invalid-feedback" role="alert">
@@ -121,7 +131,7 @@
                             @if(!$registered)
                             <div class="form-group col-xs m-0 d-flex align-items-center align-self-center">
                                 <button type="button" title="Confirmar Registro?" onClick="saveHour('{{$p->horario_id}}', '{{$p->hora}}')" class="btn btn-outline-primary btn-sm" @if($disabled || $registered) disabled @endif>
-                                    <span>Confirmar</span>
+                                    <span><i class="fas fa-thumbs-up"></i> Confirmar</span>
                                 </button>
                             </div>
                             @endif

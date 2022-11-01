@@ -90,7 +90,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-sm">
-                        <label for="f_quantidade" class="form-control-label">* @lang('gestor_produto.quantidade')</label>
+                        <label for="f_quantidade" class="form-control-label">* @lang('gestor_produto.quantidade')@if($produto->id && $produto->quantidadeInicial) <span>Atual</span> @endif</label>
                         <input name="f_quantidade" id="f_quantidade" type="text"
                             value="{{ (old('f_quantidade') ? old('f_quantidade') : $produto->quantidade) }}"
                             class="form-control maskano" maxlength="4" placeholder="@lang('gestor_produto.quantidade')" />
@@ -101,6 +101,14 @@
                         </span>
                         @enderror
                     </div>
+                    @if($produto->id && $produto->quantidadeInicial)
+                    <div class="form-group col-sm">
+                        <label for="f_quantidade" class="form-control-label">* @lang('gestor_produto.quantidade') Inicial</label>
+                        <input name="f_quantidade" id="f_quantidade" type="text"
+                            value="{{ $produto->quantidadeInicial }}"
+                            class="form-control maskano" readonly />
+                    </div>
+                    @endif
                     <div class="form-group col-sm">
                         <label for="f_vl_total" class="form-control-label">@lang('gestor_produto.vl_total')</label>
                         <input name="f_vl_total" id="f_vl_total" type="text" readonly

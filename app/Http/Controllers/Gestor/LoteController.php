@@ -107,6 +107,13 @@ class LoteController extends Controller
 
         $produto->save();
 
+        if($request->f_quantidade){
+            $p = \App\Models\Produto::findOrFail($request->produto_id);
+
+            $p->quantidade = intval($p->quantidade) + intval($request->f_quantidade);
+            $p->save();
+        }
+
         return redirect()->route('gestor.produtos.index')
                         ->with('alert', [
                             'type' => 'success',

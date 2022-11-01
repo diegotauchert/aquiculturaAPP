@@ -32,7 +32,11 @@ class AcompanhamentoController extends Controller
         $f_p = $request->f_p;
         $viveiros = DB::table('producao as p')
                                     ->select(['p.id as producao_id', 'v.id as viveiro_id', 'v.nome', 'c.situacao as situacaoCultivo', 'c.categoria_id as categoriaCultivo'])
-                                    ->join('viveiros as v', 'v.id', 'p.viveiro_id')
+                                    ->join('viveiros as v', function($join)
+                                    {
+                                        $join->on('v.id', 'p.viveiro_id')
+                                             ->where('v.situacao', "1");
+                                    })
                                     ->leftJoin('cultivo as c', function($join)
                                     {
                                         $join->on('c.viveiro_id', '=', 'v.id')
@@ -78,8 +82,14 @@ class AcompanhamentoController extends Controller
         }
         
         $producao = DB::table('producao as p')
-                        ->select(['p.id as producao_id', 'pp.nome as produto', 'p.qtd', 'p.viveiro_id'])
-                        ->join('produtos as pp', 'pp.id', 'p.produto_id')
+                        ->select(['p.id as producao_id', 'pp.nome as produto', 'p.qtd', 'p.viveiro_id', 'pp.quantidade as qtdProduto'])
+                        ->leftJoin('produtos as pp', function($join)
+                        {
+                            $join->on('pp.id', 'p.produto_id')
+                                 ->where('pp.situacao', "1")
+                                 ->orderBy('pp.id', "DESC")
+                                 ->limit(1);
+                        })
                         ->where('p.id', $producao_id)
                         ->where('p.viveiro_id', $viveiro_id)
                         ->where('p.cliente_id', auth('gestor')->user()->cliente_id)

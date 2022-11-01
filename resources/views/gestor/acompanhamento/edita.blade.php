@@ -31,11 +31,12 @@
 
     <div class="py-2">
         <div class="card">
+            @if($producao->produto)
             <div class="card-header h5">Produto: {{$producao->produto}}</div>
             <div class="card-body">
                 <div class="form-row">
                     <div class="form-group col-md">
-                        <label for="f_produto" class="form-control-label">Produto</label>
+                        <label for="f_produto" class="form-control-label">Produto @if($producao->qtdProduto)<small>(Resta {{$producao->qtdProduto}} em estoque)</small>@endif</label>
                         <input name="f_produto" readonly id="f_produto" type="text" value="{{ $producao->produto }}" class="form-control" />
                         @error('f_produto')
                         <span class="invalid-feedback" role="alert">
@@ -130,6 +131,9 @@
                 </div>
                 @endif
             </div>
+            @else
+            <p class="alert alert-danger h6 text-center mb-4"><i class="fa-solid fa-triangle-exclamation"></i> Não possui produto em estoque ou está com status inativo.</p>
+            @endif
         </div>
     </div>
 

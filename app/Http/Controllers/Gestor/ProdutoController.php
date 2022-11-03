@@ -40,18 +40,21 @@ class ProdutoController extends Controller
                     ->orWhere('vl_unitario', 'like', '%' . $f_p . '%')
                     ->orWhere('quantidade', 'like', '%' . $f_p . '%')
                     ->orWhere('minimo', 'like', '%' . $f_p . '%')
-                    ->orderBy('id', 'desc')
-                    ->paginate(10);
+                    ->orderBy('id', 'desc');
         } else {
-            $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(10);
+            $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc');
         }
 
         if($f_categoria){
             $produtos = \App\Models\Produto::where('cliente_id', auth('gestor')->user()->cliente_id)
                     ->where('categoria_id', $f_categoria)
-                    ->orderBy('id', 'desc')
-                    ->paginate(10);
+                    ->orderBy('id', 'desc');
         }
+
+        if(auth('gestor')->user()->fazenda_id){
+            $produtos = $produtos->where('fazenda_id', auth('gestor')->user()->fazenda_id);
+        }
+        $produtos = $produtos->paginate(10);
 
         $cliente = null;
         if(auth('gestor')->user()->cliente_id){

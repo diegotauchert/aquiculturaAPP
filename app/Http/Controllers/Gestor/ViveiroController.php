@@ -35,11 +35,16 @@ class ViveiroController extends Controller
                     ->where('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('email', 'like', '%' . $f_p . '%')
-                    ->orderBy('id', 'desc')
-                    ->paginate(10);
+                    ->orderBy('id', 'desc');
         } else {
-            $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(10);
+            $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc');
         }
+
+        if(auth('gestor')->user()->fazenda_id){
+            $viveiros = $viveiros->where('fazenda_id', auth('gestor')->user()->fazenda_id);
+        }
+
+        $viveiros = $viveiros->paginate(10);
 
         $cliente = null;
         if(auth('gestor')->user()->cliente_id){
@@ -47,6 +52,10 @@ class ViveiroController extends Controller
         }
 
         $cultivos = \App\Models\Cultivo::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('nome', 'ASC')->get();
+
+        if(auth('gestor')->user()->fazenda_id){
+            $cultivos = $cultivos->where('fazenda_id', auth('gestor')->user()->fazenda_id);
+        }
 
         return view('gestor.viveiros.lista', compact('viveiros', 'cliente', 'f_p', 'cultivos'));
     }

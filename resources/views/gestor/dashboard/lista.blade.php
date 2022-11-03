@@ -9,11 +9,6 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <div class="float-right">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </div>
             <h4 class="page-title"><i class="fas fa-tachometer-alt"></i> Dashboard <small class="mr-2"> / Usuário Tipo: {{ Auth::guard('gestor')->user()->present()->makeTipo[0] }}</small>@if(Auth::guard('gestor')->user()->fazenda)<small>/ {{ Auth::guard('gestor')->user()->fazenda->nome }}</small>@endif</h4>
             @if(Auth::guard('gestor')->user()->cliente && Auth::guard('gestor')->user()->cliente->dt_expira && Auth::guard('gestor')->user()->cliente->externo && Auth::guard('gestor')->user()->cliente->dt_expira >= date("Y-m-d H:i:s"))
             <small class="mr-2 text-danger">
@@ -313,7 +308,6 @@
 </div>
 @endif
 
-@if(auth('gestor')->user()->tipo <= 4)
 <div class="row">
     <div class="col-lg-12 table-responsive">
         <div class="card">
@@ -379,6 +373,5 @@
         </div>
     </div>
 </div>
-@endif
 
 @endsection

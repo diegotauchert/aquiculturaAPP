@@ -33,9 +33,9 @@ class ProducaoPresenter extends Presenter
     public function makeCategoria($all = false)
     {
         $arr = [
-            '1' => ['Reajuste de Ração', ''],
-            '2' => ['Parâmetro da Água', ''],
-            '3' => ['Acompanhamento Semanal', ''],
+            '1' => ['Reajuste de Ração', 'fa-weight-hanging'],
+            '2' => ['Parâmetro da Água', 'fa-tint'],
+            '3' => ['Acompanhamento Semanal', 'fa-calendar-alt'],
         ];
 
         if ($all) {

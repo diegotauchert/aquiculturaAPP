@@ -38,12 +38,17 @@ class CadastroController extends Controller
                                 ->orWhere('login', 'like', '%' . $f_p . '%')
                                 ->orWhere('email', 'like', '%' . $f_p . '%');
                             })
-                            ->orderBy('id', 'desc')->paginate(10);
+                            ->orderBy('id', 'desc');
         } else {
             $usuarios = \App\Models\Usuario::where('usuarios.tipo', '>=', auth('gestor')->user()->tipo)
                             ->where('cliente_id', auth('gestor')->user()->cliente_id)
-                            ->orderBy('id', 'desc')->paginate(10);
+                            ->orderBy('id', 'desc');
         }
+
+        if(auth('gestor')->user()->fazenda_id){
+            $usuarios = $usuarios->where('fazenda_id', auth('gestor')->user()->fazenda_id);
+        }
+        $usuarios = $usuarios->paginate(10);
 
         $usuario = new \App\Models\Usuario;
 

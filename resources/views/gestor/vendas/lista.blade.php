@@ -42,7 +42,6 @@
                 <th class="align-middle">Detalhes</th>
                 <th class="align-middle">Quantidades</th>
                 <th class="align-middle">Vendedor</th>
-                <th class="align-middle">@lang('gestor_venda.situacao')</th>
                 <th class="align-middle">Registrado dia</th>
                 <th class="align-middle text-right">@lang('gestor.action')</th>
                 </thead>
@@ -61,7 +60,10 @@
                                 <a href="{{ $post->arquivo->url() }}" target="_blank" title="Ver Anexo" style="font-size:16px;"><i class="fa-solid fa-paperclip"></i></a>
                             @endif
                         </td>
-                        <td class="align-middle">{{ $post->viveiro->nome }}</td>
+                        <td class="align-middle">
+                            {{ $post->viveiro->nome }}<br />
+                            <small>{{ $post->fazenda->nome }}</small>
+                        </td>
                         <td class="align-middle">
                             <p>
                                 @if($post->vl_total)<small class="nowrap">Total: <strong>R$ {{ $post->vl_total }}</strong></small><br />@endif
@@ -86,7 +88,6 @@
                             @endif
                         </td>
                         <td class="align-middle">{{ $post->usuario->nome }}</td>
-                        <td class="align-middle text-{{ $post->present()->makeSituacao[2] }}"><span class="fas fa-{{ $post->present()->makeSituacao[1] }}"></span> {{ $post->present()->makeSituacao[0] }}</td>
                         <td class="align-middle"><small>{{ $post->created_at->format("d/m/Y") }}<br />{{ $post->created_at->diffForHumans() }}</small></td>
                         <td class="align-middle text-right">
                             <form method="POST" action="{{ route('gestor.vendas.destroy', $post->id) }}">

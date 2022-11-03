@@ -34,11 +34,15 @@ class LoteController extends Controller
             $produtos = \App\Models\Lote::where('cliente_id', auth('gestor')->user()->cliente_id)
                     ->where('nome', 'like', '%' . $f_p . '%')
                     ->orWhere('nome', 'like', '%' . $f_p . '%')
-                    ->orderBy('id', 'desc')
-                    ->paginate(10);
+                    ->orderBy('id', 'desc');
         } else {
-            $produtos = \App\Models\Lote::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc')->paginate(10);
+            $produtos = \App\Models\Lote::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('id', 'desc');
         }
+
+        if(auth('gestor')->user()->fazenda_id){
+            $produtos = $produtos->where('fazenda_id', auth('gestor')->user()->fazenda_id);
+        }
+        $produtos = $produtos->paginate(10);
 
         $cliente = null;
         if(auth('gestor')->user()->cliente_id){

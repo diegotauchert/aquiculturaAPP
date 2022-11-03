@@ -29,7 +29,12 @@ class ProducaoController extends Controller
      */
     public function index(Request $request)
     {
-        $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id)->get();
+        $viveiros = \App\Models\Viveiro::where('cliente_id', auth('gestor')->user()->cliente_id);
+        if(auth('gestor')->user()->fazenda_id){
+            $viveiros = $viveiros->where('fazenda_id', auth('gestor')->user()->fazenda_id);
+        }
+        $viveiros = $viveiros->get();
+
         return view('gestor.producao.lista', compact('viveiros'));
     }
 

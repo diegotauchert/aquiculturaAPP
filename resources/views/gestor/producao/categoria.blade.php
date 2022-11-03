@@ -22,7 +22,7 @@
 
         @foreach($producao->present()->makeCategoriaAll as $sit_k => $sit_v)
         <a href="{{route('gestor.producao.save', ['id' => $viveiro->id, 'categoria_id' => $sit_k])}}" class="btn btn-primary d-block mb-3 mx-2">
-            {{ $sit_v[0] }}
+            <i class="fas {{ $sit_v[1] }}"></i> {{ $sit_v[0] }}
         </a>
         @endforeach
     </div>

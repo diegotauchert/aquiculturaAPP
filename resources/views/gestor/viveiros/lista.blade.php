@@ -144,12 +144,14 @@
 <p class="h2 text-center py-5">@lang('gestor.no_data')</p>
 @endif
 
+@if(auth('gestor')->user()->tipo == 4)
 <div class="card mt-4">
     <div class="card-body">
         <h4 class="header-title mt-0 mb-4">Viveiros - Status</h4>
         <div id="chartViveiros" class="apex-charts"></div>
     </div>
 </div>
+@endif
 
 <script>
     function mudaCultivoInfo(id){

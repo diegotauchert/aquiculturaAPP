@@ -65,8 +65,9 @@ class ClienteController extends Controller
         $s_categorias = \App\Models\CategoriaCliente::where('situacao', '=', 1)
                         ->orderBy('nome', 'asc')->get();
         $usuario = null;
+        $fazendas = null;
 
-        return view('gestor.clientes.edita', compact('cliente', 'usuario', 's_categorias'));
+        return view('gestor.clientes.edita', compact('cliente', 'usuario', 's_categorias', 'fazendas'));
     }
 
     /**

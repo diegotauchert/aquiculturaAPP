@@ -87,6 +87,47 @@ p#no-data{
         text-align: center;
     }
 }
+.btn-cultivo{
+    background-color: #CCC;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 25px;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 3px 22px;
+    border-radius: 10px;
+    margin: 10px;
+    display: inline-block;
+    color: #FFF;
+    min-width: 20%;
+    cursor: pointer;
+
+    &.btn-cultivo-1{
+        background:#76BF00 linear-gradient(180deg, #76BF00 0%, #578C00 100%);
+    }
+    &.btn-cultivo-2{
+        background:#BC1515 linear-gradient(180deg, #BC1515 0%, #7A0303 100%);
+    }
+    &.btn-cultivo-3{
+        background: #F1DA08 gradient(180deg, #F1DA08 0%, #BDAB02 100%);
+    }
+}
+.cultivo-info{
+    .row{
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+}
+.text-cultivo-1{
+    color: #578C00;
+}
+.text-cultivo-2{
+    color: #7A0303;
+}
+.text-cultivo-3{
+    color: #BDAB02;
+}
 
 @include media-breakpoint-down(sm) {
     .mobile-scroll-auto{

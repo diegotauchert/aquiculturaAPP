@@ -46,7 +46,9 @@ class ViveiroController extends Controller
             $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
         }
 
-        return view('gestor.viveiros.lista', compact('viveiros', 'cliente', 'f_p'));
+        $cultivos = \App\Models\Cultivo::where('cliente_id', auth('gestor')->user()->cliente_id)->orderBy('nome', 'ASC')->get();
+
+        return view('gestor.viveiros.lista', compact('viveiros', 'cliente', 'f_p', 'cultivos'));
     }
 
     /**

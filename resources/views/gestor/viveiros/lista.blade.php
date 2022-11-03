@@ -4,6 +4,7 @@
 
 @section('content')
 <script defer src="{{ asset(mix('js/dashboard.init.js')) }}" type="text/javascript"></script>
+
 <div class="row">
     <div class="col-sm my-auto py-2">
         <h1>
@@ -16,6 +17,57 @@
         <a href="{{ route('gestor.viveiros.create') }}" class="btn btn-primary"><i class="fas fa-asterisk"></i> @lang('gestor_viveiro.create')</a>
     </div>
 </div>
+<div class="mx-2">
+    @if($cultivos && count($cultivos) > 0)
+    <div class="cultivos">
+        @foreach($cultivos as $key => $cultivo)
+        <span 
+            class="btn-cultivo btn-cultivo-{{$cultivo->situacao}}" 
+            onClick="mudaCultivoInfo({{$key}})" 
+            id="cultivo-btn-{{$key}}"
+        >
+            {{$cultivo->viveiro->nome}}
+        </span>
+        @endforeach
+    </div>
+    <br />
+    @foreach($cultivos as $key => $cultivo)
+    <div class="cultivo-info container card mb-3 px-4 py-3" id="cultivo-info-{{$key}}" style="display:none;">
+        <div class="row card-body">
+            <div class="col-sm mb-3">
+                <h3 class="text-center h2 m-0 text-cultivo-{{$cultivo->situacao}}">{{$cultivo->viveiro->nome}}</h3>
+            </div>
+            <div class="col-sm mb-3">
+                <h4><i class="fas fa-ruler"></i> <span>Dimensões</span></h4>
+                <p>
+                    @if($cultivo->viveiro->comprimento)Comprimento: <strong>{{ $cultivo->viveiro->comprimento }} m</strong><br />@endif
+                    @if($cultivo->viveiro->largura)Largura: <strong>{{ $cultivo->viveiro->largura }} m</strong><br />@endif
+                    @if($cultivo->viveiro->profundidade)Profundidade: <strong>{{ $cultivo->viveiro->profundidade }} m</strong><br />@endif
+                    @if($cultivo->viveiro->volume)Volume: <strong>{{ $cultivo->viveiro->volume }} m²</strong><br />@endif
+                    @if($cultivo->viveiro->area)Area: <strong>{{ $cultivo->viveiro->area }}</strong> litros<br />@endif
+                </p>
+            </div>
+            <div class="col-sm mb-3">
+                <h4><i class="fas fa-tint"></i> <span>Ciclo Atual</span></h4>
+                <p>
+                    @if($cultivo->povoado)Data de Povoamento: <i class="fas fa-calendar-alt"></i> <strong>{{ $cultivo->povoado->format('d/m/Y') }}</strong><br />@endif
+                    @if($cultivo->despesca)Previsão de Despesca: <i class="fas fa-calendar-alt"></i> <strong>{{ $cultivo->despesca->format('d/m/Y') }}</strong><br />@endif
+                    @if($cultivo->adensamento)Adensamento: <strong>{{ $cultivo->adensamento }} pl</strong><br />@endif
+                    @if($cultivo->biometria)Biometria: <strong>{{ $cultivo->biometria }}</strong><br />@endif
+                    @if($cultivo->detalhes)<span>{{ $cultivo->detalhes }}</span><br />@endif
+                </p>
+            </div>
+            <div class="col-sm mb-3">
+                <h4><i class="fas fa-calendar-alt"></i> <span>Histórico</span></h4>
+                <p>
+                    Ciclo 01: <strong>{{ $cultivo->created_at->diffForHumans() }}</strong><br />
+                </p>
+            </div>
+        </div>
+    </div>
+    @endforeach
+    @endif
+</div>
 <div id="busca" class="pb-2">
     <form class="form-horizontal" method="GET" action="{{ route('gestor.viveiros.index') }}">
         <div class="input-group">
@@ -26,6 +78,7 @@
         </div>
     </form>
 </div>
+
 @if(count($viveiros) > 0)
 <div class="table-responsive pt-2">
     <div class="card">
@@ -97,4 +150,15 @@
         <div id="chartViveiros" class="apex-charts"></div>
     </div>
 </div>
+
+<script>
+    function mudaCultivoInfo(id){
+        const btns = document.getElementsByClassName("cultivo-info");
+        for (const btn of btns) {
+            btn.style.display = 'none';
+        }
+
+        document.getElementById("cultivo-info-"+id).style.display = 'block';
+    }
+</script>
 @endsection

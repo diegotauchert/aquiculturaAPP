@@ -133,7 +133,7 @@
 
 @if(auth('gestor')->user()->tipo == 4)
 <div class="row">
-    <div class="col">
+    <div class="col-sm">
         <div class="card">
             <div class="card-body">
                 <h4 class="header-title mt-0 mb-4">Ração em Estoque</h4>
@@ -141,7 +141,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-sm">
         <div class="card">
             <div class="card-body">
                 <h4 class="header-title mt-0 mb-4">Viveiros - Status</h4>
@@ -294,15 +294,15 @@
         <div class="cards">
 
                 <div class="row mx-0 mb-4">
-                    <div class="col p-3 bg-white mr-3 bg-dash">
+                    <div class="col-sm p-3 bg-white mr-3 bg-dash">
                         <h4 class="header-title my-2"><i class="fas fa-users"></i> Clientes Ativos</h4>
                         <h2>{{$clientesAtivos}}</h2>
                     </div>
-                    <div class="col p-3 bg-white mr-3 bg-dash">
+                    <div class="col-sm p-3 bg-white mr-3 bg-dash">
                         <h4 class="header-title my-2"><i class="fas fa-user-slash"></i> Clientes Inativos</h4>
                         <h2>{{$clientesInativos}}</h2>
                     </div>
-                    <div class="col p-3 bg-white bg-dash">
+                    <div class="col-sm p-3 bg-white bg-dash">
                         <h4 class="header-title my-2"><i class="fas fa-user-clock"></i> Clientes em Teste Gratuito</h4>
                         <h2>{{$clientesTeste}}</h2>
                     </div>

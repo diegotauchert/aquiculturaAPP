@@ -1,7 +1,7 @@
 {
     "/js/app.js": "/js/app.js?id=3079758d13f4ee7adf02",
     "/js/dashboard.init.js": "/js/dashboard.init.js?id=6d4a4e96661d3f0cf87e",
-    "/js/gestor.js": "/js/gestor.js?id=b4a7ebc1e75c2a261136",
+    "/js/gestor.js": "/js/gestor.js?id=fbdd8517543989fc6971",
     "/css/gestor.css": "/css/gestor.css?id=9da6da71355d6c3ed22d",
     "/css/login.css": "/css/login.css?id=1592d0c2c4ce74fce424",
     "/icons/android-chrome-96x96.png": "/icons/android-chrome-96x96.png?id=fcefd32399213d814edb",
@@ -178,6 +178,7 @@
     "/images/bg-menu-home.jpg": "/images/bg-menu-home.jpg?id=813236cf6bfe1ca2d053",
     "/images/bg.jpg": "/images/bg.jpg?id=ce3e30eb98fe413c9b75",
     "/images/bgDash.jpg": "/images/bgDash.jpg?id=616f6c796536d8499e0d",
+    "/images/cartoes-pagarme.png": "/images/cartoes-pagarme.png?id=900d026c261f78b2dc78",
     "/images/close.png": "/images/close.png?id=3bb4a96e8774dd8af63c",
     "/images/en.jpg": "/images/en.jpg?id=a089460c1675ab9bdc6b",
     "/images/es.jpg": "/images/es.jpg?id=fca4b22e42093c7e2b4e",

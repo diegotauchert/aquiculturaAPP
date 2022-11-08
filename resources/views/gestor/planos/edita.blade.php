@@ -55,6 +55,7 @@
                     <div class="form-group col-sm">
                         <label for="f_valor" class="form-control-label">* @lang('gestor_plano.valor')</label>
                         <input name="f_valor" id="f_valor" type="text" required
+                            @if($plano->id) readonly @endif
                             value="{{ (old('f_valor') ? old('f_valor') : $plano->valor) }}"
                             class="form-control masknumv3" maxlength="11" placeholder="@lang('gestor_plano.valor')" />
                         

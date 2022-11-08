@@ -504,6 +504,7 @@ function extraMasks(b) {
         placeholder: "__:__"
     });
     $(".maskdatahora", b).mask("00/00/0000 00:00:00");
+    $(".masknumerocartao", b).mask("0000.0000.0000.0000");
     $(".maskcep", b).mask("00000-000", {
         placeholder: "_____-___"
     });

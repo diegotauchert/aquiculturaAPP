@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use PagarMe;
 
 class PlanoController extends Controller
 {
@@ -83,7 +84,11 @@ class PlanoController extends Controller
         $plano->carencia = 0;
         $plano->situacao = $request->f_situacao;
 
-        $plano->save();
+        $isSaved = $plano->save();
+
+        if($isSaved){
+            $this->createPlanWithGateway($request, $plano->id);
+        }
 
         return redirect()->route('gestor.planos.index')
                         ->with('alert', [
@@ -155,7 +160,11 @@ class PlanoController extends Controller
         $plano->carencia = 0;
         $plano->situacao = $request->f_situacao;
 
-        $plano->save();
+        $isSaved = $plano->save();
+
+        if($isSaved){
+            $this->updatePlanWithGateway($request, $plano->paymentgateway_id);
+        }
 
         return redirect()->route('gestor.planos.index')
                         ->with('alert', [
@@ -180,5 +189,44 @@ class PlanoController extends Controller
                             'type' => 'success',
                             'message' => 'Registro excluído com sucesso!'
         ]);
+    }
+
+    public function pagarMeClient(){
+        return new PagarMe\Client(env('API_KEY_PAGARME'));
+    }
+
+    public function createPlanWithGateway(Request $request, $id){
+        $plan = $this->pagarMeClient()->plans()->create([
+            'amount' => intval(str_replace([".",","],["",""],$request->f_valor)),
+            'days' => '30',
+            'trial_days' => 0,
+            'name' => $request->f_nome
+        ]);
+
+        $plano = \App\Models\Plano::findOrFail($id);
+        $plano->paymentgateway_id = $plan->id;
+        $plano->save();
+    }
+
+    public function updatePlanWithGateway(Request $request, $paymentgateway_id){
+        $plan = $this->pagarMeClient()->plans()->update([
+            'id' => $paymentgateway_id,
+            'name' => $request->f_nome
+        ]);
+    }
+
+    /**
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function financeiro($id){
+        $plano = \App\Models\Plano::findOrFail($id);
+
+        $substriptions = $this->pagarMeClient()->subscriptions()->getList([
+            'plan_id' => $plano->paymentgateway_id
+        ]);
+
+        return view('gestor.planos.financeiro', compact('substriptions'));
     }
 }

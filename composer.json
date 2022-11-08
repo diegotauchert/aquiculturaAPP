@@ -25,6 +25,7 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "lrpatricio/warlock": "dev-master",
+        "pagarme/pagarme-php": "^4.1",
         "spatie/laravel-cookie-consent": "^2.12",
         "torzer/laravel-datetime-mutator": "^1.1",
         "waynestate/parse-youtube-id": "^1.0",

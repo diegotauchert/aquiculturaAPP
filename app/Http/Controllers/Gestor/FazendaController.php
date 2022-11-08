@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use PagarMe;
 
 class FazendaController extends Controller
 {
@@ -65,7 +66,7 @@ class FazendaController extends Controller
             $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
         }
 
-        $planos = \App\Models\Plano::get();
+        $planos = \App\Models\Plano::where('situacao', '1')->whereNotNull("paymentgateway_id")->get();
 
         return view('gestor.fazendas.edita', compact('fazenda', 'cliente', 'planos', 'usuario'));
     }
@@ -114,6 +115,7 @@ class FazendaController extends Controller
 
         if($isSaved){
             $this->saveUsuario($fazenda, $request);
+            $this->createSubscription($request, $fazenda->id);
         }
 
         return redirect()->route('gestor.fazendas.index')
@@ -130,6 +132,12 @@ class FazendaController extends Controller
             'f_plano' => 'required|numeric',
             'f_nome' => 'required|max:250',
             'f_situacao' => 'required|numeric',
+            'f_email' => 'required|email',
+            'f_telefone' => 'required|max:15',
+            'f_cep' => 'required|max:9',
+            'f_mes_cartao' => 'nullable|numeric|max:12',
+            'f_ano_cartao' => 'nullable|numeric|max:99',
+            'f_numero_cartao' => 'nullable|max:19',
             'f_usuario' => 'nullable|max:250',
             'f_password' => 'nullable|confirmed|min:3|max:250',
             'f_password_confirmation' => 'nullable|min:3|max:250'
@@ -165,7 +173,7 @@ class FazendaController extends Controller
             $cliente = \App\Models\Cliente::findOrFail(auth('gestor')->user()->cliente_id);
         }
 
-        $planos = \App\Models\Plano::get();
+        $planos = \App\Models\Plano::where('situacao', '1')->whereNotNull("paymentgateway_id")->get();
 
         return view('gestor.fazendas.edita', compact('fazenda', 'cliente', 'usuario', 'planos'));
     }
@@ -201,13 +209,72 @@ class FazendaController extends Controller
         $fazenda->complemento = $request->f_complemento;
         $fazenda->situacao = $request->f_situacao;
 
-        $isSaved = $fazenda->save();
+        $fazenda->save();
 
         return redirect()->route('gestor.fazendas.index')
                         ->with('alert', [
                             'type' => 'success',
                             'message' => 'Registro alterado com sucesso!'
         ]);
+    }
+
+
+    public function pagarMeClient(){
+        return new PagarMe\Client(env('API_KEY_PAGARME'));
+    }
+
+    public function createSubscription(Request $request, $id){
+        $plano = \App\Models\Plano::findOrFail($request->f_plano);
+
+        $phone = explode(" ", $request->f_telefone);
+
+        $addNewSubscription = [
+            'plan_id' => intval($plano->paymentgateway_id),
+            'payment_method' => 'credit_card',
+            'card_number' => str_replace(".","",$request->f_numero_cartao),
+            'card_holder_name' => $request->f_nome_cartao,
+            'card_expiration_date' => $request->f_mes_cartao.$request->f_ano_cartao,
+            'card_cvv' => $request->f_codigo_cartao,
+            'postback_url' => 'https://aquicultura2.dev.host1.fabtechinfo.com',
+            'customer' => [
+                'email' => $request->f_email,
+                'name' => $request->f_nome,
+                'document_number' => '20755827007',
+                'address' => [
+                    'street' => $request->f_endereco,
+                    'street_number' => $request->f_numero,
+                    'complementary' => $request->f_complemento,
+                    'neighborhood' => $request->f_bairro,
+                    'zipcode' => str_replace("-", "", $request->f_cep)
+                ],
+                'phone' => [
+                    'ddd' => str_replace(["(", ")"], ["", ""], $phone[0]),
+                    'number' => str_replace("-", "", $phone[1])
+                ],
+                'sex' => 'other',
+                'born_at' => '1901-01-01',
+            ],
+            'metadata' => [
+                'fazendaID' => $id,
+                'nome_plano' => $plano->nome,
+                'qtd_viveiros' => $plano->qtd_viveiros,
+            ]
+        ];
+        
+        try{
+            $result = $this->pagarMeClient()->subscriptions()->create($addNewSubscription);
+
+            $fazenda = \App\Models\Fazenda::findOrFail($id);
+            $fazenda->paymentgateway_plan_id = $result->id;
+            $fazenda->save();
+
+        }catch(Exception $e){
+            return redirect()->route('gestor.fazendas.create')
+                            ->with('alert', [
+                                'type' => 'danger',
+                                'message' => 'Erro ao registrar pagamento '.$e->getMessage()
+                            ]);
+        }
     }
     
     /**

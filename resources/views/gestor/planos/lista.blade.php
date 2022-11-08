@@ -79,10 +79,13 @@
                             <form method="POST" action="{{ route('gestor.planos.destroy', $post->id) }}">
                                 @method('DELETE')
                                 @csrf
+                                <a href="{{ route('gestor.planos.financeiro', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="Financeiro"><i class="fas fa-coins"></i> Assinaturas</a>
 
                                 <div class="btn-group">
+                                    @if($post->fazendas->count() == 0)
                                     <a href="{{ route('gestor.planos.edit', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="@lang('gestor.edit')"><span class="fas fa-pen"></span> @lang('gestor.edit')</a>
-                                    <!-- <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button> -->
+                                    <button type="submit" class="confirm btn btn-outline-danger btn-sm" data-toggle="tooltip" data-title="@lang('gestor.confirm_destroy')" title="@lang('gestor.destroy')"><span class="fas fa-trash"></span> @lang('gestor.destroy')</button>
+                                    @endif
                                 </div>
                             </form>
                         </td>

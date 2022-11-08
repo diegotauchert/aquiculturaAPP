@@ -23,16 +23,24 @@
         <div class="card-body overflow-auto">
             <table width="100%" class="table table-striped table-hover" id="datatable">
                 <thead>
-                <th class="align-middle">Nome</th>
-                <th class="align-middle text-right">@lang('gestor.action')</th>
+                <th class="align-middle">Realizado dia</th>
+                <th class="align-middle">Plano</th>
+                <th class="align-middle">Cliente</th>
+                <th class="align-middle">Cartão</th>
+                <th class="align-middle">Período</th>
+                <!-- <th class="align-middle text-right">@lang('gestor.action')</th> -->
                 </thead>
                 <tbody>
                     @foreach($substriptions as $post)
                     <tr>
-                        <td class="align-middle">{{ $post->name }}</td>
-                        <td class="align-middle text-right">
+                        <td class="align-middle"><i class="fas fa-calendar-alt"></i> <small>{{ Carbon\Carbon::parse($post->date_created)->format('d/m/Y H:i') }}</small><br /><small>{{ Carbon\Carbon::parse($post->date_created)->diffForHumans() }}</small></td>
+                        <td class="align-middle">{{ $post->plan->name }}</td>
+                        <td class="align-middle">{{ $post->customer->name }}<br />{{ $post->customer->email }}<br />({{ $post->phone->ddd }}) {{ $post->phone->number }}</td>
+                        <td class="align-middle">{{ $post->card_brand }}<br />{{ $post->card_last_digits }}</td>
+                        <td class="align-middle"><small class="nowrap"><i class="fas fa-calendar-alt"></i> {{ Carbon\Carbon::parse($post->current_period_start)->format('d/m/Y H:i') }} até <strong>{{ Carbon\Carbon::parse($post->current_period_end)->format('d/m/Y H:i') }}</strong></small></td>
+                        <!-- <td class="align-middle text-right">
                             
-                        </td>
+                        </td> -->
                     </tr>
                     @endforeach
                 </tbody>

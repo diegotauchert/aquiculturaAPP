@@ -11,6 +11,10 @@
             <small class="text-secondary">\ @lang('gestor.listagem')</small>
         </h1>
     </div>
+    <div class="col col-sm-auto my-auto py-2 text-center text-md-right">
+        <a href="{{ route('gestor.planos.financeiro') }}" class="btn btn-success" data-toggle="tooltip" title="Assinaturas"><i class="fas fa-coins"></i> Assinaturas</a>
+    </div>
+
     @permissao('gestor', 'gestor.planos.create')
     <div class="col col-sm-auto my-auto py-2 text-center text-md-right">
         <a href="{{ route('gestor.planos.create') }}" class="btn btn-primary"><i class="fas fa-asterisk"></i> @lang('gestor_plano.create')</a>
@@ -79,7 +83,6 @@
                             <form method="POST" action="{{ route('gestor.planos.destroy', $post->id) }}">
                                 @method('DELETE')
                                 @csrf
-                                <a href="{{ route('gestor.planos.financeiro', $post->id) }}" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" title="Financeiro"><i class="fas fa-coins"></i> Assinaturas</a>
 
                                 <div class="btn-group">
                                     @if($post->fazendas->count() == 0)

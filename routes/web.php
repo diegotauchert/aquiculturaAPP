@@ -51,7 +51,7 @@ Route::name('gestor.')->prefix('/gestor')->namespace('Gestor')->middleware(['lan
     Route::post('/mensagens-anexos-upload/{mensagem}', 'MensagemController@upload');
     Route::post('/vendas-anexos-upload/{venda}', 'VendaController@upload');
 
-    Route::get('/planos/{id}/financeiro', 'PlanoController@financeiro')->name('planos.financeiro');
+    Route::get('/planos/financeiro', 'PlanoController@financeiro')->name('planos.financeiro');
 
     Route::get('/fazendas/usuario/{fazenda_id}/{id?}', 'FazendaController@usuario')->name('fazendas.usuario');
     Route::post('/fazendas/usuario', 'FazendaController@saveUsuario')->name('fazendas.usuario.save');

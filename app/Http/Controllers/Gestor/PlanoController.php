@@ -245,14 +245,10 @@ class PlanoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function financeiro($id){
+    public function financeiro(){
         try {
-            $plano = \App\Models\Plano::findOrFail($id);
-
-            $substriptions = $this->pagarMeClient()->subscriptions()->getList([
-                'plan_id' => $plano->paymentgateway_id
-            ]);
-
+            $substriptions = $this->pagarMeClient()->subscriptions()->getList();
+            
             return view('gestor.planos.financeiro', compact('substriptions'));
         } catch (\Exception $e) {
             DB::rollback();

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use PagarMe;
+use DB;
 
 class PlanoController extends Controller
 {
@@ -69,32 +70,43 @@ class PlanoController extends Controller
      */
     public function store(Request $request)
     {
-        $plano = new \App\Models\Plano;
+        DB::beginTransaction();
+        try {
+            $plano = new \App\Models\Plano;
 
-        $validator = $this->valid($request, $plano);
-        if ($validator->fails()) {
-            return redirect()->route('gestor.planos.create')
-                            ->withErrors($validator)
-                            ->withInput();
+            $validator = $this->valid($request, $plano);
+            if ($validator->fails()) {
+                return redirect()->route('gestor.planos.create')
+                                ->withErrors($validator)
+                                ->withInput();
+            }
+
+            $plano->nome = $request->f_nome;
+            $plano->qtd_viveiros = $request->f_qtd_viveiros;
+            $plano->valor = $request->f_valor;
+            $plano->carencia = 0;
+            $plano->situacao = $request->f_situacao;
+
+            $plano->save();
+
+            if($plano->id){
+                $this->createPlanWithGateway($request, $plano->id);
+            }
+
+            return redirect()->route('gestor.planos.index')
+                            ->with('alert', [
+                                'type' => 'success',
+                                'message' => 'Registro incluído com sucesso!'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->route('gestor.planos.index')
+                            ->with('alert', [
+                                'type' => 'danger',
+                                'message' => 'Erro ao registrar plano no Pagarme '.$e->getMessage()
+                            ])->withInput();
         }
-
-        $plano->nome = $request->f_nome;
-        $plano->qtd_viveiros = $request->f_qtd_viveiros;
-        $plano->valor = $request->f_valor;
-        $plano->carencia = 0;
-        $plano->situacao = $request->f_situacao;
-
-        $isSaved = $plano->save();
-
-        if($isSaved){
-            $this->createPlanWithGateway($request, $plano->id);
-        }
-
-        return redirect()->route('gestor.planos.index')
-                        ->with('alert', [
-                            'type' => 'success',
-                            'message' => 'Registro incluído com sucesso!'
-        ]);
     }
 
     public function valid(Request $request)
@@ -144,33 +156,44 @@ class PlanoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $plano = \App\Models\Plano::findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $plano = \App\Models\Plano::findOrFail($id);
 
-        $validator = $this->valid($request, $plano);
-        
-        if ($validator->fails()) {
-            return redirect()->route('gestor.planos.edit', $id)
-                            ->withErrors($validator)
-                            ->withInput();
+            $validator = $this->valid($request, $plano);
+            
+            if ($validator->fails()) {
+                return redirect()->route('gestor.planos.edit', $id)
+                                ->withErrors($validator)
+                                ->withInput();
+            }
+
+            $plano->nome = $request->f_nome;
+            $plano->qtd_viveiros = $request->f_qtd_viveiros;
+            $plano->valor = $request->f_valor;
+            $plano->carencia = 0;
+            $plano->situacao = $request->f_situacao;
+
+            $plano->save();
+
+            if($plano->id){
+                $this->updatePlanWithGateway($request, $plano->paymentgateway_id);
+            }
+
+            return redirect()->route('gestor.planos.index')
+                            ->with('alert', [
+                                'type' => 'success',
+                                'message' => 'Registro alterado com sucesso!'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->route('gestor.planos.index')
+                            ->with('alert', [
+                                'type' => 'danger',
+                                'message' => 'Erro ao atualizar plano no Pagarme '.$e->getMessage()
+                            ])->withInput();
         }
-
-        $plano->nome = $request->f_nome;
-        $plano->qtd_viveiros = $request->f_qtd_viveiros;
-        $plano->valor = $request->f_valor;
-        $plano->carencia = 0;
-        $plano->situacao = $request->f_situacao;
-
-        $isSaved = $plano->save();
-
-        if($isSaved){
-            $this->updatePlanWithGateway($request, $plano->paymentgateway_id);
-        }
-
-        return redirect()->route('gestor.planos.index')
-                        ->with('alert', [
-                            'type' => 'success',
-                            'message' => 'Registro alterado com sucesso!'
-        ]);
     }
     
     /**
@@ -221,12 +244,22 @@ class PlanoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function financeiro($id){
-        $plano = \App\Models\Plano::findOrFail($id);
+        try {
+            $plano = \App\Models\Plano::findOrFail($id);
 
-        $substriptions = $this->pagarMeClient()->subscriptions()->getList([
-            'plan_id' => $plano->paymentgateway_id
-        ]);
+            $substriptions = $this->pagarMeClient()->subscriptions()->getList([
+                'plan_id' => $plano->paymentgateway_id
+            ]);
 
-        return view('gestor.planos.financeiro', compact('substriptions'));
+            return view('gestor.planos.financeiro', compact('substriptions'));
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->route('gestor.planos.index')
+                            ->with('alert', [
+                                'type' => 'danger',
+                                'message' => '<b>Erro na API do Pagarme:</b> '.$e->getMessage()
+                            ])->withInput();
+        }
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use PagarMe;
+use DB;
 
 class FazendaController extends Controller
 {
@@ -79,50 +80,61 @@ class FazendaController extends Controller
      */
     public function store(Request $request)
     {
-        $userIsNotAvailable = \App\Models\Usuario::where('login', '=', strtolower($request->f_usuario))->first();
+        DB::beginTransaction();
+        try {
+            $userIsNotAvailable = \App\Models\Usuario::where('login', '=', strtolower($request->f_usuario))->first();
 
-        if ($userIsNotAvailable) {
-            return redirect()->route('gestor.fazendas.create')
-                            ->with('alert', [
-                                'type' => 'danger',
-                                'message' => 'O Usuário já existe no sistema'
-                            ]);
-        }
+            if ($userIsNotAvailable) {
+                return redirect()->route('gestor.fazendas.create')
+                                ->with('alert', [
+                                    'type' => 'danger',
+                                    'message' => 'O Usuário já existe no sistema'
+                                ]);
+            }
 
-        $fazenda = new \App\Models\Fazenda;
+            $fazenda = new \App\Models\Fazenda;
 
-        $validator = $this->valid($request, $fazenda);
-        if ($validator->fails()) {
-            return redirect()->route('gestor.fazendas.create')
-                            ->withErrors($validator)
-                            ->withInput();
-        }
-        $fazenda->cliente_id = $request->cliente_id;
-        $fazenda->plano_id = $request->f_plano;
-        $fazenda->nome = $request->f_nome;
-        $fazenda->email = $request->f_email;
-        $fazenda->telefone = $request->f_telefone;
-        $fazenda->cep = $request->f_cep;
-        $fazenda->endereco = $request->f_endereco;
-        $fazenda->numero = $request->f_numero;
-        $fazenda->bairro = $request->f_bairro;
-        $fazenda->cidade = $request->f_cidade;
-        $fazenda->estado = $request->f_estado;
-        $fazenda->complemento = $request->f_complemento;
-        $fazenda->situacao = $request->f_situacao;
+            $validator = $this->valid($request, $fazenda);
+            if ($validator->fails()) {
+                return redirect()->route('gestor.fazendas.create')
+                                ->withErrors($validator)
+                                ->withInput();
+            }
+            $fazenda->cliente_id = $request->cliente_id;
+            $fazenda->plano_id = $request->f_plano;
+            $fazenda->nome = $request->f_nome;
+            $fazenda->email = $request->f_email;
+            $fazenda->telefone = $request->f_telefone;
+            $fazenda->cep = $request->f_cep;
+            $fazenda->endereco = $request->f_endereco;
+            $fazenda->numero = $request->f_numero;
+            $fazenda->bairro = $request->f_bairro;
+            $fazenda->cidade = $request->f_cidade;
+            $fazenda->estado = $request->f_estado;
+            $fazenda->complemento = $request->f_complemento;
+            $fazenda->situacao = $request->f_situacao;
 
-        $isSaved = $fazenda->save();
+            $fazenda->save();
 
-        if($isSaved){
-            $this->saveUsuario($fazenda, $request);
-            $this->createSubscription($request, $fazenda->id);
-        }
+            if($fazenda->id){
+                $this->createSubscription($request, $fazenda->id);
+                $this->saveUsuario($fazenda, $request);
+            }
 
-        return redirect()->route('gestor.fazendas.index')
+            return redirect()->route('gestor.fazendas.index')
                         ->with('alert', [
                             'type' => 'success',
                             'message' => 'Registro incluído com sucesso!'
-        ]);
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->route('gestor.fazendas.create')
+                            ->with('alert', [
+                                'type' => 'danger',
+                                'message' => 'Erro ao registrar pagamento '.$e->getMessage()
+                            ])->withInput();
+        }
     }
 
     public function valid(Request $request)
@@ -261,20 +273,11 @@ class FazendaController extends Controller
             ]
         ];
         
-        try{
-            $result = $this->pagarMeClient()->subscriptions()->create($addNewSubscription);
+        $result = $this->pagarMeClient()->subscriptions()->create($addNewSubscription);
 
-            $fazenda = \App\Models\Fazenda::findOrFail($id);
-            $fazenda->paymentgateway_plan_id = $result->id;
-            $fazenda->save();
-
-        }catch(Exception $e){
-            return redirect()->route('gestor.fazendas.create')
-                            ->with('alert', [
-                                'type' => 'danger',
-                                'message' => 'Erro ao registrar pagamento '.$e->getMessage()
-                            ]);
-        }
+        $fazenda = \App\Models\Fazenda::findOrFail($id);
+        $fazenda->paymentgateway_plan_id = $result->id;
+        $fazenda->save();
     }
     
     /**

@@ -46,7 +46,7 @@
                         <input name="f_email" id="f_email" type="text"
                             required
                             value="{{ (old('f_email') ? old('f_email') : $fazenda->email) }}"
-                            class="form-control" maxlength="15" placeholder="@lang('gestor_fazenda.email')">
+                            class="form-control" maxlength="200" placeholder="@lang('gestor_fazenda.email')">
 
                         @error('f_email')
                         <span class="invalid-feedback" role="alert">
@@ -55,11 +55,11 @@
                         @enderror
                     </div>
                     <div class="form-group col-sm">
-                        <label for="f_telefone" class="form-control-label">@lang('gestor_fazenda.telefone')</label>
+                        <label for="f_telefone" class="form-control-label">* @lang('gestor_fazenda.telefone')</label>
                         <input name="f_telefone" id="f_telefone" type="text"
                             required
                             value="{{ (old('f_telefone') ? old('f_telefone') : $fazenda->telefone) }}"
-                            class="form-control masktelefone" maxlength="250" placeholder="@lang('gestor_fazenda.telefone')" />
+                            class="form-control masktelefone" maxlength="15" placeholder="@lang('gestor_fazenda.telefone')" />
 
                         @error('f_telefone')
                         <span class="invalid-feedback" role="alert">

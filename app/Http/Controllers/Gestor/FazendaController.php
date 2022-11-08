@@ -120,6 +120,7 @@ class FazendaController extends Controller
                 $this->createSubscription($request, $fazenda->id);
                 $this->saveUsuario($fazenda, $request);
             }
+            DB::commit();
 
             return redirect()->route('gestor.fazendas.index')
                         ->with('alert', [

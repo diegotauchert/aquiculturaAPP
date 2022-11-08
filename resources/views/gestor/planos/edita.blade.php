@@ -42,9 +42,17 @@
                     </div>
                     <div class="form-group col-sm">
                         <label for="f_qtd_viveiros" class="form-control-label">* @lang('gestor_plano.qtd_viveiros') <small>(Apenas Números)</small></label>
-                        <input name="f_qtd_viveiros" id="f_qtd_viveiros" type="number" required 
+                        <input 
+                            name="f_qtd_viveiros" 
+                            id="f_qtd_viveiros" 
+                            type="text" 
+                            onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                            required 
                             value="{{ (old('f_qtd_viveiros') ? old('f_qtd_viveiros') : $plano->qtd_viveiros) }}"
-                            class="form-control" maxlength="3" placeholder="@lang('gestor_plano.qtd_viveiros')">
+                            class="form-control" 
+                            maxlength="3" 
+                            placeholder="@lang('gestor_plano.qtd_viveiros')"
+                        />
 
                         @error('f_qtd_viveiros')
                         <span class="invalid-feedback" role="alert">

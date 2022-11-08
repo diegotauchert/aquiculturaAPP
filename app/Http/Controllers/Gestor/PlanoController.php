@@ -92,6 +92,7 @@ class PlanoController extends Controller
             if($plano->id){
                 $this->createPlanWithGateway($request, $plano->id);
             }
+            DB::commit();
 
             return redirect()->route('gestor.planos.index')
                             ->with('alert', [
@@ -179,6 +180,7 @@ class PlanoController extends Controller
             if($plano->id){
                 $this->updatePlanWithGateway($request, $plano->paymentgateway_id);
             }
+            DB::commit();
 
             return redirect()->route('gestor.planos.index')
                             ->with('alert', [
